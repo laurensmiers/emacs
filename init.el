@@ -33,6 +33,7 @@
     projectile
     volatile-highlights
     undo-tree
+    flycheck
     zygospore))
 
 (defun install-packages ()
@@ -59,6 +60,10 @@
 (require 'setup-editing)
 
 (windmove-default-keybindings)
+
+;; flycheck
+(require 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;; function-args
 (require 'function-args)
@@ -198,6 +203,5 @@
  )
 
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
-(add-hook 'after-init-hook #'global-flycheck-mode)
 
 (load-theme 'manoj-dark)
