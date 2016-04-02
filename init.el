@@ -152,8 +152,6 @@
  ;; If there is more than one, they won't work right.
  )
 
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-
 (load-theme 'wombat)
 
 (provide 'init)
