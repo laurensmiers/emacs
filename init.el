@@ -22,8 +22,7 @@
 ;; my required packages
 (defconst my-packages
   '(anzu
-    company
-    ggtags
+    ;; company
     helm
     helm-gtags
     helm-swoop
