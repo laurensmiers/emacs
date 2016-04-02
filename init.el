@@ -89,7 +89,7 @@
 (define-key c-mode-map  [(tab)] 'moo-complete)
 (define-key c++-mode-map  [(tab)] 'moo-complete)
 
-;; show unncessary whitespace that can mess up your diff
+;; show unnecessary whitespace that can mess up your diff
 (add-hook 'prog-mode-hook (lambda () (interactive) (setq show-trailing-whitespace 1)))
 
 ;; Compilation
@@ -111,7 +111,7 @@
 (require 'clean-aindent-mode)
 (add-hook 'prog-mode-hook 'clean-aindent-mode)
 
-;; Package: dtrt-indent
+;; Package: dtrt-indent --- guess the indentation offset and use it (for editing foreign files)
 (require 'dtrt-indent)
 (dtrt-indent-mode 1)
 
@@ -133,7 +133,7 @@
 (show-smartparens-global-mode +1)
 (smartparens-global-mode 1)
 
-;; Package zygospore
+;; Package zygospore --- revert C-x 1 by pressing C-x 1 again
 (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -152,6 +152,10 @@
  ;; If there is more than one, they won't work right.
  )
 
+;; Set 'M-g' to 'goto-line'
+(global-set-key (kbd "M-g") 'goto-line)
+
+;; set my theme
 (load-theme 'wombat)
 
 (provide 'init)
