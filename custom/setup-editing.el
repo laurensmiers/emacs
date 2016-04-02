@@ -3,17 +3,23 @@
 (setq global-mark-ring-max 5000         ; increase mark ring to contains 5000 entries
       mark-ring-max 5000                ; increase kill ring to contains 5000 entries
       mode-require-final-newline t      ; add a newline to end of file
-      tab-width 4                       ; default to 4 visible spaces to display a tab
       )
 
-(add-hook 'sh-mode-hook (lambda ()
-                          (setq tab-width 4)))
+;; set appearance of a tab that is represented by 2 spaces
+(setq-default tab-width 2)
+
+;; automatically indent when press RET
+(global-set-key (kbd "RET") 'newline-and-indent)
+
+;; activate whitespace-mode to view all whitespace characters
+(global-set-key (kbd "C-c w") 'whitespace-mode)
 
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-language-environment "UTF-8")
 (prefer-coding-system 'utf-8)
 
+;; use space to indent by default
 (setq-default indent-tabs-mode nil)
 (delete-selection-mode)
 (global-set-key (kbd "RET") 'newline-and-indent)

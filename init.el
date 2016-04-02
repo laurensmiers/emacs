@@ -1,6 +1,7 @@
+;;; packages
 (require 'package)
 (add-to-list 'package-archives
-	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 
 (require 'package)
@@ -8,19 +9,24 @@
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
 
+;; set garbage collection to higher value
+;; see http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
 (setq gc-cons-threshold 100000000)
+
+;; hide the welcome screen
 (setq inhibit-startup-message t)
 
+;; important yes-or-no questions can be answered with y-or-n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(defconst demo-packages
+;; my required packages
+(defconst my-packages
   '(anzu
     company
     duplicate-thing
     ggtags
     helm
     helm-gtags
-    helm-projectile
     helm-swoop
     function-args
     clean-aindent-mode
@@ -30,107 +36,62 @@
     iedit
     yasnippet
     smartparens
-    projectile
     volatile-highlights
     undo-tree
     flycheck
     zygospore))
 
+;; function to install new packages
 (defun install-packages ()
   "Install all required packages."
   (interactive)
   (unless package-archive-contents
     (package-refresh-contents))
-  (dolist (package demo-packages)
+  (dolist (package my-packages)
     (unless (package-installed-p package)
       (package-install package))))
 
+;; install packages if not yet installed
 (install-packages)
+
+;; set my c-style
+(setq c-default-style "linux")
+
+;; hs-minor-mode for folding source code
+(add-hook 'c-mode-common-hook 'hs-minor-mode)
+
+;; set my indentation level
+(setq c-basic-offset 2)
 
 ;; this variables must be set before load helm-gtags
 ;; you can change to any prefix key of your choice
 (setq helm-gtags-prefix-key "\C-cg")
 
+;; add the custom dire to our load path
 (add-to-list 'load-path "~/.emacs.d/custom")
 
+;; setup helm
 (require 'setup-helm)
 (require 'setup-helm-gtags)
-;; (require 'setup-ggtags)
+
 (require 'setup-cedet)
 (require 'setup-editing)
 
+;; use the default window move library keybindings (shift and arrow keys)
 (windmove-default-keybindings)
 
-;; flycheck
+;; flycheck --- on-the-fly syntax check
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
-;; function-args
+;; function-args --- completion and showing inline arguments hint for C/C++
 (require 'function-args)
 (fa-config-default)
 (define-key c-mode-map  [(tab)] 'moo-complete)
 (define-key c++-mode-map  [(tab)] 'moo-complete)
 
-;; company
-(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
-(delete 'company-semantic company-backends)
-(define-key c-mode-map  [(control tab)] 'company-complete)
-(define-key c++-mode-map  [(control tab)] 'company-complete)
-
-;; company-c-headers
-(add-to-list 'company-backends 'company-c-headers)
-
-;; hs-minor-mode for folding source code
-(add-hook 'c-mode-common-hook 'hs-minor-mode)
-
-;; Available C style:
-;; “gnu”: The default style for GNU projects
-;; “k&r”: What Kernighan and Ritchie, the authors of C used in their book
-;; “bsd”: What BSD developers use, aka “Allman style” after Eric Allman.
-;; “whitesmith”: Popularized by the examples that came with Whitesmiths C, an early commercial C compiler.
-;; “stroustrup”: What Stroustrup, the author of C++ used in his book
-;; “ellemtel”: Popular C++ coding standards as defined by “Programming in C++, Rules and Recommendations,” Erik Nyquist and Mats Henricson, Ellemtel
-;; “linux”: What the Linux developers use for kernel development
-;; “python”: What Python developers use for extension modules
-;; “java”: The default style for java-mode (see below)
-;; “user”: When you want to define your own style
-(setq
- c-default-style "linux" ;; set style to "linux"
- c-basic-offset 2)
-
-;; use space to indent by default
-(setq-default indent-tabs-mode nil)
-
-;; set appearance of a tab that is represented by 2 spaces
-(setq-default tab-width 2)
-
-;; BEGIN my c style
- ;; (setq-default c-indent-tabs-mode t     ; Pressing TAB should cause indentation
- ;;                c-indent-level 2         ; A TAB is equivilent to two spaces
- ;;                c-argdecl-indent 0       ; Do not indent argument decl's extra
- ;;                c-tab-always-indent t
- ;;                backward-delete-function nil) ; DO NOT expand tabs when deleting
- ;;  (c-add-style "my-c-style" '((c-continued-statement-offset 2))) ; If a statement continues on the next line, indent the continuation by 2
- ;;  (defun my-c-mode-hook ()
- ;;    (c-set-style "my-c-style")
- ;;    (c-set-offset 'substatement-open '0) ; brackets should be at same indentation level as the statements they open
- ;;    (c-set-offset 'inline-open '+)
- ;;    (c-set-offset 'block-open '+)
- ;;    (c-set-offset 'brace-list-open '+)   ; all "opens" should be indented by the c-indent-level
- ;;    (c-set-offset 'case-label '+))       ; indent case labels by c-indent-level, too
- ;;  (add-hook 'c-mode-hook 'my-c-mode-hook)
- ;;  (add-hook 'c++-mode-hook 'my-c-mode-hook)
-;; END my c style
-
-(global-set-key (kbd "RET") 'newline-and-indent)  ; automatically indent when press RET
-
-;; activate whitespace-mode to view all whitespace characters
-(global-set-key (kbd "C-c w") 'whitespace-mode)
-
 ;; show unncessary whitespace that can mess up your diff
 (add-hook 'prog-mode-hook (lambda () (interactive) (setq show-trailing-whitespace 1)))
-
 
 ;; Compilation
 (global-set-key (kbd "<f5>") (lambda ()
@@ -155,7 +116,7 @@
 (require 'dtrt-indent)
 (dtrt-indent-mode 1)
 
-;; Package: ws-butler
+;; Package: ws-butler --- trim spaces from eol
 (require 'ws-butler)
 (add-hook 'prog-mode-hook 'ws-butler-mode)
 
@@ -163,7 +124,7 @@
 (require 'yasnippet)
 (yas-global-mode 1)
 
-;; Package: smartparens
+;; Package: smartparens --- smart way to handle (), {}, ...
 (require 'smartparens-config)
 (setq sp-base-key-bindings 'paredit)
 (setq sp-autoskip-closing-pair 'always)
@@ -172,16 +133,6 @@
 
 (show-smartparens-global-mode +1)
 (smartparens-global-mode 1)
-
-;; Package: projejctile
-(require 'projectile)
-(projectile-global-mode)
-(setq projectile-enable-caching t)
-
-(require 'helm-projectile)
-(helm-projectile-on)
-(setq projectile-completion-system 'helm)
-(setq projectile-indexing-method 'alien)
 
 ;; Package zygospore
 (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
@@ -204,4 +155,7 @@
 
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 
-(load-theme 'manoj-dark)
+(load-theme 'wombat)
+
+(provide 'init)
+;;; init.el ends here
