@@ -44,7 +44,7 @@
                                           newline-mark))
                             (whitespace-mode 1)))
 
-;; Package: volatile-highlights
+;; Package: volatile-highlights --- show changes by "undo/yanks/..."
 ;; GROUP: Editing -> Volatile Highlights
 (require 'volatile-highlights)
 (volatile-highlights-mode t)
@@ -136,10 +136,6 @@
 (setq iedit-toggle-key-default nil)
 (require 'iedit)
 (global-set-key (kbd "C-;") 'iedit-mode)
-
-;; PACKAGE: duplicate-thing
-(require 'duplicate-thing)
-(global-set-key (kbd "M-c") 'duplicate-thing)
 
 ;; Customized functions
 (defun prelude-move-beginning-of-line (arg)

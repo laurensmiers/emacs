@@ -23,7 +23,6 @@
 (defconst my-packages
   '(anzu
     company
-    duplicate-thing
     ggtags
     helm
     helm-gtags
