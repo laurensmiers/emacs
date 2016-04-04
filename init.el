@@ -74,6 +74,12 @@
 
 (require 'setup-cedet)
 (require 'setup-editing)
+(require 'setup-camelcase)
+
+
+;; camelcase setup
+;; enable camelcase for all programming modes
+(add-hook 'prog-mode-hook 'camelCase-mode)
 
 ;; use the default window move library keybindings (shift and arrow keys)
 (windmove-default-keybindings)
