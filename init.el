@@ -21,12 +21,13 @@
 
 ;; my required packages
 (defconst my-packages
-  '(anzu
+  '(
+    anzu
     ;; company
     helm
     helm-gtags
     helm-swoop
-    function-args
+    undo-tree
     clean-aindent-mode
     comment-dwim-2
     dtrt-indent
@@ -35,7 +36,6 @@
     yasnippet
     smartparens
     volatile-highlights
-    undo-tree
     flycheck
     zygospore))
 
@@ -87,12 +87,6 @@
 ;; flycheck --- on-the-fly syntax check
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
-
-;; function-args --- completion and showing inline arguments hint for C/C++
-(require 'function-args)
-(fa-config-default)
-(define-key c-mode-map  [(tab)] 'moo-complete)
-(define-key c++-mode-map  [(tab)] 'moo-complete)
 
 ;; show unnecessary whitespace that can mess up your diff
 (add-hook 'prog-mode-hook (lambda () (interactive) (setq show-trailing-whitespace 1)))
