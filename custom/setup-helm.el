@@ -8,6 +8,8 @@
 
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 
+(global-set-key (kbd "C-c h c") 'helm-calcul-expression)
+
 (global-unset-key (kbd "C-x c"))
 
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
