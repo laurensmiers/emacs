@@ -75,7 +75,6 @@
 
 ;; Change the keybinds to whatever you like :)
 (global-set-key (kbd "C-s") 'helm-swoop)
-(global-set-key (kbd "C-c h s") 'helm-multi-swoop-all)
 
 ;; When doing isearch, hand the word over to helm-swoop
 (define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
