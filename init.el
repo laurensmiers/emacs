@@ -23,7 +23,7 @@
 (defconst my-packages
   '(
     anzu
-    ;; company
+    company
     helm
     helm-gtags
     helm-swoop
@@ -153,6 +153,9 @@
 
 ;; Set 'M-g' to 'goto-line'
 (global-set-key (kbd "M-g") 'goto-line)
+
+;; use company-mode in all buffers
+(add-hook 'after-init-hook 'global-company-mode)
 
 ;; set my theme
 (load-theme 'wombat)
