@@ -100,7 +100,7 @@
  gdb-show-main t
  )
 
-;; Package: clean-aindent-mode
+;; Package: clean-aindent-mode --- clean auto-indent and backspace unindent
 (require 'clean-aindent-mode)
 (add-hook 'prog-mode-hook 'clean-aindent-mode)
 
@@ -144,6 +144,15 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; Package: org - personal info manager
+(require 'org)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+;; when ending TODO (C-C C-t) end with a note + timestamp
+(setq org-log-done 'note)
+;; Specify root dir to search for agenda files, TODOs, ...
+(setq org-agenda-files '("~/org"))
 
 ;; Set 'M-g' to 'goto-line'
 (global-set-key (kbd "M-g") 'goto-line)
