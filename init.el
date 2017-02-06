@@ -36,7 +36,6 @@
     yasnippet
     smartparens
     volatile-highlights
-    flycheck
     zygospore))
 
 ;; function to install new packages
@@ -77,10 +76,6 @@
 
 ;; use the default window move library keybindings (shift and arrow keys)
 (windmove-default-keybindings)
-
-;; flycheck --- on-the-fly syntax check
-(require 'flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;; show unnecessary whitespace that can mess up your diff
 (add-hook 'prog-mode-hook (lambda () (interactive) (setq show-trailing-whitespace 1)))
