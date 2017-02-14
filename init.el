@@ -148,6 +148,9 @@
 (setq org-log-done 'note)
 ;; Specify root dir to search for agenda files, TODOs, ...
 (setq org-agenda-files '("~/org"))
+;; Add extra states for keywords
+(setq org-todo-keywords
+      '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
 
 ;; Set 'M-g' to 'goto-line'
 (global-set-key (kbd "M-g") 'goto-line)
