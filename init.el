@@ -144,6 +144,7 @@
 (require 'org)
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
+(define-key global-map "\C-cp" 'org-priority)
 ;; when ending TODO (C-C C-t) end with a note + timestamp
 (setq org-log-done 'note)
 ;; Specify root dir to search for agenda files, TODOs, ...
