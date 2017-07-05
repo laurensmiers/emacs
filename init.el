@@ -156,6 +156,11 @@
 ;; Set 'M-g' to 'goto-line'
 (global-set-key (kbd "M-g") 'goto-line)
 
+;; Set 'C-x r i' to 'string-insert-rectangle'
+;; Easier than using 'M-x' and searching for it.
+(global-set-key (kbd "C-x r i") 'string-insert-rectangle)
+
+
 ;; use company-mode in all buffers
 (add-hook 'after-init-hook 'global-company-mode)
 
