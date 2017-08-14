@@ -1,42 +1,50 @@
-;;; packages
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(package-initialize)
-
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
-(package-initialize)
+;; hide the welcome screen
+(setq inhibit-startup-message t)
 
 ;; set garbage collection to higher value
 ;; see http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
 (setq gc-cons-threshold 100000000)
 
-;; hide the welcome screen
-(setq inhibit-startup-message t)
-
 ;; important yes-or-no questions can be answered with y-or-n
 (defalias 'yes-or-no-p 'y-or-n-p)
+
+;; set my theme
+(load-theme 'wombat)
+
+;; maximize Emacs at startup
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;; Save Emacs session
+(desktop-save-mode 1)
+
+;; add the custom dir to our load path
+(add-to-list 'load-path "~/.emacs.d/custom")
+
+;; add melpa-stable to package-archives
+;; IMPORTANT: add (require 'package), else package-archives is not declared (void-variable)
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+
+;; MUST be called after package-archives is updated
+;; Else the automated installation logic is not able to install missing packages
+(package-initialize)
 
 ;; my required packages
 (defconst my-packages
   '(
-    anzu
-    company
+    undo-tree
+    volatile-highlights
+    ws-butler
+    smartparens
+	iedit
+    zygospore
+    comment-dwim-2
+	yasnippet
     helm
     helm-gtags
     helm-swoop
-    undo-tree
-    clean-aindent-mode
-    comment-dwim-2
-    dtrt-indent
-    ws-butler
-    iedit
-    yasnippet
-    smartparens
-    volatile-highlights
-    zygospore))
+    ))
 
 ;; function to install new packages
 (defun install-packages ()
@@ -51,121 +59,36 @@
 ;; install packages if not yet installed
 (install-packages)
 
-;; set my c-style
-(setq c-default-style "linux")
-
-;; hs-minor-mode for folding source code
-(add-hook 'c-mode-common-hook 'hs-minor-mode)
-
-;; set my indentation level
-(setq c-basic-offset 2)
-
-;; this variables must be set before load helm-gtags
-;; you can change to any prefix key of your choice
-(setq helm-gtags-prefix-key "\C-cg")
-
-;; add the custom dire to our load path
-(add-to-list 'load-path "~/.emacs.d/custom")
+;; setup gtags
+(require 'setup-gtags)
+(require 'setup-editing)
 
 ;; setup helm
 (require 'setup-helm)
 (require 'setup-helm-gtags)
 
-(require 'setup-cedet)
-(require 'setup-editing)
-
-;; use the default window move library keybindings (shift and arrow keys)
-(windmove-default-keybindings)
-
-;; show unnecessary whitespace that can mess up your diff
-(add-hook 'prog-mode-hook (lambda () (interactive) (setq show-trailing-whitespace 1)))
-
-;; Compilation
-(global-set-key (kbd "<f5>") (lambda ()
-                               (interactive)
-                               (setq-local compilation-read-command nil)
-                               (call-interactively 'compile)))
-
-;; setup GDB
-(setq
- ;; use gdb-many-windows by default
- gdb-many-windows t
-
- ;; Non-nil means display source file containing the main routine at startup
- gdb-show-main t
- )
-
-;; Package: clean-aindent-mode --- clean auto-indent and backspace unindent
-(require 'clean-aindent-mode)
-(add-hook 'prog-mode-hook 'clean-aindent-mode)
-
-;; Package: dtrt-indent --- guess the indentation offset and use it (for editing foreign files)
-(require 'dtrt-indent)
-(dtrt-indent-mode 1)
-
-;; Package: ws-butler --- trim spaces from eol
-(require 'ws-butler)
-(add-hook 'prog-mode-hook 'ws-butler-mode)
-
-;; Package: yasnippet
-(require 'yasnippet)
-(yas-global-mode 1)
-
-;; Package: smartparens --- smart way to handle (), {}, ...
-(require 'smartparens-config)
-(setq sp-base-key-bindings 'paredit)
-(setq sp-autoskip-closing-pair 'always)
-(setq sp-hybrid-kill-entire-symbol nil)
-(sp-use-paredit-bindings)
-
-(show-smartparens-global-mode +1)
-(smartparens-global-mode 1)
-
 ;; Package zygospore --- revert C-x 1 by pressing C-x 1 again
 (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(ansi-color-names-vector
-   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(custom-enabled-themes (quote (wheatgrass))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
-;; Package: org - personal info manager
-(require 'org)
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-(define-key global-map "\C-cp" 'org-priority)
-;; when ending TODO (C-C C-t) end with a note + timestamp
-(setq org-log-done 'note)
-;; Specify root dir to search for agenda files, TODOs, ...
-(setq org-agenda-files '("~/org"))
-;; Add extra states for keywords
-(setq org-todo-keywords
-      '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
-
-;; Set 'M-g' to 'goto-line'
+;; Set 'M-g' to 'goto-line', it's faster and what we usually want
 (global-set-key (kbd "M-g") 'goto-line)
 
 ;; Set 'C-x r i' to 'string-insert-rectangle'
 ;; Easier than using 'M-x' and searching for it.
 (global-set-key (kbd "C-x r i") 'string-insert-rectangle)
 
-
-;; use company-mode in all buffers
-(add-hook 'after-init-hook 'global-company-mode)
-
-;; set my theme
-(load-theme 'wombat)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages (quote (helm-swoop helm))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 
 (provide 'init)
 ;;; init.el ends here

@@ -1,0 +1,3 @@
+C-M-Space : smartparens wrapping
+C-c C-c   : calculator (see init.el)
+C-h k <key-sequence>: lookup key sequence
