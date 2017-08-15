@@ -63,9 +63,11 @@
 (define-key smartparens-mode-map (kbd "C-M-n") 'sp-next-sexp)
 (define-key smartparens-mode-map (kbd "C-M-p") 'sp-previous-sexp)
 
-;; TODO: these don't work for some reason
-(define-key smartparens-mode-map (kbd "C-M-d") 'sp-beginning-of-sexp)
-(define-key smartparens-mode-map (kbd "C-M-a") 'sp-end-of-sexp)
+;; TODO: this doesn't work for some reason
+(define-key smartparens-mode-map (kbd "C-M-a") 'beginning-of-defun)
+(define-key smartparens-mode-map (kbd "C-M-e") 'end-of-defun)
+
+(define-key smartparens-mode-map (kbd "C-M-h") 'mark-defun)
 
 (smartparens-global-mode t)
 
