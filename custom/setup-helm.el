@@ -5,6 +5,8 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-x b") 'helm-mini)
+;; In vanilla, this is mapped to show-buffers, but I don't use that so map it to helm-mini as well
+(global-set-key (kbd "C-x C-b") 'helm-mini)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 
 ;; rebind tab to do persistent action
