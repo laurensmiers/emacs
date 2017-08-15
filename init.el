@@ -42,9 +42,11 @@
     comment-dwim-2
     yasnippet
     sr-speedbar
+    company
     helm
     helm-gtags
     helm-swoop
+    helm-company
     ))
 
 ;; function to install new packages
@@ -70,6 +72,9 @@
 
 ;; setup speedbar
 (require 'setup-speedbar)
+
+;; setup autocompletion
+(require 'setup-autocompletion)
 
 ;; Package zygospore --- revert C-x 1 by pressing C-x 1 again
 (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
