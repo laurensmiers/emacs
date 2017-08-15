@@ -37,10 +37,11 @@
     volatile-highlights
     ws-butler
     smartparens
-	iedit
+    iedit
     zygospore
     comment-dwim-2
-	yasnippet
+    yasnippet
+    sr-speedbar
     helm
     helm-gtags
     helm-swoop
@@ -66,6 +67,9 @@
 ;; setup helm
 (require 'setup-helm)
 (require 'setup-helm-gtags)
+
+;; setup speedbar
+(require 'setup-speedbar)
 
 ;; Package zygospore --- revert C-x 1 by pressing C-x 1 again
 (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
