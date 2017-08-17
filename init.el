@@ -65,6 +65,9 @@
 ;; install packages if not yet installed
 (install-packages)
 
+;; setup coding
+(require 'setup-coding)
+
 ;; setup gtags
 (require 'setup-gtags)
 (require 'setup-editing)
