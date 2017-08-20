@@ -37,4 +37,11 @@
 ;; Tab-space strategy
 (add-hook 'c-mode-hook 'infer-indentation-style)
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;              Python                          ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(elpy-enable)
+
 (provide 'setup-coding)
