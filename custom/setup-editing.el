@@ -39,13 +39,6 @@
 (require 'volatile-highlights)
 (volatile-highlights-mode t)
 
-;; Package: ws-butler --- trim spaces from eol
-(require 'ws-butler)
-(add-hook 'c-mode-common-hook 'ws-butler-mode)
-(add-hook 'text-mode 'ws-butler-mode)
-(add-hook 'fundamental-mode 'ws-butler-mode)
-(add-hook 'prog-mode-hook 'ws-butler-mode)
-
 ;;; Package: iedit   --- Replace occurences of symbol and highlight them
 (require 'iedit)
 

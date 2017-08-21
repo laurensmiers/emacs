@@ -38,7 +38,6 @@
   '(
     undo-tree
     volatile-highlights
-    ws-butler
     smartparens
     iedit
     zygospore
