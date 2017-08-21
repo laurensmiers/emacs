@@ -10,6 +10,11 @@
 ;; show column numbers
 (setq column-number-mode 1)
 
+;; Remove scroll-bar, tool-bar and menu-bar
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+
 ;; set appearance of a tab that is represented by 4 spaces
 (setq-default tab-width 4)
 
