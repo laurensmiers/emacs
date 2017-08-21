@@ -57,7 +57,6 @@
     helm-gtags
     helm-swoop
     helm-company
-	zygospore
     ))
 
 ;; function to install new packages
