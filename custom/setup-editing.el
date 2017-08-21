@@ -16,6 +16,9 @@
 ;; automatically indent when press RET
 (global-set-key (kbd "RET") 'newline-and-indent)
 
+;; Delete trailing whitespace when saving file
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;; show whitespace in diff-mode
 (add-hook 'diff-mode-hook (lambda ()
                             (setq-local whitespace-style
@@ -31,7 +34,7 @@
                                           newline-mark))
                             (whitespace-mode 1)))
 
-;; Package: undo-tree -- saner, imo, undo with C-/ 
+;; Package: undo-tree -- saner, imo, undo with C-/
 (require 'undo-tree)
 (global-undo-tree-mode)
 
@@ -87,4 +90,3 @@
 
 
 (provide 'setup-editing)
-
