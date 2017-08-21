@@ -21,6 +21,9 @@
 ;; automatically indent when press RET
 (global-set-key (kbd "RET") 'newline-and-indent)
 
+;; Map query-replace-regexp to an easier key
+(global-set-key (kbd "C-x r r") 'query-replace-regexp)
+
 ;; Delete trailing whitespace when saving file
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
