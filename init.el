@@ -57,6 +57,7 @@
     helm-gtags
     helm-swoop
     helm-company
+	zygospore
     ))
 
 ;; function to install new packages
@@ -90,6 +91,7 @@
 (require 'setup-autocompletion)
 
 ;; Package zygospore --- revert C-x 1 by pressing C-x 1 again
+;; Doesn't work with sr-speedbar
 (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
 
 ;; Set 'M-g' to 'goto-line', it's faster and what we usually want
