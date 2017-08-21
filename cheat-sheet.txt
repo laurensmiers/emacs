@@ -4,3 +4,4 @@ C-h k <key-sequence>: lookup key sequence
 C-x 0 : close current window
 C-q <tab> : insert a <tab>
 M-x (un)tabify : (replace) tabs
+M-x describe-bindings : list of all mapped keys/commands
