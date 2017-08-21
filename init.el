@@ -51,6 +51,7 @@
     company-irony
     flycheck-irony
     elpy
+    py-autopep8
     helm
     helm-gtags
     helm-swoop

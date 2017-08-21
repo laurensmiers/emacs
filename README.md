@@ -8,5 +8,6 @@ This configuration requires the installation of :
  - clang (for ivory)
  - cmake (for ivory)
  - llvm-libs (for cmake, somehow not a dependency on Manjaro when installing cmake)
+ - Use python-pip to install jedi, flake8, importmagic and autopep8 (for elpy)
 
 When first checking out this config, run irony-install-server to make and install the irony-server.
