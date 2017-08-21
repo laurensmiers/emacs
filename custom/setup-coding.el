@@ -48,4 +48,12 @@
 (add-hook 'elpy-mode-hook 'flycheck-mode)
 (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;              Magit (git)                     ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;TODO: define prefix key C-c m for Magit
+(global-set-key (kbd "C-c m s") 'magit-status)
+
+
+
 (provide 'setup-coding)
