@@ -1,3 +1,5 @@
+(add-hook 'after-init-hook 'global-company-mode)
+
 ;; Add irony as company-backend
 (eval-after-load 'company
   '(add-to-list 'company-backends 'company-irony))
