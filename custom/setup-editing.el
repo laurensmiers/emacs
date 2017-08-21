@@ -24,6 +24,9 @@
 ;; Map query-replace-regexp to an easier key
 (global-set-key (kbd "C-x r r") 'query-replace-regexp)
 
+;; Map query-replace-regexp to an easier key
+(global-set-key (kbd "M-p") 'fill-paragraph)
+
 ;; Delete trailing whitespace when saving file
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
