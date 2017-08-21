@@ -37,6 +37,8 @@
 ;; Tab-space strategy
 (add-hook 'c-mode-hook 'infer-indentation-style)
 
+;; Enable subword mode for handling CamelCase format
+(subword-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;              Python                          ;;
