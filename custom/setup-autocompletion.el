@@ -9,6 +9,7 @@
   '(add-hook 'flycheck-mode-hook 'flycheck-irony-setup))
 
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+(add-hook 'irony-mode-hook 'irony-eldoc)
 
 ;; Add irony-, flycheck-, company-mode to c-mode
 (add-hook 'c-mode-hook 'irony-mode)
