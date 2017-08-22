@@ -71,6 +71,9 @@
 ;; install packages if not yet installed
 (install-packages)
 
+;; setup general
+(require 'setup-general)
+
 ;; setup coding
 (require 'setup-coding)
 
