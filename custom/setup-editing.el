@@ -98,11 +98,4 @@
 (require 'yasnippet)
 (yas-global-mode 1)
 
-;; Move one window back command
-(defun other-window-backward ()
-  "Goto previous window"
-  (interactive)
-  (other-window -1))
-(global-set-key (kbd "\C-x p") 'other-window-backward)
-
 (provide 'setup-editing)
