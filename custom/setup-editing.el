@@ -101,6 +101,7 @@
 (define-key smartparens-mode-map (kbd "C-c `") 'wrap-with-back-quotes)
 
 (define-key smartparens-mode-map (kbd "C-c s r") 'sp-rewrap-sexp)
+(define-key smartparens-mode-map (kbd "C-c s u") 'sp-unwrap-sexp)
 
 (define-key smartparens-mode-map (kbd "C-M-f") 'sp-forward-sexp)
 (define-key smartparens-mode-map (kbd "C-M-b") 'sp-backward-sexp)
