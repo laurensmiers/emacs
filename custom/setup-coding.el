@@ -38,6 +38,7 @@
 (add-hook 'c-mode-hook 'infer-indentation-style)
 
 ;; Enable subword mode for handling CamelCase format
+;; TODO: not recognized
 (subword-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

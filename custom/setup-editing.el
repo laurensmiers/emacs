@@ -69,6 +69,38 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; keybinding management smartparens ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; cl-package contains the loop macro
+(require 'cl)
+
+(defmacro def-pairs (pairs)
+  `(progn
+     ,@(loop for (key . val) in pairs
+          collect
+            `(defun ,(read (concat
+                            "wrap-with-"
+                            (prin1-to-string key)
+                            "s"))
+                 (&optional arg)
+               (interactive "p")
+               (sp-wrap-with-pair ,val)))))
+
+(def-pairs ((paren . "(")
+            (bracket . "[")
+            (brace . "{")
+            (single-quote . "'")
+            (double-quote . "\"")
+            (underscore . "_")
+            (back-quote . "`")))
+
+(define-key smartparens-mode-map (kbd "C-c (") 'wrap-with-parens)
+(define-key smartparens-mode-map (kbd "C-c [") 'wrap-with-brackets)
+(define-key smartparens-mode-map (kbd "C-c {") 'wrap-with-braces)
+(define-key smartparens-mode-map (kbd "C-c '") 'wrap-with-single-quotes)
+(define-key smartparens-mode-map (kbd "C-c \"") 'wrap-with-double-quotes)
+(define-key smartparens-mode-map (kbd "C-c _") 'wrap-with-underscores)
+(define-key smartparens-mode-map (kbd "C-c `") 'wrap-with-back-quotes)
+
+(define-key smartparens-mode-map (kbd "C-c s r") 'sp-rewrap-sexp)
 
 (define-key smartparens-mode-map (kbd "C-M-f") 'sp-forward-sexp)
 (define-key smartparens-mode-map (kbd "C-M-b") 'sp-backward-sexp)
@@ -80,9 +112,9 @@
 (define-key smartparens-mode-map (kbd "C-M-n") 'sp-next-sexp)
 (define-key smartparens-mode-map (kbd "C-M-p") 'sp-previous-sexp)
 
-;; TODO: this doesn't work for some reason
-(define-key smartparens-mode-map (kbd "C-M-a") 'beginning-of-defun)
-(define-key smartparens-mode-map (kbd "C-M-e") 'end-of-defun)
+;; TODO: for some reason this does not work
+(define-key smartparens-mode-map (kbd "C-M-a") 'sp-beginning-of-sexp)
+(define-key smartparens-mode-map (kbd "C-M-e") 'sp-end-of-sexp)
 
 (define-key smartparens-mode-map (kbd "C-M-h") 'mark-defun)
 

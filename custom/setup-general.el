@@ -4,7 +4,7 @@
 
 
 ;; Package zygospore --- revert C-x 1 by pressing C-x 1 again
-;; Doesn't work with sr-speedbar
+;; TODO: Doesn't work with sr-speedbar
 (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
 
 ;; Set 'M-g' to 'goto-line', it's faster and what we usually want
