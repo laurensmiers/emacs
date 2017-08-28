@@ -37,6 +37,9 @@
   (other-window -1))
 (global-set-key (kbd "\C-x p") 'other-window-backward)
 
+;; Use C-x o to switch to other frame when using multi-monitor
+(global-set-key (kbd "C-x o") 'next-multiframe-window)
+
 ;; set my theme
 (load-theme 'wombat)
 
