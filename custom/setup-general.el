@@ -31,11 +31,7 @@
 (desktop-save-mode 1)
 
 ;; Move one window back command
-(defun other-window-backward ()
-  "Goto previous window"
-  (interactive)
-  (other-window -1))
-(global-set-key (kbd "\C-x p") 'other-window-backward)
+(global-set-key (kbd "\C-x p") 'previous-multiframe-window)
 
 ;; Use C-x o to switch to other frame when using multi-monitor
 (global-set-key (kbd "C-x o") 'next-multiframe-window)
