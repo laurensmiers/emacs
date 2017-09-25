@@ -10,5 +10,6 @@
 (setq org-todo-keywords
       '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
 
+(setq org-export-with-sub-superscripts nil)
 
 (provide 'setup-org)
