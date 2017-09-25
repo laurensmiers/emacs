@@ -84,7 +84,10 @@
 ;; setup Windows if our bootloader is Windows
 (if (eq system-type 'windows-nt)
 	(require 'setup-windows)
- )
+)
+
+;; setup gdb
+(require 'setup-gdb)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
