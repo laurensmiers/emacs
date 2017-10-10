@@ -48,4 +48,8 @@
 (setq sml/theme 'powerline)
 (sml/setup)
 
+;; enable disabled commands
+(put 'narrow-to-page 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+
 (provide 'setup-general)
