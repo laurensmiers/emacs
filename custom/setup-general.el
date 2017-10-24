@@ -52,4 +52,10 @@
 (put 'narrow-to-page 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 
+;; screw with vi(m)-users
+(defconst wq "This is not vi!  Use C-x C-c instead.")
+(defconst w "This is not vi!  Use C-x C-s instead.")
+(defconst q! "This is EMACS not vi!  Use C-x C-c instead.")
+(defconst wq! "This is EMACS not vi!  Use C-x C-c instead.")
+
 (provide 'setup-general)
