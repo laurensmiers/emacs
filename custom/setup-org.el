@@ -12,4 +12,7 @@
 
 (setq org-export-with-sub-superscripts nil)
 
+;; Preserve indentation in SRC blocks
+(setq org-src-preserve-indentation t)
+
 (provide 'setup-org)
