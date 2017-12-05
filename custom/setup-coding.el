@@ -53,9 +53,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;              Magit (git)                     ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;TODO: define prefix key C-c m for Magit
-(global-set-key (kbd "C-c m s") 'magit-status)
-
-
+(global-set-key (kbd "C-c m") 'magit-status)
 
 (provide 'setup-coding)
