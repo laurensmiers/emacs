@@ -41,6 +41,7 @@
     helm-gtags
     helm-swoop
     helm-company
+    ggtags
     ))
 
 ;; function to install new packages
