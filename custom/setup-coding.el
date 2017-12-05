@@ -1,14 +1,3 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Set indentation style depending on number of spaces/tabs in file ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun infer-indentation-style ()
-  ;; if our source file uses tabs, we use tabs, if spaces spaces, and if
-  ;; neither, we use the current indent-tabs-mode
-  (let ((space-count (how-many "^  " (point-min) (point-max)))
-        (tab-count (how-many "^\t" (point-min) (point-max))))
-    (if (> space-count tab-count) (setq indent-tabs-mode nil))
-    (if (> tab-count space-count) (setq indent-tabs-mode t))))
-
 ;; make angry face to get my attention
 (setq prog-modes '(c++-mode python-mode erlang-mode java-mode c-mode emacs-lisp-mode scheme-mode prog-mode))
 (make-face 'font-lock-angry-face)
@@ -35,7 +24,8 @@
 (setq c-basic-offset 4)
 
 ;; Tab-space strategy
-(add-hook 'c-mode-hook 'infer-indentation-style)
+;; we use spaces, deal with it
+(setq-default indent-tabs-mode nil)
 
 ;; Enable subword mode for handling CamelCase format
 (global-subword-mode t)
