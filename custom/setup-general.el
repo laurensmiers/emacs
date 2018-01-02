@@ -52,6 +52,14 @@
 (put 'narrow-to-page 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 
+;; quick function to kill all other buffers
+(defun kill-other-buffers ()
+    "Kill all other buffers."
+    (interactive)
+    (mapc 'kill-buffer
+          (delq (current-buffer)
+                (remove-if-not 'buffer-file-name (buffer-list)))))
+
 ;; screw with vi(m)-users
 (defconst wq "This is not vi!  Use C-x C-c instead.")
 (defconst w "This is not vi!  Use C-x C-s instead.")
