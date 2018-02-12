@@ -1,4 +1,5 @@
 (require 'org)
+
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 
@@ -14,5 +15,14 @@
 
 ;; Preserve indentation in SRC blocks
 (setq org-src-preserve-indentation t)
+
+;; Specify which languages are allowed to run inside org-mode
+(org-babel-do-load-languages
+ 'org-babel-load-languages '(
+                             (ditaa . t))
+ )
+
+;; Tell org where to look for ditaa
+(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_10.jar")
 
 (provide 'setup-org)
