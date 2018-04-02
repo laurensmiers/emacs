@@ -2,7 +2,6 @@
 (global-set-key [f10]  'end-kbd-macro)
 (global-set-key [f11]  'call-last-kbd-macro)
 
-
 ;; Package zygospore --- revert C-x 1 by pressing C-x 1 again
 ;; TODO: Doesn't work with sr-speedbar
 (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
@@ -13,9 +12,6 @@
 ;; Set 'C-x r i' to 'string-insert-rectangle'
 ;; Easier than using 'M-x' and searching for it.
 (global-set-key (kbd "C-x r i") 'string-insert-rectangle)
-
-;; hide the welcome screen
-(setq inhibit-startup-message t)
 
 ;; set garbage collection to higher value
 ;; see http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/

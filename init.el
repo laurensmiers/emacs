@@ -38,7 +38,7 @@
     helm-gtags
     helm-swoop
     helm-company
-    ggtags
+    dashboard
     ))
 
 ;; function to install new packages
@@ -83,6 +83,9 @@
 (if (eq system-type 'windows-nt)
 	(require 'setup-windows)
 )
+
+;; setup dashboard
+(require 'setup-dashboard)
 
 ;; setup gdb
 (require 'setup-gdb)
