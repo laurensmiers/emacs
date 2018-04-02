@@ -27,9 +27,6 @@
 ;; maximize Emacs at startup
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-;; Save Emacs session
-(desktop-save-mode 1)
-
 ;; Move one window back command
 (global-set-key (kbd "\C-x p") 'previous-multiframe-window)
 
