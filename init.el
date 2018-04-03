@@ -8,6 +8,9 @@
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
+(add-to-list 'package-archives
+	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
 ;; MUST be called after package-archives is updated
 ;; Else the automated installation logic is not able to install missing packages
 (package-initialize)
