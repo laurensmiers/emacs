@@ -11,5 +11,7 @@
                         (bookmarks . 5)
                         ))
 
+;; Enable recent files
+(recentf-mode 1)
 
 (provide 'setup-dashboard)
