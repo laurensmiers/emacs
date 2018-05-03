@@ -25,6 +25,7 @@
     zygospore
     comment-dwim-2
     yasnippet
+    yasnippet-snippets
     sr-speedbar
     company
     irony
