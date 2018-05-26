@@ -44,6 +44,7 @@
     helm-company
     dashboard
     multiple-cursors
+    expand-region
     ))
 
 ;; function to install new packages
@@ -94,6 +95,9 @@
 
 ;; setup multiple cursors
 (require 'setup-cursors)
+
+;; setup expand-region
+(require 'setup-expand-region)
 
 ;; start emacs server
 (server-start)
