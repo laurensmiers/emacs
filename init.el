@@ -70,9 +70,6 @@
 ;; setup coding
 (require 'setup-coding)
 
-;; setup gtags
-(require 'setup-gtags)
-
 ;; setup helm
 (require 'setup-helm)
 (require 'setup-helm-gtags)
