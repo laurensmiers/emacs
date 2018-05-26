@@ -43,6 +43,7 @@
     helm-swoop
     helm-company
     dashboard
+    multiple-cursors
     ))
 
 ;; function to install new packages
@@ -90,6 +91,9 @@
 
 ;; setup gdb
 (require 'setup-gdb)
+
+;; setup multiple cursors
+(require 'setup-cursors)
 
 ;; start emacs server
 (server-start)
