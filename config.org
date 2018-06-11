@@ -300,6 +300,9 @@ https://github.com/victorhge/iedit
 * Smartparens
 
 Smart minor-mode to deal with pairs.
+Extra options:
+    - =show-smartparens-global-mode= : highlight corresponding bracket/pair/...
+    - =smartparens-global-mode= : enable smartparens
 
 https://github.com/Fuco1/smartparens
 
@@ -308,6 +311,8 @@ https://github.com/Fuco1/smartparens
   :ensure t
   :config
     (require 'smartparens-config)
+    (show-smartparens-global-mode t)
+    (smartparens-global-mode t)
 )
 
 ;; old config stuff
