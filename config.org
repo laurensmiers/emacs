@@ -419,6 +419,24 @@ https://github.com/joaotavora/yasnippet
 )
 #+END_SRC
 
+* Expand-region
+
+Expand region increases the selected region by semantic units.
+I also enable =pending-delete-mode=, this means when we mark a region and start typing,
+the text within the mark is deleted with the new typed text and the mark disappears.
+
+https://github.com/magnars/expand-region.el
+
+#+BEGIN_SRC emacs-lisp
+(use-package expand-region
+   :ensure t
+   :init
+     (pending-delete-mode t)
+   :config
+     (global-set-key (kbd "C-=") 'er/expand-region)
+)
+#+END_SRC
+
 * Old stuff, maybe usefull for lookup later
 
 #+BEGIN_SRC emacs-lisp
