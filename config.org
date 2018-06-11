@@ -133,6 +133,14 @@ Why is this not built-in?
 (defconst wq! "This is EMACS not vi!  Use C-x C-c instead.")
 #+END_SRC
 
+** Backup files
+
+Disable the generation of backup-files, I don't use them.
+
+#+BEGIN_SRC emacs-lisp
+(setq make-backup-files nil)
+#+END_SRC
+
 * Theme
 
 #+BEGIN_SRC emacs-lisp
