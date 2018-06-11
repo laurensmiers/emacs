@@ -1,0 +1,439 @@
+#+STARTUP: overview
+#+TITLE: My Emacs
+#+CREATOR: Laurens Miers
+#+LANGUAGE: en
+[[./img/dash_logo.png]]
+
+* Installation
+
+My personal emacs configuration
+
+(Heavily) Inspired by the following configs:
+    - https://github.com/tuhdo/emacs-c-ide-demo
+    - https://github.com/daedreth/UncleDavesEmacs
+
+This configuration requires the installation of :
+
+    - the GNU =global= package (for gtags)
+    - =clang= (for ivory)
+    - =cmake= (for ivory)
+    - =llvm-libs= (for cmake, somehow not a dependency on Manjaro when installing cmake)
+    - Use python-pip to install =jedi=, =flake8=, =importmagic= and =autopep8= (for elpy)
+    - =ditaa= (for ascii to image generation in org-mode)
+
+When first checking out this config, run =irony-install-server= to make and install the irony-server.
+
+* General stuff
+** Unsorted
+
+Collection of stuff that needs to be sorted...someday....maybe...
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "M-p") 'fill-paragraph)
+#+END_SRC
+** Macro's
+
+Rebind the macro keys to Fx keys to give them a decent purpose.
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key [f9]  'start-kbd-macro)
+(global-set-key [f10]  'end-kbd-macro)
+(global-set-key [f11]  'call-last-kbd-macro)
+#+END_SRC
+
+** Goto-line
+
+Starting with Emacs 23.2, =M-g g= is bound to goto-line.
+However, I find this too long. So rebind it:
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "M-g") 'goto-line)
+#+END_SRC
+
+** Rectangle
+
+Most rectangle functions are by default mapped to something like =C-x r (other-char)=.
+I use =string-insert-rectangle= and =query-replace-regexp= quite a lot,
+so rebind it to something easy to remember.
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-x r i") 'string-insert-rectangle)
+(global-set-key (kbd "C-x r r") 'query-replace-regexp)
+#+END_SRC
+
+** Garbage collection (gc)
+
+I used to have the following enabled in my init to increase the gc threshold to speed-up emacs startup:
+(stolen from [[http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/]])
+
+#+BEGIN_SRC
+;; (setq gc-cons-threshold 100000000)
+#+END_SRC
+
+But according to this: [[https://lists.gnu.org/archive/html/help-gnu-emacs/2007-06/msg00243.html ]],
+it is no longer necessary.
+
+** Yes-or-no questions
+
+Because I'm lazy, important yes-or-no questions can be answered with y-or-n:
+
+#+BEGIN_SRC emacs-lisp
+(defalias 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+** Emacs fullscreen at startup
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+#+END_SRC
+
+** Multi-frame rebindings
+
+Sometimes I have multiple emacs-frames open.
+I prefer that the normal =C-x o= can deal with this.
+
+#+BEGIN_SRC emacs-lisp
+;; Use C-x o to switch to other frame when using multi-monitor
+(global-set-key (kbd "C-x o") 'next-multiframe-window)
+#+END_SRC
+
+Now that =next-multiframe-window= is bound to =C-x o=,
+Bind =C-x p= to =previous-multiframe-window=.
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "\C-x p") 'previous-multiframe-window)
+#+END_SRC
+
+** Enable disabled commands
+
+Some commands are disabled to protect the user.
+Narrow-region/page is a really handy feature, enable it:
+
+#+BEGIN_SRC emacs-lisp
+(put 'narrow-to-page 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+#+END_SRC
+
+** Buffers
+
+Why is this not built-in?
+
+#+BEGIN_SRC emacs-lisp
+(defun kill-all-buffers ()
+  "Kill all buffers without regard for their origin."
+  (interactive)
+  (mapc 'kill-buffer (buffer-list)))
+#+END_SRC
+
+** Helping vim-users
+
+#+BEGIN_SRC emacs-lisp
+(defconst wq "This is not vi!  Use C-x C-c instead.")
+(defconst w "This is not vi!  Use C-x C-s instead.")
+(defconst q! "This is EMACS not vi!  Use C-x C-c instead.")
+(defconst wq! "This is EMACS not vi!  Use C-x C-c instead.")
+#+END_SRC
+
+* Theme
+
+#+BEGIN_SRC emacs-lisp
+(use-package monokai-theme
+  :ensure t
+  :init
+    (load-theme 'monokai t)
+
+)
+#+END_SRC
+
+** Highlight line
+
+Highlight line will highlight the current line we are on.
+Enable highlight-line globally and replace its background colour.
+
+#+BEGIN_SRC emacs-lisp
+(global-hl-line-mode 1)
+(set-face-background hl-line-face "dark slate grey")
+#+END_SRC
+
+* Dashboard
+
+I use the dashboard as start screen.
+Since I like it to give me a list of recent files, we need to enable =recentf-mode=.
+
+#+BEGIN_SRC emacs-lisp
+(use-package dashboard
+  :ensure t
+  :init
+    (recentf-mode 1)
+  :config
+    (dashboard-setup-startup-hook)
+    (setq dashboard-startup-banner "~/.emacs.d/img/dash_logo.png")
+    (setq dashboard-items '((recents  . 10)
+                            (bookmarks . 5)
+                            ))
+    (setq dashboard-banner-logo-title "")
+)
+#+END_SRC
+
+* Zygospore
+
+Revert =C-x 1= by pressing =C-x 1= again:
+[[https://github.com/louiskottmann/zygospore.el]]
+
+FYI: At one point, used this together with sr-speedbar. They did not play well together...
+
+#+BEGIN_SRC emacs-lisp
+(use-package zygospore
+  :ensure t
+  :config
+    (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
+)
+#+END_SRC
+
+* Mode-line
+
+[[https://github.com/Malabarba/smart-mode-line]]
+
+#+BEGIN_SRC emacs-lisp
+(use-package smart-mode-line
+  :ensure t
+  :config
+    (setq sml/no-confirm-load-theme t)
+    (setq sml/theme 'powerline)
+    (sml/setup)
+)
+#+END_SRC
+
+* Editing settings
+
+** Kill-ring customization
+
+Setting =kill-whole-line= to non-nil means when we execute =C-k= at the beginning of a line
+will the entire line including the following newline will be deleted.
+
+#+BEGIN_SRC emacs-lisp
+(setq kill-ring-max 5000) ; increase kill-ring capacity
+(setq kill-whole-line t)
+#+END_SRC
+
+** Newline at end-of-file
+
+#+BEGIN_SRC emacs-lisp
+(setq mode-require-final-newline t) ; add a newline to end of file
+#+END_SRC
+
+** Enable column numbers
+
+#+BEGIN_SRC emacs-lisp
+(setq column-number-mode 1)
+#+END_SRC
+
+** Look-and-feel modifications
+
+Remove scroll-, tool- and menu-bar. I don't use them so free some space.
+
+#+BEGIN_SRC emacs-lisp
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+#+END_SRC
+
+** Tab-width
+
+Set the default tab width.
+#+BEGIN_SRC emacs-lisp
+(setq-default tab-width 4)
+#+END_SRC
+
+** Automatic indent
+
+Automatically indent when pressing =RET=.
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "RET") 'newline-and-indent)
+#+END_SRC
+
+** Delete trailing whitespace
+
+Automatically delete trailing whitespace when saving a file.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+#+END_SRC
+
+* Undo-tree
+
+Undo with =C-/=.
+#+BEGIN_SRC emacs-lisp
+(use-package undo-tree
+  :ensure t
+  :config
+    (global-undo-tree-mode)
+)
+#+END_SRC
+
+* Volatile highlights
+
+Show/highlight changes when doing undo/yanks/kills/...
+
+https://github.com/k-talo/volatile-highlights.el
+
+#+BEGIN_SRC emacs-lisp
+(use-package volatile-highlights
+  :ensure t
+  :config
+    (volatile-highlights-mode t)
+)
+#+END_SRC
+
+* iedit
+
+Highlight occurences of symbol and replace them simultanously.
+Shortkey: =C-;=
+
+https://github.com/victorhge/iedit
+
+#+BEGIN_SRC emacs-lisp
+(use-package iedit
+  :ensure t
+)
+#+END_SRC
+
+* Smartparens
+
+Smart minor-mode to deal with pairs.
+
+https://github.com/Fuco1/smartparens
+
+#+BEGIN_SRC emacs-lisp
+(use-package smartparens
+  :ensure t
+  :config
+    (require 'smartparens-config)
+)
+
+;; old config stuff
+;; (setq sp-base-key-bindings 'paredit)
+;; (setq sp-autoskip-closing-pair 'always)
+;; (setq sp-hybrid-kill-entire-symbol nil)
+;; (sp-use-paredit-bindings)
+;;
+;; (show-smartparens-global-mode +1)
+;; (smartparens-global-mode 1)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; keybinding management smartparens ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; cl-package contains the loop macro
+;; (require 'cl)
+;;
+;; (defmacro def-pairs (pairs)
+;;   `(progn
+;;      ,@(loop for (key . val) in pairs
+;;           collect
+;;             `(defun ,(read (concat
+;;                             "wrap-with-"
+;;                             (prin1-to-string key)
+;;                             "s"))
+;;                  (&optional arg)
+;;                (interactive "p")
+;;                (sp-wrap-with-pair ,val)))))
+;;
+;; (def-pairs ((paren . "(")
+;;             (bracket . "[")
+;;             (brace . "{")
+;;             (single-quote . "'")
+;;             (double-quote . "\"")
+;;             (underscore . "_")
+;;             (back-quote . "`")))
+;;
+;; (define-key smartparens-mode-map (kbd "C-c (") 'wrap-with-parens)
+;; (define-key smartparens-mode-map (kbd "C-c [") 'wrap-with-brackets)
+;; (define-key smartparens-mode-map (kbd "C-c {") 'wrap-with-braces)
+;; (define-key smartparens-mode-map (kbd "C-c '") 'wrap-with-single-quotes)
+;; (define-key smartparens-mode-map (kbd "C-c \"") 'wrap-with-double-quotes)
+;; (define-key smartparens-mode-map (kbd "C-c _") 'wrap-with-underscores)
+;; (define-key smartparens-mode-map (kbd "C-c `") 'wrap-with-back-quotes)
+;;
+;; (define-key smartparens-mode-map (kbd "C-c s r") 'sp-rewrap-sexp)
+;; (define-key smartparens-mode-map (kbd "C-c s u") 'sp-unwrap-sexp)
+;;
+;; (define-key smartparens-mode-map (kbd "C-M-f") 'sp-forward-sexp)
+;; (define-key smartparens-mode-map (kbd "C-M-b") 'sp-backward-sexp)
+;;
+;; ;; TODO: in manjaro this selects keyboard-layout or something
+;; ;;(define-key smartparens-mode-map (kbd "C-M-k") 'sp-kill-sexp)
+;; (define-key smartparens-mode-map (kbd "C-M-w") 'sp-copy-sexp)
+;;
+;; (define-key smartparens-mode-map (kbd "C-M-n") 'sp-next-sexp)
+;; (define-key smartparens-mode-map (kbd "C-M-p") 'sp-previous-sexp)
+;;
+;; ;; TODO: for some reason this does not work
+;; (define-key smartparens-mode-map (kbd "C-M-a") 'sp-beginning-of-sexp)
+;; (define-key smartparens-mode-map (kbd "C-M-e") 'sp-end-of-sexp)
+;;
+;; (define-key smartparens-mode-map (kbd "C-M-h") 'mark-defun)
+;;
+;; (smartparens-global-mode t)
+
+#+END_SRC
+
+* Comment-dwim-2
+
+Replacement for built-in =comment-dwim=, more comment features.
+
+https://github.com/remyferre/comment-dwim-2
+
+#+BEGIN_SRC emacs-lisp
+(use-package comment-dwim-2
+  :ensure t
+  :config
+    (global-set-key (kbd "M-;") 'comment-dwim-2)
+)
+#+END_SRC
+
+* Yasnippet
+
+Template system for Emacs.
+
+https://github.com/joaotavora/yasnippet
+
+#+BEGIN_SRC emacs-lisp
+(use-package yasnippet
+  :ensure t
+  :config
+    (add-to-list 'load-path
+              "~/.emacs.d/plugins/yasnippet")
+    (yas-global-mode 1)
+)
+#+END_SRC
+
+* Old stuff, maybe usefull for lookup later
+
+#+BEGIN_SRC emacs-lisp
+;; show whitespace in diff-mode
+;; (add-hook 'diff-mode-hook (lambda ()
+;;                             (setq-local whitespace-style
+;;                                         '(face
+;;                                           tabs
+;;                                           tab-mark
+;;                                           spaces
+;;                                           space-mark
+;;                                           trailing
+;;                                           indentation::space
+;;                                           indentation::tab
+;;                                           newline
+;;                                           newline-mark))
+;;                             (whitespace-mode 1)))
+#+END_SRC
+
+
+* TODO
+
+stuff i need to look into:
+- ibuffer
+- switch-window
+- split-and-follow-vertically/horizontally
+- which-key
+- symon
+- spaceline
+- async
+- exwm
