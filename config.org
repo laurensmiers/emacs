@@ -470,6 +470,8 @@ To be fair, I didn't test this in a while...
 
 * Helm
 
+** General config
+
 #+BEGIN_SRC emacs-lisp
 (use-package helm
   :ensure t
@@ -532,6 +534,27 @@ To be fair, I didn't test this in a while...
 ;; Split direcion. 'split-window-vertically or 'split-window-horizontally
 ;; (setq helm-swoop-split-direction 'split-window-vertically)
 
+#+END_SRC
+
+** Helm-gtags
+
+#+BEGIN_SRC emacs-lisp
+(use-package helm-gtags
+  :ensure t
+  :bind
+    ( "M-." . 'helm-gtags-find-tag-from-here)
+    ( "M-," . 'helm-gtags-pop-stack)
+    ( "C-c f" . 'helm-gtags-find-files)
+    ( "C-c p" . 'helm-gtags-parse-file)
+  :config
+    (add-hook 'c-mode-hook 'helm-gtags-mode)
+    (add-hook 'c++-mode-hook 'helm-gtags-mode)
+    (add-hook 'python-mode-hook 'helm-gtags-mode)
+    (add-hook 'java-mode-hook 'helm-gtags-mode)
+    (add-hook 'asm-mode-hook 'helm-gtags-mode)
+
+    (custom-set-variables '(helm-gtags-auto-update t))
+)
 #+END_SRC
 
 * Old stuff, maybe usefull for lookup later
