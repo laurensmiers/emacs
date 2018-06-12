@@ -446,22 +446,6 @@ https://github.com/remyferre/comment-dwim-2
 )
 #+END_SRC
 
-* Yasnippet
-
-Template system for Emacs.
-
-https://github.com/joaotavora/yasnippet
-
-#+BEGIN_SRC emacs-lisp
-(use-package yasnippet
-  :ensure t
-  :config
-    (add-to-list 'load-path
-              "~/.emacs.d/plugins/yasnippet")
-    (yas-global-mode 1)
-)
-#+END_SRC
-
 * Expand-region
 
 Expand region increases the selected region by semantic units.
@@ -658,6 +642,104 @@ TODO: need to document this
   :ensure t
   :bind
     ("C-c m" . magit-status)
+)
+#+END_SRC
+
+* Programming
+
+** Yasnippet
+
+Template system for Emacs.
+
+https://github.com/joaotavora/yasnippet
+
+#+BEGIN_SRC emacs-lisp
+(use-package yasnippet
+  :ensure t
+  :init
+    (add-to-list 'load-path
+              "~/.emacs.d/plugins/yasnippet")
+  :config
+    (add-hook 'prog-mode-hook 'yas-minor-mode)
+)
+#+END_SRC
+
+** Flycheck
+
+On-the-fly syntax checking.
+
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck
+  :ensure t
+  :config
+    (add-hook 'prog-mode-hook 'flycheck-mode)
+)
+#+END_SRC
+
+** Company mode
+
+#+BEGIN_SRC emacs-lisp
+(use-package company
+  :ensure t
+  :config
+    (setq company-idle-delay 0)
+    (setq company-minimum-prefix-length 3))
+    (add-hook 'prog-mode-hook 'company-mode)
+#+END_SRC
+
+** C/C++ mode
+
+*** Flycheck
+
+Clang static analyzer with flycheck
+
+https://github.com/alexmurray/flycheck-clang-analyzer
+https://github.com/Sarcasm/flycheck-irony
+
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck-clang-analyzer
+  :ensure t
+  :config
+  (with-eval-after-load 'flycheck
+    (require 'flycheck-clang-analyzer)
+     (flycheck-clang-analyzer-setup)))
+
+(use-package flycheck-irony
+  :ensure t
+  :config
+    (eval-after-load 'flycheck
+      '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+)
+#+END_SRC
+
+*** Company
+
+https://github.com/ikirill/irony-eldoc
+
+#+BEGIN_SRC emacs-lisp
+(use-package company-c-headers
+  :ensure t)
+
+(use-package company-irony
+  :ensure t
+  :config
+  (setq company-backends '((company-c-headers
+;;                            company-dabbrev-code ;; not sure what this is
+                            company-irony))))
+
+(use-package irony
+  :ensure t
+  :config
+    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+    (add-hook 'c++-mode-hook 'irony-mode)
+    (add-hook 'c-mode-hook 'irony-mode)
+    (add-hook 'objc-mode-hook 'irony-mode)
+)
+
+(use-package irony-eldoc
+  :ensure t
+  :config
+    (add-hook 'irony-mode-hook 'irony-eldoc)
 )
 #+END_SRC
 
