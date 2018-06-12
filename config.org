@@ -651,6 +651,16 @@ TODO: need to document this
 (add-hook 'gud-mode-hook 'egdbe-gud-mode-hook)
 #+END_SRC
 
+* Magit
+
+#+BEGIN_SRC emacs-lisp
+(use-package magit
+  :ensure t
+  :bind
+    ("C-c m" . magit-status)
+)
+#+END_SRC
+
 * Old stuff, maybe usefull for lookup later
 
 ** Diff mode stuff
