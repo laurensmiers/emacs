@@ -470,6 +470,8 @@ To be fair, I didn't test this in a while...
 
 * Old stuff, maybe usefull for lookup later
 
+** Diff mode stuff
+
 #+BEGIN_SRC emacs-lisp
 ;; show whitespace in diff-mode
 ;; (add-hook 'diff-mode-hook (lambda ()
@@ -487,6 +489,21 @@ To be fair, I didn't test this in a while...
 ;;                             (whitespace-mode 1)))
 #+END_SRC
 
+** Speedbar
+
+#+BEGIN_SRC emacs-lisp
+;; Package: sr-speedbar
+;;(require 'sr-speedbar)
+;; (add-hook 'emacs-startup-hook (lambda () ; Open sr speedbar on startup
+;; 								(sr-speedbar-open)
+;; 								))
+;; (setq speedbar-show-unknown-files t) ; Enable speedbar to show all files
+;; (setq speedbar-use-images nil) ; use text for buttons
+;; (setq sr-speedbar-right-side nil) ; put on left side
+;; (setq sr-speedbar-width 40)
+;;
+;; (provide 'setup-speedbar)
+#+END_SRC
 
 * TODO
 
