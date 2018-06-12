@@ -776,6 +776,22 @@ Credit goes to https://github.com/daedreth/UncleDavesEmacs
 (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
 #+END_SRC
 
+** Switching
+
+#+BEGIN_SRC emacs-lisp
+(use-package switch-window
+  :ensure t
+  :config
+    (setq switch-window-input-style 'minibuffer)
+    (setq switch-window-increase 4)
+    (setq switch-window-threshold 2)
+    (setq switch-window-shortcut-style 'qwerty)
+    (setq switch-window-qwerty-shortcuts
+        '("a" "s" "d" "f" "j" "k" "l" "i" "o"))
+  :bind
+    ("C-x o" . switch-window))
+#+END_SRC
+
 * Avy
 
 https://github.com/abo-abo/avy
