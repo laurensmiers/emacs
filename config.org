@@ -468,6 +468,72 @@ When we use windows as our bootloader, we have to setup some things first:
 
 To be fair, I didn't test this in a while...
 
+* Helm
+
+#+BEGIN_SRC emacs-lisp
+(use-package helm
+  :ensure t
+  :bind
+    ("M-x" . 'helm-M-x)
+    ("M-y" . 'helm-show-kill-ring)
+    ("C-x b" . 'helm-mini)
+    ("C-x C-b" . 'helm-mini)
+    ("C-x C-f" . 'helm-find-files)
+  :init
+    (helm-mode 1))
+  :config
+    (setq helm-M-x-fuzzy-match t
+          helm-buffers-fuzzy-matching t
+          helm-recentf-fuzzy-match t
+          helm-semantic-fuzzy-match t
+          helm-imenu-fuzzy-match t
+          helm-split-window-inside-p nil ;; open helm buffer inside current window
+          helm-scroll-amount 8 ;; scroll 8 lines other window using M-<next>/M-<prior>
+;;        helm-move-to-line-cycle-in-source nil ;; move to end or beginning of source when reaching to por bottom of source
+;;        helm-ff-search-library-in-sexp t ;; search for library in 'require' and 'declare-function' sexp
+;;        helm-echo-input-in-header-line t
+    )
+
+(require 'helm-config)
+;; (helm-autoresize-mode 1)
+;; (define-key helm-find-files-map (kbd "C-b") 'helm-find-files-up-one-level)
+;; (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
+
+;; replace vanilla isearch with helm-swoop
+(use-package helm-swoop
+  :ensure t
+  :bind
+    ("C-s" . 'helm-swoop')
+  :config
+    (define-key helm-swoop-map (kbd "C-s") 'helm-multi-swoop-all-from-helm-swoop)
+)
+
+;; rebind tab to do persistent action
+;; we use helm-execute-persistent-action more than helm-select-action (default for <tab>)
+;; (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+;; make TAB work in terminal
+;; (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
+;; remap helm-select-action: lists actions
+;; (define-key helm-map (kbd "C-z")  'helm-select-action)
+
+;; remap calculator
+;; (global-set-key (kbd "C-c C-c") 'helm-calcul-expression)
+
+;; TODO: experiment with mark ring   (breadcrumbs something?)
+;; TODO: experiment with helm-regexp (build and test regexes)
+;; TODO: remember helm-top (helm interface for top program)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Next 2 lines make sure when using helm-swoop only the current window/buffer is affected ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; If this value is t, split window inside the current window
+;; (setq helm-swoop-split-with-multiple-windows t)
+
+;; Split direcion. 'split-window-vertically or 'split-window-horizontally
+;; (setq helm-swoop-split-direction 'split-window-vertically)
+
+#+END_SRC
+
 * Old stuff, maybe usefull for lookup later
 
 ** Diff mode stuff
@@ -516,3 +582,4 @@ stuff i need to look into:
 - spaceline
 - async
 - exwm
+- helm-hide-minibuffer
