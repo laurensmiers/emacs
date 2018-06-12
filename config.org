@@ -267,6 +267,49 @@ Automatically delete trailing whitespace when saving a file.
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+END_SRC
 
+** Angry faces
+
+#+BEGIN_SRC emacs-lisp
+;; make angry face to get my attention
+(setq prog-modes '(c++-mode python-mode erlang-mode java-mode c-mode emacs-lisp-mode scheme-mode prog-mode))
+(make-face 'font-lock-angry-face)
+(modify-face 'font-lock-angry-face "Red" "Yellow" nil t nil t nil nil)
+
+;; Add keywords to recognize to angry face
+(mapc (lambda (mode)
+		(font-lock-add-keywords
+		 mode
+		 '(("\\<\\(FIXME\\)" 1 'font-lock-angry-face t)))
+		)
+	  prog-modes)
+(mapc (lambda (mode)
+		(font-lock-add-keywords
+		 mode
+		 '(("\\<\\(TODO\\)" 1 'font-lock-angry-face t)))
+		)
+	  prog-modes)
+#+END_SRC
+
+** C Coding settings
+
+Some basic C-coding settings (style, indentation offset, ...).
+
+#+BEGIN_SRC emacs-lisp
+;; default coding style
+(setq c-default-style "linux")
+
+;; sane indentation offset
+(setq c-basic-offset 4)
+#+END_SRC
+
+** Tabs vs spaces
+
+Tabs are evil.
+
+#+BEGIN_SRC emacs-lisp
+(setq-default indent-tabs-mode nil)
+#+END_SRC
+
 * Undo-tree
 
 Undo with =C-/=.
