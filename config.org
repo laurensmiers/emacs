@@ -687,6 +687,16 @@ On-the-fly syntax checking.
     (add-hook 'prog-mode-hook 'company-mode)
 #+END_SRC
 
+** (Relative) Line numbers
+
+#+BEGIN_SRC emacs-lisp
+(use-package linum-relative
+  :ensure t
+  :config
+    (setq linum-relative-current-symbol "")
+    (add-hook 'prog-mode-hook 'linum-relative-mode))
+#+END_SRC
+
 ** C/C++ mode
 
 *** Flycheck
