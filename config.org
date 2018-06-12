@@ -476,39 +476,41 @@ To be fair, I didn't test this in a while...
 (use-package helm
   :ensure t
   :bind
-    ("M-x" . 'helm-M-x)
-    ("M-y" . 'helm-show-kill-ring)
-    ("C-x b" . 'helm-mini)
-    ("C-x C-b" . 'helm-mini)
-    ("C-x C-f" . 'helm-find-files)
+    ("M-x" . helm-M-x)
+    ("M-y" . helm-show-kill-ring)
+    ("C-x b" . helm-mini)
+    ("C-x C-b" . helm-mini)
+    ("C-x C-f" . helm-find-files)
   :init
-    (helm-mode 1))
+  (helm-mode 1)
   :config
-    (setq helm-M-x-fuzzy-match t
-          helm-buffers-fuzzy-matching t
-          helm-recentf-fuzzy-match t
-          helm-semantic-fuzzy-match t
-          helm-imenu-fuzzy-match t
-          helm-split-window-inside-p nil ;; open helm buffer inside current window
-          helm-scroll-amount 8 ;; scroll 8 lines other window using M-<next>/M-<prior>
+  (setq helm-M-x-fuzzy-match t
+        helm-buffers-fuzzy-matching t
+        helm-recentf-fuzzy-match t
+        helm-semantic-fuzzy-match t
+        helm-imenu-fuzzy-match t
+        helm-split-window-inside-p nil ;; open helm buffer inside current window
+        helm-scroll-amount 8 ;; scroll 8 lines other window using M-<next>/M-<prior>
 ;;        helm-move-to-line-cycle-in-source nil ;; move to end or beginning of source when reaching to por bottom of source
 ;;        helm-ff-search-library-in-sexp t ;; search for library in 'require' and 'declare-function' sexp
 ;;        helm-echo-input-in-header-line t
-    )
+  )
+)
 
-(require 'helm-config)
-;; (helm-autoresize-mode 1)
-;; (define-key helm-find-files-map (kbd "C-b") 'helm-find-files-up-one-level)
-;; (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
-
-;; replace vanilla isearch with helm-swoop
 (use-package helm-swoop
   :ensure t
   :bind
-    ("C-s" . 'helm-swoop')
+    ("C-s" . helm-swoop)
   :config
     (define-key helm-swoop-map (kbd "C-s") 'helm-multi-swoop-all-from-helm-swoop)
 )
+
+;; (require 'helm-config)
+;; ;; (helm-autoresize-mode 1)
+;; ;; (define-key helm-find-files-map (kbd "C-b") 'helm-find-files-up-one-level)
+;; ;; (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
+;;
+;; ;; replace vanilla isearch with helm-swoop
 
 ;; rebind tab to do persistent action
 ;; we use helm-execute-persistent-action more than helm-select-action (default for <tab>)
@@ -542,10 +544,10 @@ To be fair, I didn't test this in a while...
 (use-package helm-gtags
   :ensure t
   :bind
-    ( "M-." . 'helm-gtags-find-tag-from-here)
-    ( "M-," . 'helm-gtags-pop-stack)
-    ( "C-c f" . 'helm-gtags-find-files)
-    ( "C-c p" . 'helm-gtags-parse-file)
+    ( "M-." . helm-gtags-find-tag-from-here)
+    ( "M-," . helm-gtags-pop-stack)
+    ( "C-c f" . helm-gtags-find-files)
+    ( "C-c p" . helm-gtags-parse-file)
   :config
     (add-hook 'c-mode-hook 'helm-gtags-mode)
     (add-hook 'c++-mode-hook 'helm-gtags-mode)
