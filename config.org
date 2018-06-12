@@ -489,12 +489,16 @@ To be fair, I didn't test this in a while...
         helm-recentf-fuzzy-match t
         helm-semantic-fuzzy-match t
         helm-imenu-fuzzy-match t
-        helm-split-window-inside-p nil ;; open helm buffer inside current window
+        helm-split-window-inside-p t ;; open helm buffer inside current window
         helm-scroll-amount 8 ;; scroll 8 lines other window using M-<next>/M-<prior>
 ;;        helm-move-to-line-cycle-in-source nil ;; move to end or beginning of source when reaching to por bottom of source
 ;;        helm-ff-search-library-in-sexp t ;; search for library in 'require' and 'declare-function' sexp
 ;;        helm-echo-input-in-header-line t
   )
+  ;; rebind tab to do persistent action
+  ;; we use helm-execute-persistent-action more than helm-select-action (default for <tab>)
+  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+  (helm-autoresize-mode 1) ;; Awesome feature together with helm-split-window-inside-p != nil
 )
 
 (use-package helm-swoop
@@ -506,15 +510,9 @@ To be fair, I didn't test this in a while...
 )
 
 ;; (require 'helm-config)
-;; ;; (helm-autoresize-mode 1)
 ;; ;; (define-key helm-find-files-map (kbd "C-b") 'helm-find-files-up-one-level)
 ;; ;; (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
 ;;
-;; ;; replace vanilla isearch with helm-swoop
-
-;; rebind tab to do persistent action
-;; we use helm-execute-persistent-action more than helm-select-action (default for <tab>)
-;; (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
 ;; make TAB work in terminal
 ;; (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
 ;; remap helm-select-action: lists actions
