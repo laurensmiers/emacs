@@ -743,6 +743,17 @@ https://github.com/ikirill/irony-eldoc
 )
 #+END_SRC
 
+* Avy
+
+https://github.com/abo-abo/avy
+
+#+BEGIN_SRC emacs-lisp
+(use-package avy
+  :ensure t
+  :bind
+    ("M-s" . avy-goto-char-timer))
+#+END_SRC
+
 * Old stuff, maybe usefull for lookup later
 
 ** Diff mode stuff
