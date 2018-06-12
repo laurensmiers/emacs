@@ -506,7 +506,10 @@ To be fair, I didn't test this in a while...
   :bind
     ("C-s" . helm-swoop)
   :config
+    ;; "C-s" + "C-s" results in mult-swoop
     (define-key helm-swoop-map (kbd "C-s") 'helm-multi-swoop-all-from-helm-swoop)
+    ;; split window inside the current window when multiple windows open
+    (setq helm-swoop-split-with-multiple-windows t)
 )
 
 ;; (require 'helm-config)
@@ -524,15 +527,6 @@ To be fair, I didn't test this in a while...
 ;; TODO: experiment with mark ring   (breadcrumbs something?)
 ;; TODO: experiment with helm-regexp (build and test regexes)
 ;; TODO: remember helm-top (helm interface for top program)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Next 2 lines make sure when using helm-swoop only the current window/buffer is affected ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; If this value is t, split window inside the current window
-;; (setq helm-swoop-split-with-multiple-windows t)
-
-;; Split direcion. 'split-window-vertically or 'split-window-horizontally
-;; (setq helm-swoop-split-direction 'split-window-vertically)
 
 #+END_SRC
 
