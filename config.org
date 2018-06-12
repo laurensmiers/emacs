@@ -551,6 +551,22 @@ To be fair, I didn't test this in a while...
 )
 #+END_SRC
 
+* Mutliple cursors
+
+https://github.com/magnars/multiple-cursors.el
+
+#+BEGIN_SRC emacs-lisp
+(use-package multiple-cursors
+  :ensure t
+  :bind
+    ("C-x r a" . mc/edit-lines)
+    ("C-x r e" . mc/edit-ends-of-lines)
+    ("C->" . mc/mark-next-like-this)
+    ("C-<" . mc/mark-previous-like-this)
+    ("C-c C->" . mc/mark-all-like-this)
+)
+#+END_SRC
+
 * Old stuff, maybe usefull for lookup later
 
 ** Diff mode stuff
