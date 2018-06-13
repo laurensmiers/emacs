@@ -86,23 +86,6 @@ Because I'm lazy, important yes-or-no questions can be answered with y-or-n:
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 #+END_SRC
 
-** Multi-frame rebindings
-
-Sometimes I have multiple emacs-frames open.
-I prefer that the normal =C-x o= can deal with this.
-
-#+BEGIN_SRC emacs-lisp
-;; Use C-x o to switch to other frame when using multi-monitor
-(global-set-key (kbd "C-x o") 'next-multiframe-window)
-#+END_SRC
-
-Now that =next-multiframe-window= is bound to =C-x o=,
-Bind =C-x p= to =previous-multiframe-window=.
-
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "\C-x p") 'previous-multiframe-window)
-#+END_SRC
-
 ** Enable disabled commands
 
 Some commands are disabled to protect the user.
@@ -778,19 +761,43 @@ Credit goes to https://github.com/daedreth/UncleDavesEmacs
 
 ** Switching
 
+https://github.com/dimitri/switch-window
+
 #+BEGIN_SRC emacs-lisp
 (use-package switch-window
   :ensure t
   :config
     (setq switch-window-input-style 'minibuffer)
-    (setq switch-window-increase 4)
+    (setq switch-window-increase 6)
     (setq switch-window-threshold 2)
     (setq switch-window-shortcut-style 'qwerty)
     (setq switch-window-qwerty-shortcuts
         '("a" "s" "d" "f" "j" "k" "l" "i" "o"))
+;;    (setq switch-window-multiple-frames t) ;; TODO: doesn't work properly..
   :bind
     ("C-x o" . switch-window))
 #+END_SRC
+
+When using exwm, have a look at this: https://github.com/dimitri/switch-window/pull/62
+
+
+** Multi-frame rebindings (obsolete with switch-window)
+
+Sometimes I have multiple emacs-frames open.
+In the past, I preferred that the normal =C-x o= can deal with this but this is used by switch-window now.
+
+#+BEGIN_SRC emacs-lisp
+;; Use C-x o to switch to other frame when using multi-monitor
+;; (global-set-key (kbd "C-x o") 'next-multiframe-window)
+#+END_SRC
+
+Now that =next-multiframe-window= is bound to =C-x o=,
+Bind =C-x p= to =previous-multiframe-window=.
+
+#+BEGIN_SRC emacs-lisp
+;; (global-set-key (kbd "\C-x p") 'previous-multiframe-window)
+#+END_SRC
+
 
 * Avy
 
