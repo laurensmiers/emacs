@@ -683,7 +683,7 @@ On-the-fly syntax checking.
   :ensure t
   :config
     (setq company-idle-delay 0)
-    (setq company-minimum-prefix-length 3))
+    (setq company-minimum-prefix-length 2))
     (add-hook 'prog-mode-hook 'company-mode)
 #+END_SRC
 
