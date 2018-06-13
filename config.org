@@ -830,6 +830,12 @@ https://github.com/abo-abo/avy
 (global-set-key (kbd "C-c r") 'config-reload)
 #+END_SRC
 
+** Subword
+
+#+BEGIN_SRC emacs-lisp
+(global-subword-mode 1)
+#+END_SRC
+
 * Old stuff, maybe usefull for lookup later
 
 ** Diff mode stuff
