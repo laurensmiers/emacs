@@ -798,7 +798,6 @@ Bind =C-x p= to =previous-multiframe-window=.
 ;; (global-set-key (kbd "\C-x p") 'previous-multiframe-window)
 #+END_SRC
 
-
 * Avy
 
 https://github.com/abo-abo/avy
@@ -808,6 +807,27 @@ https://github.com/abo-abo/avy
   :ensure t
   :bind
     ("M-s" . avy-goto-char-timer))
+#+END_SRC
+
+* Convenience stuff
+
+** Visiting the configuration
+
+#+BEGIN_SRC emacs-lisp
+(defun config-visit ()
+  (interactive)
+  (find-file "~/.emacs.d/config.org"))
+(global-set-key (kbd "C-c e") 'config-visit)
+#+END_SRC
+
+** Reload the configuration
+
+#+BEGIN_SRC emacs-lisp
+(defun config-reload ()
+  "Reloads ~/.emacs.d/config.org at runtime"
+  (interactive)
+  (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
+(global-set-key (kbd "C-c r") 'config-reload)
 #+END_SRC
 
 * Old stuff, maybe usefull for lookup later
