@@ -845,6 +845,19 @@ Emacsclient will then use this emacs as its server.
 (server-start)
 #+END_SRC
 
+* Beacon
+
+https://github.com/Malabarba/beacon
+
+#+BEGIN_SRC emacs-lisp
+(use-package beacon
+  :ensure t
+  :config
+    (beacon-mode 1)
+    (setq beacon-color "#FFFFCC") ;; yelowish
+)
+#+END_SRC
+
 * Old stuff, maybe usefull for lookup later
 
 ** Diff mode stuff
