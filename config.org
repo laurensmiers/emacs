@@ -806,7 +806,7 @@ https://github.com/abo-abo/avy
 (use-package avy
   :ensure t
   :bind
-    ("M-s" . avy-goto-char-timer))
+    ("M-s" . avy-goto-char))
 #+END_SRC
 
 * Convenience stuff
