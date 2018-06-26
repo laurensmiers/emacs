@@ -526,10 +526,10 @@ To be fair, I didn't test this in a while...
 ;; ;; (define-key helm-find-files-map (kbd "C-b") 'helm-find-files-up-one-level)
 ;; ;; (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
 ;;
-;; make TAB work in terminal
-;; (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
+;; make TAB work in terminal/minibuffer
+(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
 ;; remap helm-select-action: lists actions
-;; (define-key helm-map (kbd "C-z")  'helm-select-action)
+(define-key helm-map (kbd "C-z")  'helm-select-action)
 
 ;; remap calculator
 ;; (global-set-key (kbd "C-c C-c") 'helm-calcul-expression)
