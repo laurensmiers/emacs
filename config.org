@@ -65,12 +65,12 @@ so rebind it to something easy to remember.
 I used to have the following enabled in my init to increase the gc threshold to speed-up emacs startup:
 (stolen from [[http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/]])
 
-#+BEGIN_SRC
-;; (setq gc-cons-threshold 100000000)
+#+BEGIN_SRC emacs-lisp
+(setq gc-cons-threshold 100000000)
 #+END_SRC
 
 But according to this: [[https://lists.gnu.org/archive/html/help-gnu-emacs/2007-06/msg00243.html ]],
-it is no longer necessary.
+it is no longer necessary. But I found that I still have to do this to speed up emacs.
 
 ** Yes-or-no questions
 
