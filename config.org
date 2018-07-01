@@ -882,6 +882,22 @@ https://github.com/Malabarba/beacon
 )
 #+END_SRC
 
+* Sunrise commander
+
+https://github.com/escherdragon/sunrise-commander
+
+** Install
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/extra/sunrise-commander")
+
+(require 'sunrise-commander)
+(require 'sunrise-x-buttons)
+(require 'sunrise-x-modeline)
+
+(add-to-list 'auto-mode-alist '("\\.srvm\\'" . sr-virtual-mode))
+#+END_SRC
+
 * Old stuff, maybe usefull for lookup later
 
 ** Diff mode stuff
