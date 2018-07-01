@@ -852,6 +852,14 @@ https://github.com/abo-abo/avy
 (global-subword-mode 1)
 #+END_SRC
 
+** Bell
+
+The audible bell is annoying AF.
+
+#+BEGIN_SRC emacs-lisp
+(setq visible-bell 1)
+#+END_SRC
+
 * Server
 
 Emacs as a server.
