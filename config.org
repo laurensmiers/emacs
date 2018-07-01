@@ -18,7 +18,8 @@ This configuration requires the installation of :
     - =clang= (for ivory)
     - =cmake= (for ivory)
     - =llvm-libs= (for cmake, somehow not a dependency on Manjaro when installing cmake)
-    - Use python-pip to install =jedi=, =flake8=, =importmagic= and =autopep8= (for elpy)
+    - Use python-pip to install requirements for elpy:
+      =pip install jedi flake8 importmagic autopep8 yapf=
     - =ditaa= (for ascii to image generation in org-mode)
 
 When first checking out this config, run =irony-install-server= to make and install the irony-server.
@@ -733,6 +734,21 @@ https://github.com/ikirill/irony-eldoc
   :ensure t
   :config
     (add-hook 'irony-mode-hook 'irony-eldoc)
+)
+#+END_SRC
+
+** Python mode
+
+Use =elpy=:
+https://github.com/jorgenschaefer/elpy
+
+It is a full dev env and sometimes feels like a bit too much but overal good experience.
+
+#+BEGIN_SRC emacs-lisp
+(use-package elpy
+  :ensure t
+  :config
+    (elpy-enable)
 )
 #+END_SRC
 
