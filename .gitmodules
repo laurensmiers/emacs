@@ -1,0 +1,3 @@
+[submodule "extra/sunrise-commander"]
+	path = extra/sunrise-commander
+	url = https://github.com/escherdragon/sunrise-commander
