@@ -195,24 +195,6 @@ FYI: At one point, used this together with sr-speedbar. They did not play well t
 )
 #+END_SRC
 
-** Diminish
-
-https://github.com/myrjola/diminish.el
-
-#+BEGIN_SRC emacs-lisp
-(use-package diminish
-  :ensure t
-  :config
-  (diminish 'volatile-highlights-mode)
-  (diminish 'smartparens-mode)
-  (diminish 'beacon-mode)
-  (diminish 'subword-mode)
-  (diminish 'auto-revert-mode)
-  (diminish 'helm-mode)
-  (diminish 'undo-tree-mode)
-)
-#+END_SRC
-
 ** Clock
 
 #+BEGIN_SRC emacs-lisp
@@ -985,6 +967,25 @@ Tell org where to look for ditaa
 ;; Add extra states for keywords
 (setq org-todo-keywords
       '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
+#+END_SRC
+
+* Diminish
+
+https://github.com/myrjola/diminish.el
+
+#+BEGIN_SRC emacs-lisp
+(use-package diminish
+  :ensure t
+  :config
+  (diminish 'volatile-highlights-mode)
+  (diminish 'smartparens-mode)
+  (diminish 'beacon-mode)
+  (diminish 'subword-mode)
+  (diminish 'auto-revert-mode)
+  (diminish 'helm-mode)
+  (diminish 'undo-tree-mode)
+  (diminish 'page-break-lines-mode)
+)
 #+END_SRC
 
 * Old stuff, maybe usefull for lookup later
