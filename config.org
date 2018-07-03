@@ -898,6 +898,67 @@ https://github.com/escherdragon/sunrise-commander
 (add-to-list 'auto-mode-alist '("\\.srvm\\'" . sr-virtual-mode))
 #+END_SRC
 
+* Org
+
+** Org bullets
+
+https://github.com/sabof/org-bullets
+
+#+BEGIN_SRC emacs-lisp
+(use-package org-bullets
+  :ensure t
+  :config
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode))))
+#+END_SRC
+
+** Some basic config
+
+*** Super/Sub-scripts
+
+Use ={}= for subscripting:
+
+https://orgmode.org/manual/Subscripts-and-superscripts.html
+
+#+BEGIN_SRC emacs-lisp
+(setq org-use-sub-superscripts '{})
+#+END_SRC
+
+*** Indentation
+
+Preserve indentation in SRC blocks
+
+#+BEGIN_SRC emacs-lisp
+(setq org-src-preserve-indentation t)
+#+END_SRC
+
+
+*** Runnable languages
+
+#+BEGIN_SRC emacs-lisp
+(org-babel-do-load-languages
+ 'org-babel-load-languages '(
+                             (ditaa . t))
+ )
+#+END_SRC
+
+**** Dita
+
+Tell org where to look for ditaa
+
+#+BEGIN_SRC emacs-lisp
+(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_10.jar")
+#+END_SRC
+
+** Note config
+
+#+BEGIN_SRC emacs-lisp
+;; when ending TODO (C-C C-t) end with a note + timestamp
+(setq org-log-done 'note)
+;; Add extra states for keywords
+(setq org-todo-keywords
+      '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
+#+END_SRC
+
 * Old stuff, maybe usefull for lookup later
 
 ** Diff mode stuff
