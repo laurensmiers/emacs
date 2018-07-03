@@ -195,6 +195,24 @@ FYI: At one point, used this together with sr-speedbar. They did not play well t
 )
 #+END_SRC
 
+** Diminish
+
+https://github.com/myrjola/diminish.el
+
+#+BEGIN_SRC emacs-lisp
+(use-package diminish
+  :ensure t
+  :config
+  (diminish 'volatile-highlights-mode)
+  (diminish 'smartparens-mode)
+  (diminish 'beacon-mode)
+  (diminish 'subword-mode)
+  (diminish 'auto-revert-mode)
+  (diminish 'helm-mode)
+  (diminish 'undo-tree-mode)
+)
+#+END_SRC
+
 * Editing settings
 
 ** Kill-ring customization
