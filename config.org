@@ -213,6 +213,16 @@ https://github.com/myrjola/diminish.el
 )
 #+END_SRC
 
+** Clock
+
+#+BEGIN_SRC emacs-lisp
+  (setq display-time-24hr-format t)
+  (setq display-time-format "%H:%M - %d %b %Y")
+  (setq display-time-default-load-average nil)
+
+  (display-time-mode 1)
+#+END_SRC
+
 * Editing settings
 
 ** Kill-ring customization
