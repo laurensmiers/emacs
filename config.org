@@ -988,6 +988,21 @@ https://github.com/myrjola/diminish.el
 )
 #+END_SRC
 
+* Shell-pop
+
+https://github.com/kyagi/shell-pop-el
+
+#+BEGIN_SRC emacs-lisp
+(use-package shell-pop
+  :ensure t
+  :bind (("C-c t" . shell-pop))
+  :config
+  (setq shell-pop-shell-type (quote ("eshell" "*eshell*" (lambda nil (eshell shell-pop-term-shell)))))
+  (setq shell-pop-term-shell "/bin/zsh")
+  ;; need to do this manually or not picked up by `shell-pop'
+  (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type))
+#+END_SRC
+
 * Old stuff, maybe usefull for lookup later
 
 ** Diff mode stuff
