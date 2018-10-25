@@ -905,6 +905,9 @@ https://github.com/escherdragon/sunrise-commander
 (require 'sunrise-x-buttons)
 (require 'sunrise-x-modeline)
 
+(global-set-key (kbd "C-c s") 'sunrise)
+(global-set-key (kbd "C-c c") 'sunrise-cd)
+
 (add-to-list 'auto-mode-alist '("\\.srvm\\'" . sr-virtual-mode))
 #+END_SRC
 
