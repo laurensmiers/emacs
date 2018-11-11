@@ -181,6 +181,19 @@ Disable the generation of backup-files, I don't use them.
 (setq make-backup-files nil)
 #+END_SRC
 
+* Which-key
+
+Display available keybindings in popup:
+https://github.com/justbur/emacs-which-key
+
+#+BEGIN_SRC emacs-lisp
+(use-package which-key
+  :ensure t
+  :config
+    (which-key-setup-side-window-bottom)
+    (which-key-mode))
+#+END_SRC
+
 * Theme
 
 #+BEGIN_SRC emacs-lisp
@@ -1104,8 +1117,6 @@ https://github.com/kyagi/shell-pop-el
 stuff i need to look into:
 - ibuffer
 - switch-window
-- split-and-follow-vertically/horizontally
-- which-key
 - symon
 - spaceline
 - async
