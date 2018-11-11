@@ -571,6 +571,21 @@ When we use windows as our bootloader, we have to setup some things first:
 
 To be fair, I didn't test this in a while...
 
+* Projectile
+
+Projectile is a project management tool, full details on:
+https://github.com/bbatsov/projectile
+
+#+BEGIN_SRC emacs-lisp
+(use-package projectile
+  :ensure t
+  :config
+    (setq projectile-indexing-method 'alien)
+    (projectile-global-mode)
+    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+)
+#+END_SRC
+
 * Helm
 
 ** General config
@@ -641,8 +656,6 @@ To be fair, I didn't test this in a while...
   :bind
     ( "M-." . helm-gtags-find-tag-from-here)
     ( "M-," . helm-gtags-pop-stack)
-    ( "C-c f" . helm-gtags-find-files)
-    ( "C-c p" . helm-gtags-parse-file)
   :config
     (add-hook 'c-mode-hook 'helm-gtags-mode)
     (add-hook 'c++-mode-hook 'helm-gtags-mode)
@@ -651,6 +664,23 @@ To be fair, I didn't test this in a while...
     (add-hook 'asm-mode-hook 'helm-gtags-mode)
 
     (custom-set-variables '(helm-gtags-auto-update t))
+)
+#+END_SRC
+
+** Helm-projectile
+
+Helm interface to projectile:
+https://github.com/bbatsov/helm-projectile
+
+#+BEGIN_SRC emacs-lisp
+(use-package helm-projectile
+  :ensure t
+  :init
+    (setq helm-projectile-fuzzy-match t)
+    (setq projectile-completion-system 'helm)
+    (setq projectile-switch-project-action 'helm-projectile)
+  :config
+    (helm-projectile-on)
 )
 #+END_SRC
 
