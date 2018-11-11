@@ -181,6 +181,22 @@ Disable the generation of backup-files, I don't use them.
 (setq make-backup-files nil)
 #+END_SRC
 
+** Describe key
+
+Describe key will open a new buffer with the relevant information.
+However, it stays in the current window and opens a new window with the help-info, forcing you to switch buffers to close the help window.
+This small function just switches the focus to the newly opened window so we can close it more easily.
+
+#+BEGIN_SRC emacs-lisp
+(defun move-to-help-window ()
+  (switch-to-buffer-other-window "*Help*")
+)
+(add-hook 'help-mode-hook 'move-to-help-window)
+#+END_SRC
+
+#+RESULTS:
+| move-to-help-window |
+
 * Which-key
 
 Display available keybindings in popup:
