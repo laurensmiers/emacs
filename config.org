@@ -194,9 +194,6 @@ This small function just switches the focus to the newly opened window so we can
 (add-hook 'help-mode-hook 'move-to-help-window)
 #+END_SRC
 
-#+RESULTS:
-| move-to-help-window |
-
 * Which-key
 
 Display available keybindings in popup:
