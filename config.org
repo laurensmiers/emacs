@@ -1155,6 +1155,23 @@ https://github.com/kyagi/shell-pop-el
 ;; (provide 'setup-speedbar)
 #+END_SRC
 
+* Paradox
+
+Paradox is a more modern package menu.
+It can update packages async, ...
+
+https://github.com/Malabarba/paradox
+
+#+BEGIN_SRC emacs-lisp
+(use-package paradox
+  :ensure t
+  :init
+    (setq paradox-execute-asynchronously t)
+  :config
+    (paradox-enable)
+)
+#+END_SRC
+
 * TODO
 
 stuff i need to look into:
