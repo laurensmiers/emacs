@@ -869,6 +869,43 @@ On-the-fly syntax checking.
     (add-hook 'prog-mode-hook 'company-mode)
 #+END_SRC
 
+** LSP
+
+#+BEGIN_SRC emacs-lisp
+(use-package company-lsp
+  :ensure t
+  :config
+  (require 'company-lsp)
+  (push 'company-lsp company-backends)
+  (add-hook 'after-init-hook 'global-company-mode)
+)
+
+(use-package lsp-mode
+  :ensure t
+  :config
+    (add-hook 'prog-mode-hook lsp-mode)
+)
+
+ (use-package lsp-ui
+   :ensure t
+   :config
+     (require 'lsp-mode)
+     (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+)
+
+(use-package lsp-clangd
+  :ensure t
+  :config
+    (add-hook 'c-mode-hook #'lsp-clangd-c-enable)
+    (lsp-define-stdio-client lsp-clangd-c
+                           "c"
+                           #'projectile-project-root
+                           '("/usr/bin/clangd"))
+    (add-hook 'c-mode-hook 'lsp-clangd-c-enable)
+)
+
+#+END_SRC
+
 ** (Relative) Line numbers
 
 #+BEGIN_SRC emacs-lisp
@@ -896,12 +933,12 @@ https://github.com/Sarcasm/flycheck-irony
     (require 'flycheck-clang-analyzer)
      (flycheck-clang-analyzer-setup)))
 
-(use-package flycheck-irony
-  :ensure t
-  :config
-    (eval-after-load 'flycheck
-      '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
-)
+;; (use-package flycheck-irony
+;;   :ensure t
+;;   :config
+;;     (eval-after-load 'flycheck
+;;       '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+;; )
 #+END_SRC
 
 *** Company
@@ -912,21 +949,21 @@ https://github.com/ikirill/irony-eldoc
 (use-package company-c-headers
   :ensure t)
 
-(use-package company-irony
-  :ensure t
-  :config
-  (setq company-backends '((company-c-headers
-;;                            company-dabbrev-code ;; not sure what this is
-                            company-irony))))
+;; (use-package company-irony
+;;   :ensure t
+;;   :config
+;;   (setq company-backends '((company-c-headers
+;; ;;                            company-dabbrev-code ;; not sure what this is
+;;                             company-irony))))
 
-(use-package irony
-  :ensure t
-  :config
-    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-    (add-hook 'c++-mode-hook 'irony-mode)
-    (add-hook 'c-mode-hook 'irony-mode)
-    (add-hook 'objc-mode-hook 'irony-mode)
-)
+;; (use-package irony
+;;   :ensure t
+;;   :config
+;;     (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+;;     (add-hook 'c++-mode-hook 'irony-mode)
+;;     (add-hook 'c-mode-hook 'irony-mode)
+;;     (add-hook 'objc-mode-hook 'irony-mode)
+;; )
 
 (use-package irony-eldoc
   :ensure t
@@ -1257,6 +1294,7 @@ https://github.com/Malabarba/paradox
   :config
     (paradox-enable)
 )
+
 #+END_SRC
 
 * EXWM
