@@ -872,39 +872,91 @@ On-the-fly syntax checking.
 ** LSP
 
 #+BEGIN_SRC emacs-lisp
+;; (use-package company-lsp
+;;   :ensure t
+;;   :config
+;;   (push 'company-lsp company-backends)
+;;   (add-hook 'after-init-hook 'global-company-mode)
+;; )
+
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :config
+;;     (add-hook 'prog-mode-hook lsp-mode)
+;; )
+
+;;  (use-package lsp-ui
+;;    :ensure t
+;;    :config
+;;      (require 'lsp-mode)
+;;      (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+;; )
+
+;; (defun cquery//enable ()
+;;   (condition-case nil
+;;       (lsp-cquery-enable)
+;;     (user-error nil)))
+
+;;   (use-package cquery
+;;     :init
+;; (setq cquery-executable "/usr/bin/cquery")
+;; (add-hook 'c-mode-hook #'cquery//enable)
+;;           (add-hook 'c++-mode-hook #'cquery//enable))
+
+;; (use-package ccls
+;;   :ensure t
+;;   :init
+;;     (setq ccls-executable "/usr/bin/ccls")
+;; )
+
+;; (use-package eglot
+;;   :ensure t
+;;   :config
+;;     (add-hook 'c-mode-hook 'eglot-ensure)
+;; )
+
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :preface (setq lsp-enable-flycheck nil
+;;                  lsp-enable-indentation nil
+;;                  lsp-highlight-symbol-at-point nil)
+;;   )
+
+(use-package lsp-ui
+  :ensure t
+  :init (add-hook 'lsp-after-open-hook #'lsp-ui-mode)
+  :config
+  (setq lsp-ui-doc-enable t
+        lsp-ui-doc-header t
+        lsp-ui-doc-include-signature t
+        ;; lsp-ui-doc-position 'at-point
+        )
+  )
+
 (use-package company-lsp
   :ensure t
   :config
-  (require 'company-lsp)
   (push 'company-lsp company-backends)
-  (add-hook 'after-init-hook 'global-company-mode)
-)
-
-(use-package lsp-mode
-  :ensure t
-  :config
-    (add-hook 'prog-mode-hook lsp-mode)
-)
-
- (use-package lsp-ui
-   :ensure t
-   :config
-     (require 'lsp-mode)
-     (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+  (setq company-lsp-enable-recompletion t
+        company-lsp-enable-snippet t
+        company-lsp-cache-candidates t
+        company-lsp-async t)
 )
 
 (use-package lsp-clangd
   :ensure t
   :config
-    (add-hook 'c-mode-hook #'lsp-clangd-c-enable)
     (lsp-define-stdio-client lsp-clangd-c
                            "c"
                            #'projectile-project-root
                            '("/usr/bin/clangd"))
-    (add-hook 'c-mode-hook 'lsp-clangd-c-enable)
+    (add-hook 'c-mode-hook #'lsp-clangd-c-enable)
 )
 
 #+END_SRC
+
+#+RESULTS:
+: t
 
 ** (Relative) Line numbers
 
