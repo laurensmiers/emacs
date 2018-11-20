@@ -876,10 +876,15 @@ https://github.com/emacs-lsp/lsp-ui
 https://github.com/tigersoldier/company-lsp
 
 #+BEGIN_SRC emacs-lisp
+(defun +ccls/enable ()
+  (condition-case nil
+      (lsp-ccls-enable)
+    (user-error nil)))
+
 (use-package ccls
-  :ensure t
+  :commands lsp-ccls-enable
   :init
-    (setq ccls-executable "/usr/bin/ccls")
+  (add-hook 'c-mode-hook #'+ccls/enable)
 )
 
 (use-package lsp-ui
