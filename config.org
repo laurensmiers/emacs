@@ -15,14 +15,11 @@ My personal emacs configuration
 This configuration requires the installation of :
 
     - the GNU =global= package (for gtags)
-    - =clang= (for ivory)
-    - =cmake= (for ivory)
+    - ccls language server (for LSP functionality)
     - =llvm-libs= (for cmake, somehow not a dependency on Manjaro when installing cmake)
     - Use python-pip to install requirements for elpy:
       =pip install jedi flake8 importmagic autopep8 yapf=
     - =ditaa= (for ascii to image generation in org-mode)
-
-When first checking out this config, run =irony-install-server= to make and install the irony-server.
 
 * Utils
 
@@ -871,25 +868,19 @@ On-the-fly syntax checking.
 
 ** LSP
 
-#+BEGIN_SRC emacs-lisp
-(defun cquery//enable ()
-  (condition-case nil
-      (lsp-cquery-enable)
-    (user-error nil)))
+Just awesome IDE features:
+https://github.com/MaskRay/ccls
+https://github.com/MaskRay/emacs-ccls
+https://github.com/emacs-lsp/lsp-mode
+https://github.com/emacs-lsp/lsp-ui
+https://github.com/tigersoldier/company-lsp
 
-(use-package cquery
+#+BEGIN_SRC emacs-lisp
+(use-package ccls
   :ensure t
   :init
-    (setq cquery-executable "/usr/bin/cquery")
-    (add-hook 'c-mode-hook #'cquery//enable)
-    (add-hook 'c++-mode-hook #'cquery//enable)
+    (setq ccls-executable "/usr/bin/ccls")
 )
-
-;; (use-package ccls
-;;   :ensure t
-;;   :init
-;;     (setq ccls-executable "/usr/bin/ccls")
-;; )
 
 (use-package lsp-ui
   :ensure t
@@ -911,11 +902,7 @@ On-the-fly syntax checking.
         company-lsp-cache-candidates t
         company-lsp-async t)
 )
-
 #+END_SRC
-
-#+RESULTS:
-: t
 
 ** (Relative) Line numbers
 
@@ -931,56 +918,13 @@ On-the-fly syntax checking.
 
 *** Flycheck
 
-Clang static analyzer with flycheck
-
-https://github.com/alexmurray/flycheck-clang-analyzer
-https://github.com/Sarcasm/flycheck-irony
-
-#+BEGIN_SRC emacs-lisp
-(use-package flycheck-clang-analyzer
-  :ensure t
-  :config
-  (with-eval-after-load 'flycheck
-    (require 'flycheck-clang-analyzer)
-     (flycheck-clang-analyzer-setup)))
-
-;; (use-package flycheck-irony
-;;   :ensure t
-;;   :config
-;;     (eval-after-load 'flycheck
-;;       '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
-;; )
-#+END_SRC
+Functionality provided by LSP and flycheck combination.
 
 *** Company
-
-https://github.com/ikirill/irony-eldoc
 
 #+BEGIN_SRC emacs-lisp
 (use-package company-c-headers
   :ensure t)
-
-;; (use-package company-irony
-;;   :ensure t
-;;   :config
-;;   (setq company-backends '((company-c-headers
-;; ;;                            company-dabbrev-code ;; not sure what this is
-;;                             company-irony))))
-
-;; (use-package irony
-;;   :ensure t
-;;   :config
-;;     (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-;;     (add-hook 'c++-mode-hook 'irony-mode)
-;;     (add-hook 'c-mode-hook 'irony-mode)
-;;     (add-hook 'objc-mode-hook 'irony-mode)
-;; )
-
-(use-package irony-eldoc
-  :ensure t
-  :config
-    (add-hook 'irony-mode-hook 'irony-eldoc)
-)
 #+END_SRC
 
 ** Python mode
