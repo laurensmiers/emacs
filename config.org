@@ -882,6 +882,7 @@ https://github.com/tigersoldier/company-lsp
     (user-error nil)))
 
 (use-package ccls
+  :ensure t
   :commands lsp-ccls-enable
   :init
   (add-hook 'c-mode-hook #'+ccls/enable)
