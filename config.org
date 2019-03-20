@@ -24,6 +24,32 @@ This configuration requires the installation of :
 
 When first checking out this config, run =irony-install-server= to make and install the irony-server.
 
+* EXWM
+
+#+BEGIN_SRC emacs-lisp
+(defun found-custom-arg (switch)
+  (let ((found-switch (member switch command-line-args)))
+    (setq command-line-args (delete switch command-line-args))
+    found-switch))
+
+(use-package exwm
+  :ensure t
+)
+
+(if (found-custom-arg "-start_wm")
+  (progn
+    (message "Loading EXWM...")
+    (require 'exwm)
+    (require 'exwm-config)
+
+    ;; systray not working?
+    (require 'exwm-systemtray)
+    (exwm-systemtray-enable)
+    (exwm-config-default)
+  )
+)
+#+END_SRC
+
 * Resize frame
 
 Minor-mode to easily resize frames (works with EXWM (firefox, ...)).
@@ -247,6 +273,9 @@ Since I like it to give me a list of recent files, we need to enable =recentf-mo
     (setq dashboard-banner-logo-title "")
 )
 #+END_SRC
+
+Important to note, =dashboard-setup-startup-hook= will not display the dashboard when command-line arguments are provided.
+It assumes the command line arguments are filenames and skips showing the dashboard.
 
 * Zygospore
 
