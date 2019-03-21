@@ -874,6 +874,7 @@ https://github.com/MaskRay/emacs-ccls
 https://github.com/emacs-lsp/lsp-mode
 https://github.com/emacs-lsp/lsp-ui
 https://github.com/tigersoldier/company-lsp
+https://github.com/joaotavora/eglot
 
 #+BEGIN_SRC emacs-lisp
 (defun +ccls/enable ()
@@ -907,6 +908,12 @@ https://github.com/tigersoldier/company-lsp
         company-lsp-enable-snippet t
         company-lsp-cache-candidates t
         company-lsp-async t)
+)
+
+(use-package eglot
+  :ensure t
+  :init
+  (add-hook 'prog-mode-hook 'eglot-ensure)
 )
 #+END_SRC
 
