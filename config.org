@@ -41,14 +41,68 @@ When first checking out this config, run =irony-install-server= to make and inst
     (message "Loading EXWM...")
     (require 'exwm)
     (require 'exwm-config)
+    (require 'exwm-randr)
 
     ;; systray not working?
     (require 'exwm-systemtray)
     (exwm-systemtray-enable)
-    (exwm-config-default)
+
+    (setq exwm-workspace-number 2)
+
+    (setq exwm-randr-workspace-output-plist
+      '(0 "DP1" 1 "DP2"))
+    (add-hook 'exwm-randr-screen-change-hook
+          (lambda ()
+            (start-process-shell-command
+             "xrandr" nil "xrandr --output DP2 --primary --mode 1920x1080 --pos 1920x0 --rotate left --output DP1 --mode 1920x1080 --pos 0x0 --rotate normal --auto")))
+    (exwm-randr-enable)
+
+
+
+  ;; Make class name the buffer name
+    (add-hook 'exwm-update-class-hook
+            (lambda ()
+              (exwm-workspace-rename-buffer exwm-class-name)))
+  ;; Global keybindings.
+    (setq exwm-input-global-keys
+          `(
+            ;; 's-r': Reset (to line-mode).
+            ([?\s-r] . exwm-reset)
+            ;; 's-w': Switch workspace.
+            ([?\s-w] . exwm-workspace-switch)
+            ;; 's-&': Launch application.
+            ([s-return] . (lambda (command)
+		         (interactive (list (read-shell-command "$ ")))
+		         (start-process-shell-command command nil command)))
+            ;; 's-N': Switch to certain workspace.
+            ,@(mapcar (lambda (i)
+                        `(,(kbd (format "s-%d" i)) .
+                          (lambda ()
+                            (interactive)
+                            (exwm-workspace-switch-create ,i))))
+                      (number-sequence 0 9))))
+  ;; Line-editing shortcuts
+    (setq exwm-input-simulation-keys
+          '(([?\C-b] . [left])
+            ([?\C-f] . [right])
+            ([?\C-p] . [up])
+            ([?\C-n] . [down])
+            ([?\C-a] . [home])
+            ([?\C-e] . [end])
+            ([?\M-v] . [prior])
+            ([?\C-v] . [next])
+            ([?\C-d] . [delete])
+            ([?\C-s] . [C-f])
+            ([?\C-k] . [S-end delete])))
+
+  (global-set-key (kbd "C-x C-b") 'exwm-workspace-switch-to-buffer)
+
+  ;; Enable EXWM
+  (exwm-enable)
   )
 )
 #+END_SRC
+
 
 * Resize frame
 
@@ -940,7 +994,20 @@ https://github.com/dimitri/switch-window
     (setq switch-window-shortcut-style 'qwerty)
     (setq switch-window-qwerty-shortcuts
         '("a" "s" "d" "f" "j" "k" "l" "i" "o"))
-;;    (setq switch-window-multiple-frames t) ;; TODO: doesn't work properly..
+    (setq switch-window-multiple-frames t)
+
+;; TODO: test if this fixes exwm stuff
+    (setq switch-window-input-style 'minibuffer)
+
+;; (defun akirak/switch-window-frame-list-function ()
+;;   "Frame list function for `switch-window' on EXWM."
+;;   (cl-remove-if-not #'exwm-workspace--active-p (visible-frame-list)))
+
+;; (setq switch-window-frame-list-function
+;;         'akirak/switch-window-frame-list-function)
+
+
+
   :bind
     ("C-x o" . switch-window))
 #+END_SRC
