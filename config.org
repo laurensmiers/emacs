@@ -24,6 +24,60 @@ This configuration requires the installation of :
 
 When first checking out this config, run =irony-install-server= to make and install the irony-server.
 
+* Utils
+
+** Custom command line arguments
+
+Return if a custom command line arguments was found.
+If it was found, we delete it from the list of command line arguments.
+
+#+BEGIN_SRC emacs-lisp
+(defun found-custom-arg (switch)
+  (let ((found-switch (member switch command-line-args)))
+    (setq command-line-args (delete switch command-line-args))
+    found-switch))
+#+END_SRC
+
+** Global variables
+
+Some package behave strangely if we have custom command line parameters.
+F.e. Dashboard assumes you are directly opening a file so it won't load the dashboard.
+
+So, we remove our custom variables from the command line arguments and set global 'flags'.
+These flags will enable/disable parts of the config.
+
+#+BEGIN_SRC emacs-lisp
+(setq EXWM_ENABLE nil)
+
+(if (found-custom-arg "-start_wm")
+  (setq EXWM_ENABLE t)
+)
+
+#+END_SRC
+
+* Term
+
+** Toggle between char- and line-mode
+
+Courtesy goes to https://joelmccracken.github.io/entries/switching-between-term-mode-and-line-mode-in-emacs-term/
+
+#+BEGIN_SRC emacs-lisp
+(require 'term)
+
+(defun jnm/term-toggle-mode ()
+  "Toggles term between line mode and char mode"
+  (interactive)
+  (if (term-in-line-mode)
+      (term-char-mode)
+    (term-line-mode)))
+
+(define-key term-mode-map (kbd "C-c C-j") 'jnm/term-toggle-mode)
+(define-key term-mode-map (kbd "C-c C-k") 'jnm/term-toggle-mode)
+
+(define-key term-raw-map (kbd "C-c C-j") 'jnm/term-toggle-mode)
+(define-key term-raw-map (kbd "C-c C-k") 'jnm/term-toggle-mode)
+#+END_SRC
+
 * Resize frame
 
 Minor-mode to easily resize frames (works with EXWM (firefox, ...)).
@@ -247,6 +301,9 @@ Since I like it to give me a list of recent files, we need to enable =recentf-mo
     (setq dashboard-banner-logo-title "")
 )
 #+END_SRC
+
+Important to note, =dashboard-setup-startup-hook= will not display the dashboard when command-line arguments are provided.
+It assumes the command line arguments are filenames and skips showing the dashboard.
 
 * Zygospore
 
@@ -901,6 +958,8 @@ Credit goes to https://github.com/daedreth/UncleDavesEmacs
 
 https://github.com/dimitri/switch-window
 
+Explanation for different config when EXWM is in the README on the github.
+
 #+BEGIN_SRC emacs-lisp
 (use-package switch-window
   :ensure t
@@ -911,21 +970,30 @@ https://github.com/dimitri/switch-window
     (setq switch-window-shortcut-style 'qwerty)
     (setq switch-window-qwerty-shortcuts
         '("a" "s" "d" "f" "j" "k" "l" "i" "o"))
-;;    (setq switch-window-multiple-frames t) ;; TODO: doesn't work properly..
+    (setq switch-window-multiple-frames t)
+
+    (if EXWM_ENABLE
+      (progn
+        (setq switch-window-input-style 'minibuffer)
+      )
+    )
+
+
+
+
   :bind
     ("C-x o" . switch-window))
 #+END_SRC
 
 When using exwm, have a look at this: https://github.com/dimitri/switch-window/pull/62
 
-
-** Multi-frame rebindings (obsolete with switch-window)
+** Multi-frame rebindings (OBSOLETE with switch-window)
 
 Sometimes I have multiple emacs-frames open.
 In the past, I preferred that the normal =C-x o= can deal with this but this is used by switch-window now.
 
 #+BEGIN_SRC emacs-lisp
-;; Use C-x o to switch to other frame when using multi-monitor
+;; ;; Use C-x o to switch to other frame when using multi-monitor
 ;; (global-set-key (kbd "C-x o") 'next-multiframe-window)
 #+END_SRC
 
@@ -1172,13 +1240,85 @@ https://github.com/Malabarba/paradox
 )
 #+END_SRC
 
+* EXWM
+
+Arandr config is still too static, should find a way to simplify this.
+
+#+BEGIN_SRC emacs-lisp
+(if EXWM_ENABLE
+  (progn
+    (message "Loading EXWM...")
+    (use-package exwm
+      :ensure t
+      :config
+      (require 'exwm-systemtray)
+      (exwm-systemtray-enable)
+
+      (require 'exwm-randr)
+      (setq exwm-workspace-number 1)
+
+      ;; (setq exwm-randr-workspace-output-plist
+      ;;   '(0 "DP1" 1 "DP2"))
+      ;; (add-hook 'exwm-randr-screen-change-hook
+      ;;       (lambda ()
+      ;;         (start-process-shell-command
+      ;;          "xrandr" nil "xrandr --output DP2 --primary --mode 1920x1080 --pos 1920x0 --rotate left --output DP1 --mode 1920x1080 --pos 0x0 --rotate normal --auto")))
+      ;; (exwm-randr-enable)
+
+      (require 'exwm-config)
+
+      ;; Make class name the buffer name
+      (add-hook 'exwm-update-class-hook
+              (lambda ()
+                (exwm-workspace-rename-buffer exwm-class-name)))
+      ;; Global keybindings.
+      (setq exwm-input-global-keys
+            `(
+              ;; 's-r': Reset (to line-mode).
+              ([?\s-r] . exwm-reset)
+              ;; 's-w': Switch workspace.
+              ([?\s-w] . exwm-workspace-switch)
+              ;; 's-return': Launch application.
+              ([s-return] . (lambda (command)
+  		         (interactive (list (read-shell-command "$ ")))
+  		         (start-process-shell-command command nil command)))
+              ;; 's-N': Switch to certain workspace.
+              ,@(mapcar (lambda (i)
+                          `(,(kbd (format "s-%d" i)) .
+                            (lambda ()
+                              (interactive)
+                              (exwm-workspace-switch-create ,i))))
+                        (number-sequence 0 9))))
+      ;; Line-editing shortcuts
+      (setq exwm-input-simulation-keys
+            '(([?\C-b] . [left])
+              ([?\C-f] . [right])
+              ([?\C-p] . [up])
+              ([?\C-n] . [down])
+              ([?\C-a] . [home])
+              ([?\C-e] . [end])
+              ([?\M-v] . [prior])
+              ([?\C-v] . [next])
+              ([?\C-d] . [delete])
+              ([?\C-s] . [C-f])
+              ([?\C-k] . [S-end delete])))
+
+      (global-set-key (kbd "C-x C-b") 'exwm-workspace-switch-to-buffer)
+
+      ;; Enable EXWM
+      (exwm-enable)
+    )
+  )
+)
+#+END_SRC
+
 * TODO
 
 stuff i need to look into:
 - ibuffer
-- switch-window
+- fix dired-mode (f.e. new-buffer for every folder, ...)
+- helm-exwm
 - symon
 - spaceline
 - async
-- exwm
 - helm-hide-minibuffer
