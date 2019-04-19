@@ -958,6 +958,8 @@ Credit goes to https://github.com/daedreth/UncleDavesEmacs
 
 https://github.com/dimitri/switch-window
 
+Explanation for different config when EXWM is in the README on the github.
+
 #+BEGIN_SRC emacs-lisp
 (use-package switch-window
   :ensure t
@@ -970,15 +972,12 @@ https://github.com/dimitri/switch-window
         '("a" "s" "d" "f" "j" "k" "l" "i" "o"))
     (setq switch-window-multiple-frames t)
 
-;; TODO: test if this fixes exwm stuff
-    (setq switch-window-input-style 'minibuffer)
+    (if EXWM_ENABLE
+      (progn
+        (setq switch-window-input-style 'minibuffer)
+      )
+    )
 
-;; (defun akirak/switch-window-frame-list-function ()
-;;   "Frame list function for `switch-window' on EXWM."
-;;   (cl-remove-if-not #'exwm-workspace--active-p (visible-frame-list)))
-
-;; (setq switch-window-frame-list-function
-;;         'akirak/switch-window-frame-list-function)
 
 
 
@@ -988,14 +987,13 @@ https://github.com/dimitri/switch-window
 
 When using exwm, have a look at this: https://github.com/dimitri/switch-window/pull/62
 
-
-** Multi-frame rebindings (obsolete with switch-window)
+** Multi-frame rebindings (OBSOLETE with switch-window)
 
 Sometimes I have multiple emacs-frames open.
 In the past, I preferred that the normal =C-x o= can deal with this but this is used by switch-window now.
 
 #+BEGIN_SRC emacs-lisp
-;; Use C-x o to switch to other frame when using multi-monitor
+;; ;; Use C-x o to switch to other frame when using multi-monitor
 ;; (global-set-key (kbd "C-x o") 'next-multiframe-window)
 #+END_SRC
 
@@ -1318,9 +1316,9 @@ Arandr config is still too static, should find a way to simplify this.
 
 stuff i need to look into:
 - ibuffer
-- switch-window
+- fix dired-mode (f.e. new-buffer for every folder, ...)
+- helm-exwm
 - symon
 - spaceline
 - async
-- exwm
 - helm-hide-minibuffer
