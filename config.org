@@ -38,6 +38,23 @@ If it was found, we delete it from the list of command line arguments.
     found-switch))
 #+END_SRC
 
+** Global variables
+
+Some package behave strangely if we have custom command line parameters.
+F.e. Dashboard assumes you are directly opening a file so it won't load the dashboard.
+
+So, we remove our custom variables from the command line arguments and set global 'flags'.
+These flags will enable/disable parts of the config.
+
+#+BEGIN_SRC emacs-lisp
+(setq EXWM_ENABLE nil)
+
+(if (found-custom-arg "-start_wm")
+  (setq EXWM_ENABLE t)
+)
+
+#+END_SRC
+
 * Term
 
 ** Toggle between char- and line-mode
@@ -1230,7 +1247,7 @@ https://github.com/Malabarba/paradox
 Arandr config is still too static, should find a way to simplify this.
 
 #+BEGIN_SRC emacs-lisp
-(if (found-custom-arg "-start_wm")
+(if EXWM_ENABLE
   (progn
     (message "Loading EXWM...")
     (use-package exwm
