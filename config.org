@@ -1255,15 +1255,15 @@ Arandr config is still too static, should find a way to simplify this.
       (exwm-systemtray-enable)
 
       (require 'exwm-randr)
-      (setq exwm-workspace-number 2)
+      (setq exwm-workspace-number 1)
 
-      (setq exwm-randr-workspace-output-plist
-        '(0 "DP1" 1 "DP2"))
-      (add-hook 'exwm-randr-screen-change-hook
-            (lambda ()
-              (start-process-shell-command
-               "xrandr" nil "xrandr --output DP2 --primary --mode 1920x1080 --pos 1920x0 --rotate left --output DP1 --mode 1920x1080 --pos 0x0 --rotate normal --auto")))
-      (exwm-randr-enable)
+      ;; (setq exwm-randr-workspace-output-plist
+      ;;   '(0 "DP1" 1 "DP2"))
+      ;; (add-hook 'exwm-randr-screen-change-hook
+      ;;       (lambda ()
+      ;;         (start-process-shell-command
+      ;;          "xrandr" nil "xrandr --output DP2 --primary --mode 1920x1080 --pos 1920x0 --rotate left --output DP1 --mode 1920x1080 --pos 0x0 --rotate normal --auto")))
+      ;; (exwm-randr-enable)
 
       (require 'exwm-config)
 
