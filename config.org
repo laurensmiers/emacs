@@ -38,78 +38,6 @@ If it was found, we delete it from the list of command line arguments.
     found-switch))
 #+END_SRC
 
-* EXWM
-
-Arandr config is still too static, should find a way to simplify this.
-
-#+BEGIN_SRC emacs-lisp
-(if (found-custom-arg "-start_wm")
-  (progn
-    (message "Loading EXWM...")
-    (use-package exwm
-      :ensure t
-      :config
-      (require 'exwm-systemtray)
-      (exwm-systemtray-enable)
-
-      (require 'exwm-randr)
-      (setq exwm-workspace-number 2)
-
-      (setq exwm-randr-workspace-output-plist
-        '(0 "DP1" 1 "DP2"))
-      (add-hook 'exwm-randr-screen-change-hook
-            (lambda ()
-              (start-process-shell-command
-               "xrandr" nil "xrandr --output DP2 --primary --mode 1920x1080 --pos 1920x0 --rotate left --output DP1 --mode 1920x1080 --pos 0x0 --rotate normal --auto")))
-      (exwm-randr-enable)
-
-      (require 'exwm-config)
-
-      ;; Make class name the buffer name
-      (add-hook 'exwm-update-class-hook
-              (lambda ()
-                (exwm-workspace-rename-buffer exwm-class-name)))
-      ;; Global keybindings.
-      (setq exwm-input-global-keys
-            `(
-              ;; 's-r': Reset (to line-mode).
-              ([?\s-r] . exwm-reset)
-              ;; 's-w': Switch workspace.
-              ([?\s-w] . exwm-workspace-switch)
-              ;; 's-return': Launch application.
-              ([s-return] . (lambda (command)
-  		         (interactive (list (read-shell-command "$ ")))
-  		         (start-process-shell-command command nil command)))
-              ;; 's-N': Switch to certain workspace.
-              ,@(mapcar (lambda (i)
-                          `(,(kbd (format "s-%d" i)) .
-                            (lambda ()
-                              (interactive)
-                              (exwm-workspace-switch-create ,i))))
-                        (number-sequence 0 9))))
-      ;; Line-editing shortcuts
-      (setq exwm-input-simulation-keys
-            '(([?\C-b] . [left])
-              ([?\C-f] . [right])
-              ([?\C-p] . [up])
-              ([?\C-n] . [down])
-              ([?\C-a] . [home])
-              ([?\C-e] . [end])
-              ([?\M-v] . [prior])
-              ([?\C-v] . [next])
-              ([?\C-d] . [delete])
-              ([?\C-s] . [C-f])
-              ([?\C-k] . [S-end delete])))
-
-      (global-set-key (kbd "C-x C-b") 'exwm-workspace-switch-to-buffer)
-
-      ;; Enable EXWM
-      (exwm-enable)
-    )
-  )
-)
-#+END_SRC
-
 * Term
 
 ** Toggle between char- and line-mode
@@ -1294,6 +1222,78 @@ https://github.com/Malabarba/paradox
     (setq paradox-execute-asynchronously t)
   :config
     (paradox-enable)
+)
+#+END_SRC
+
+* EXWM
+
+Arandr config is still too static, should find a way to simplify this.
+
+#+BEGIN_SRC emacs-lisp
+(if (found-custom-arg "-start_wm")
+  (progn
+    (message "Loading EXWM...")
+    (use-package exwm
+      :ensure t
+      :config
+      (require 'exwm-systemtray)
+      (exwm-systemtray-enable)
+
+      (require 'exwm-randr)
+      (setq exwm-workspace-number 2)
+
+      (setq exwm-randr-workspace-output-plist
+        '(0 "DP1" 1 "DP2"))
+      (add-hook 'exwm-randr-screen-change-hook
+            (lambda ()
+              (start-process-shell-command
+               "xrandr" nil "xrandr --output DP2 --primary --mode 1920x1080 --pos 1920x0 --rotate left --output DP1 --mode 1920x1080 --pos 0x0 --rotate normal --auto")))
+      (exwm-randr-enable)
+
+      (require 'exwm-config)
+
+      ;; Make class name the buffer name
+      (add-hook 'exwm-update-class-hook
+              (lambda ()
+                (exwm-workspace-rename-buffer exwm-class-name)))
+      ;; Global keybindings.
+      (setq exwm-input-global-keys
+            `(
+              ;; 's-r': Reset (to line-mode).
+              ([?\s-r] . exwm-reset)
+              ;; 's-w': Switch workspace.
+              ([?\s-w] . exwm-workspace-switch)
+              ;; 's-return': Launch application.
+              ([s-return] . (lambda (command)
+  		         (interactive (list (read-shell-command "$ ")))
+  		         (start-process-shell-command command nil command)))
+              ;; 's-N': Switch to certain workspace.
+              ,@(mapcar (lambda (i)
+                          `(,(kbd (format "s-%d" i)) .
+                            (lambda ()
+                              (interactive)
+                              (exwm-workspace-switch-create ,i))))
+                        (number-sequence 0 9))))
+      ;; Line-editing shortcuts
+      (setq exwm-input-simulation-keys
+            '(([?\C-b] . [left])
+              ([?\C-f] . [right])
+              ([?\C-p] . [up])
+              ([?\C-n] . [down])
+              ([?\C-a] . [home])
+              ([?\C-e] . [end])
+              ([?\M-v] . [prior])
+              ([?\C-v] . [next])
+              ([?\C-d] . [delete])
+              ([?\C-s] . [C-f])
+              ([?\C-k] . [S-end delete])))
+
+      (global-set-key (kbd "C-x C-b") 'exwm-workspace-switch-to-buffer)
+
+      ;; Enable EXWM
+      (exwm-enable)
+    )
+  )
 )
 #+END_SRC
 
