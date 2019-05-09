@@ -763,12 +763,12 @@ Helm frontend for [[Multi-term]]
 https://github.com/dfdeshom/helm-mt
 
 #+BEGIN_SRC emacs-lisp
-;; (use-package helm-mt
-;;   :ensure t
-;;   :bind (("C-x t") . helm-mt)
-;;   :config
-;;   (helm-mt/reroute-terminal-functions t)
-;; )
+(use-package helm-mt
+  :ensure t
+  :bind ("C-x t" . helm-mt)
+  :config
+  (helm-mt/reroute-terminal-functions t)
+)
 #+END_SRC
 
 * Mutliple cursors
