@@ -757,6 +757,20 @@ https://github.com/bbatsov/helm-projectile
 )
 #+END_SRC
 
+** Helm-mt
+
+Helm frontend for [[Multi-term]]
+https://github.com/dfdeshom/helm-mt
+
+#+BEGIN_SRC emacs-lisp
+(use-package multi-term
+  :ensure t
+  :bind (("C-x t") . helm-mt)
+  :config
+  (helm-mt/reroute-terminal-functions t)
+)
+#+END_SRC
+
 * Mutliple cursors
 
 https://github.com/magnars/multiple-cursors.el
@@ -1192,6 +1206,20 @@ https://github.com/myrjola/diminish.el
   (diminish 'helm-mode)
   (diminish 'undo-tree-mode)
   (diminish 'page-break-lines-mode)
+)
+#+END_SRC
+
+* Shell
+** Multi-term
+<<multi-term>>
+
+Manage multiple terminals.
+
+https://www.emacswiki.org/emacs/MultiTerm
+
+#+BEGIN_SRC emacs-lisp
+(use-package multi-term
+  :ensure t
 )
 #+END_SRC
 
