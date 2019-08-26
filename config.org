@@ -1187,6 +1187,8 @@ https://github.com/myrjola/diminish.el
   (diminish 'helm-mode)
   (diminish 'undo-tree-mode)
   (diminish 'page-break-lines-mode)
+  (diminish 'which-key-mode)
+  (diminish 'magit-mode)
 )
 #+END_SRC
 
