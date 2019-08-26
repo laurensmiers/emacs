@@ -449,17 +449,6 @@ Some basic C-coding settings (style, indentation offset, ...).
 #+BEGIN_SRC emacs-lisp
 ;; default coding style
 (setq c-default-style "linux")
-
-;; sane indentation offset
-(setq c-basic-offset 4)
-#+END_SRC
-
-** Tabs vs spaces
-
-Tabs are evil.
-
-#+BEGIN_SRC emacs-lisp
-(setq-default indent-tabs-mode nil)
 #+END_SRC
 
 * Undo-tree
