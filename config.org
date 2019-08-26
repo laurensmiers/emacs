@@ -23,6 +23,17 @@ This configuration requires the installation of :
     - =ditaa= (for ascii to image generation in org-mode)
 
 When first checking out this config, run =irony-install-server= to make and install the irony-server.
+* Workarounds
+** Emacs 26.2
+
+Had some problems with downloading the spinner package in Emacs.
+It is a known bug in Emacs 26.2.
+https://www.reddit.com/r/emacs/comments/cdei4p/failed_to_download_gnu_archive_bad_request/
+https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
+
+#+BEGIN_SRC emacs-lisp
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+#+END_SRC
 
 * Utils
 
