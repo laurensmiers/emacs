@@ -256,6 +256,14 @@ This small function just switches the focus to the newly opened window so we can
 (add-hook 'help-mode-hook 'move-to-help-window)
 #+END_SRC
 
+** Adaptive cursor width
+
+Make cursor the width of the character it is under f.e. full diwth of a tab.
+
+#+BEGIN_SRC emacs-lisp
+(setq x-stretch-cursor t)
+#+END_SRC
+
 * Which-key
 
 Display available keybindings in popup:
