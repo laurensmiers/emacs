@@ -116,6 +116,23 @@ https://www.masteringemacs.org/article/complete-guide-mastering-eshell
 (add-hook 'eshell-mode-hook 'eshell-smart-initialize)
 #+END_SRC
 
+*** Remember password
+
+In order to make eshell remember the password for X time after entering it, we have to do a few things.
+
+We first have to switch to eshell/sudo if we want to be independent of the underlying OS.
+We could use an alias (alias sudo eshell/sudo $*), but to keep things inside this config file, switch to lisp functions before we set the password cache:
+
+#+BEGIN_SRC emacs-lisp
+(require 'em-tramp) ; to load eshell’s sudo
+
+(setq eshell-prefer-lisp-functions t)
+(setq eshell-prefer-lisp-variables t)
+
+(setq password-cache t) ; enable password caching
+(setq password-cache-expiry 3600) ; for one hour (time in secs)
+#+END_SRC
+
 * Resize frame
 
 Minor-mode to easily resize frames (works with EXWM (firefox, ...)).
