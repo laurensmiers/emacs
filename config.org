@@ -510,6 +510,9 @@ https://github.com/Fuco1/smartparens
 #+BEGIN_SRC emacs-lisp
 (use-package smartparens
   :ensure t
+  :bind
+    ("C-M-k" . sp-kill-sexp)
+    ("C-M-w" . sp-copy-sexp)
   :config
     (require 'smartparens-config)
     (show-smartparens-global-mode t)
@@ -566,7 +569,7 @@ https://github.com/Fuco1/smartparens
 ;; (define-key smartparens-mode-map (kbd "C-M-b") 'sp-backward-sexp)
 ;;
 ;; ;; TODO: in manjaro this selects keyboard-layout or something
-;; ;;(define-key smartparens-mode-map (kbd "C-M-k") 'sp-kill-sexp)
+;; (define-key smartparens-mode-map (kbd "C-M-k") 'sp-kill-sexp)
 ;; (define-key smartparens-mode-map (kbd "C-M-w") 'sp-copy-sexp)
 ;;
 ;; (define-key smartparens-mode-map (kbd "C-M-n") 'sp-next-sexp)
