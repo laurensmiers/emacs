@@ -413,13 +413,6 @@ Remove scroll-, tool- and menu-bar. I don't use them so free some space.
 (menu-bar-mode -1)
 #+END_SRC
 
-** Tab-width
-
-Set the default tab width.
-#+BEGIN_SRC emacs-lisp
-(setq-default tab-width 4)
-#+END_SRC
-
 ** Automatic indent
 
 Automatically indent when pressing =RET=.
