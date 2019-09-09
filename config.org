@@ -86,6 +86,19 @@ Courtesy goes to https://joelmccracken.github.io/entries/switching-between-term-
 (define-key term-raw-map (kbd "C-c C-k") 'jnm/term-toggle-mode)
 #+END_SRC
 
+** With editor
+This will ensure things/commands/... called in eshell/shell that use $EDITOR, will use the current Emacs.
+
+#+BEGIN_SRC emacs-lisp
+(use-package with-editor
+  :ensure t
+  :commands with-editor-export-editor
+  :init
+  (progn
+    (add-hook 'shell-mode-hook  'with-editor-export-editor)
+    (add-hook 'eshell-mode-hook 'with-editor-export-editor)))
+#+END_SRC
+
 * Resize frame
 
 Minor-mode to easily resize frames (works with EXWM (firefox, ...)).
