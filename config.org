@@ -99,6 +99,23 @@ This will ensure things/commands/... called in eshell/shell that use $EDITOR, wi
     (add-hook 'eshell-mode-hook 'with-editor-export-editor)))
 #+END_SRC
 
+** Eshell
+
+*** Smart mode
+
+Plan 9 smart terminal features, for more info:
+https://www.masteringemacs.org/article/complete-guide-mastering-eshell
+
+#+BEGIN_SRC emacs-lisp
+(require 'eshell)
+(require 'em-smart)
+(setq eshell-where-to-jump 'begin)
+(setq eshell-review-quick-commands nil)
+(setq eshell-smart-space-goes-to-end t)
+
+(add-hook 'eshell-mode-hook 'eshell-smart-initialize)
+#+END_SRC
+
 * Resize frame
 
 Minor-mode to easily resize frames (works with EXWM (firefox, ...)).
