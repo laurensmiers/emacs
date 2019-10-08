@@ -1349,6 +1349,26 @@ Arandr config is still too static, should find a way to simplify this.
 )
 #+END_SRC
 
+* Transparency
+
+Taken from EmacsWiki:
+https://www.emacswiki.org/emacs/TransparentEmacs
+
+#+BEGIN_SRC emacs-lisp
+ (defun toggle-transparency ()
+   (interactive)
+   (let ((alpha (frame-parameter nil 'alpha)))
+     (set-frame-parameter
+      nil 'alpha
+      (if (eql (cond ((numberp alpha) alpha)
+                     ((numberp (cdr alpha)) (cdr alpha))
+                     ;; Also handle undocumented (<active> <inactive>) form.
+                     ((numberp (cadr alpha)) (cadr alpha)))
+               100)
+          '(85 . 50) '(100 . 100)))))
+ (global-set-key (kbd "C-x t") 'toggle-transparency)
+#+END_SRC
+
 * TODO
 
 stuff i need to look into:
