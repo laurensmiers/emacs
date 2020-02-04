@@ -704,7 +704,8 @@ https://github.com/bbatsov/projectile
 (use-package projectile
   :ensure t
   :config
-    (setq projectile-indexing-method 'alien)
+    (setq projectile-globally-ignored-directories (cons ".ccls-cache" projectile-globally-ignored-directories))
+    (setq projectile-indexing-method 'hybrid)
     (projectile-global-mode)
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 )
