@@ -788,7 +788,7 @@ https://github.com/bbatsov/projectile
     (add-hook 'java-mode-hook 'helm-gtags-mode)
     (add-hook 'asm-mode-hook 'helm-gtags-mode)
 
-    (custom-set-variables '(helm-gtags-auto-update t))
+    (setq helm-gtags-auto-update t)
 )
 #+END_SRC
 
