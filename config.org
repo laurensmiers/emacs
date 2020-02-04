@@ -933,6 +933,8 @@ https://github.com/alexmurray/flycheck-clang-analyzer
 (use-package lsp-ui
   :commands lsp-ui-mode
   :ensure t
+  :config
+    (setq lsp-ui-doc-position (quote top))
 )
 
 (use-package company-lsp
