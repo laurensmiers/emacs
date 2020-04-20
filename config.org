@@ -787,12 +787,13 @@ https://github.com/bbatsov/projectile
 
 ** Helm-gtags
 
+I use LSP for finding references,.. etc so not strictly necessary.
+However, sometimes there is a (legacy) project which doesn't fit in nicely with LSP,
+so keep gtags around just in case.
+
 #+BEGIN_SRC emacs-lisp
 (use-package helm-gtags
   :ensure t
-  :bind
-    ( "M-." . helm-gtags-find-tag-from-here)
-    ( "M-," . helm-gtags-pop-stack)
   :config
     (add-hook 'c-mode-hook 'helm-gtags-mode)
     (add-hook 'c++-mode-hook 'helm-gtags-mode)
@@ -801,6 +802,9 @@ https://github.com/bbatsov/projectile
     (add-hook 'asm-mode-hook 'helm-gtags-mode)
 
     (setq helm-gtags-auto-update t)
+
+    (define-key helm-gtags-mode-map (kbd "C-c g .") 'helm-gtags-find-tag-from-here)
+    (define-key helm-gtags-mode-map (kbd "C-c g ,") 'helm-gtags-pop-stack)
 )
 #+END_SRC
 
