@@ -944,12 +944,17 @@ https://github.com/joaotavora/yasnippet
   :ensure t
   :config
     (setq lsp-ui-doc-position (quote top))
+    (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+    (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
+    (define-key lsp-ui-mode-map [remap complete-symbol] #'company-complete)
 )
 
 (use-package company-lsp
   :ensure t
   :commands company-lsp
-  :config (push 'company-lsp company-backends)) ;; add company-lsp as a backend
+  :config
+    (push 'company-lsp company-backends) ;; add company-lsp as a backend
+)
 
 (use-package ccls
   :ensure t
