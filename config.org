@@ -921,6 +921,14 @@ https://github.com/joaotavora/yasnippet
     (add-hook 'prog-mode-hook 'linum-relative-mode))
 #+END_SRC
 
+** xref
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "M-.") 'xref-find-definitions)
+(global-set-key (kbd "C-M-.") 'xref-find-references)
+(global-set-key (kbd "M-,") 'xref-pop-marker-stack)
+#+END_SRC
+
 ** C/C++ mode
 
 *** Company
