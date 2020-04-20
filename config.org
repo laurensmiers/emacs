@@ -1386,6 +1386,21 @@ https://www.emacswiki.org/emacs/TransparentEmacs
  (global-set-key (kbd "C-x t") 'toggle-transparency)
 #+END_SRC
 
+* Debugging
+
+Just some ways to debug lags, etc.
+
+#+BEGIN_SRC
+M-x profiler-start
+
+...do stuff...
+
+M-x profiler-report
+#+END_SRC
+
+Some usefull links:
+- https://emacs.stackexchange.com/questions/5359/how-can-i-troubleshoot-a-very-slow-emacs
+
 * TODO
 
 stuff i need to look into:
