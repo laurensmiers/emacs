@@ -919,21 +919,6 @@ https://github.com/joaotavora/yasnippet
 
 ** C/C++ mode
 
-*** Flycheck
-
-Clang static analyzer with flycheck (On-the-fly syntax checking)
-
-https://github.com/alexmurray/flycheck-clang-analyzer
-
-#+BEGIN_SRC emacs-lisp
-(use-package flycheck-clang-analyzer
-  :ensure t
-  :config
-  (with-eval-after-load 'flycheck
-    (require 'flycheck-clang-analyzer)
-     (flycheck-clang-analyzer-setup)))
-#+END_SRC
-
 *** Company
 
 #+BEGIN_SRC emacs-lisp
@@ -1388,6 +1373,7 @@ https://www.emacswiki.org/emacs/TransparentEmacs
 
 stuff i need to look into:
 - ibuffer
+- flycheck
 - fix dired-mode (f.e. new-buffer for every folder, ...)
 - helm-exwm
 - symon
