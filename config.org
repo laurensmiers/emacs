@@ -14,8 +14,7 @@ My personal emacs configuration
 
 This configuration requires the installation of :
 
-    - the GNU =global= package (for gtags)
-    - =ccls=, a language server for C/C++
+    - =rtags=
     - Use python-pip to install requirements for elpy:
       =pip install jedi flake8 importmagic autopep8 yapf=
     - =ditaa= (for ascii to image generation in org-mode)
@@ -812,20 +811,20 @@ However, sometimes there is a (legacy) project which doesn't fit in nicely with 
 so keep gtags around just in case.
 
 #+BEGIN_SRC emacs-lisp
-(use-package helm-gtags
-  :ensure t
-  :config
-    (add-hook 'c-mode-hook 'helm-gtags-mode)
-    (add-hook 'c++-mode-hook 'helm-gtags-mode)
-    (add-hook 'python-mode-hook 'helm-gtags-mode)
-    (add-hook 'java-mode-hook 'helm-gtags-mode)
-    (add-hook 'asm-mode-hook 'helm-gtags-mode)
+;; (use-package helm-gtags
+;;   :ensure t
+;;   :config
+;;     (add-hook 'c-mode-hook 'helm-gtags-mode)
+;;     (add-hook 'c++-mode-hook 'helm-gtags-mode)
+;;     (add-hook 'python-mode-hook 'helm-gtags-mode)
+;;     (add-hook 'java-mode-hook 'helm-gtags-mode)
+;;     (add-hook 'asm-mode-hook 'helm-gtags-mode)
 
-    (setq helm-gtags-auto-update t)
+;;     (setq helm-gtags-auto-update t)
 
-    (define-key helm-gtags-mode-map (kbd "C-c g .") 'helm-gtags-find-tag-from-here)
-    (define-key helm-gtags-mode-map (kbd "C-c g ,") 'helm-gtags-pop-stack)
-)
+;;     (define-key helm-gtags-mode-map (kbd "C-c g .") 'helm-gtags-find-tag-from-here)
+;;     (define-key helm-gtags-mode-map (kbd "C-c g ,") 'helm-gtags-pop-stack)
+;; )
 #+END_SRC
 
 ** Helm-projectile
@@ -951,41 +950,88 @@ https://github.com/joaotavora/yasnippet
 
 ** C/C++ mode
 
-*** Company
+*** LSP-mode
+
+Deprecated in favour of rtags
 
 #+BEGIN_SRC emacs-lisp
-(use-package lsp-mode
-  :commands lsp
-   :ensure t
+;; (use-package lsp-mode
+;;   :commands lsp
+;;    :ensure t
+;; )
+
+;; (use-package lsp-ui
+;;   :commands lsp-ui-mode
+;;   :ensure t
+;;   :config
+;;     (setq lsp-ui-doc-position (quote top))
+;;     (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+;;     (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
+;;     (define-key lsp-ui-mode-map [remap complete-symbol] #'company-complete)
+;; )
+
+;; (use-package company-lsp
+;;   :ensure t
+;;   :commands company-lsp
+;;   :config
+;;     (push 'company-lsp company-backends) ;; add company-lsp as a backend
+;; )
+
+;; (use-package ccls
+;;   :ensure t
+;;   :config
+;;   (setq ccls-executable "ccls")
+;;   (setq lsp-prefer-flymake nil) ;; Disable flymake for syntax checking, use flycheck instead
+;;   (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-cppcheck c/c++-gcc))
+;;   :hook ((c-mode c++-mode objc-mode) .
+;;          (lambda () (require 'ccls) (lsp)))
+;; )
+
+#+END_SRC
+
+*** Rtags
+
+https://github.com/Andersbakken/rtags
+
+#+BEGIN_SRC emacs-lisp
+(use-package company
+  :ensure t
+  :hook
+     ((c-mode c++-mode objc-mode) . (lambda () (require 'company) (company-mode)))
 )
 
-(use-package lsp-ui
-  :commands lsp-ui-mode
+(use-package flycheck-rtags
+  :ensure t
+  :hook
+     ((c-mode c++-mode objc-mode) . (lambda () (require 'flycheck-rtags) (flycheck-mode)))
+)
+
+(use-package company-rtags
+  :ensure t
+  :commands company-rtags
+  :config
+    (setq rtags-completions-enabled t)
+    (push 'company-rtags company-backends) ;; add company-lsp as a backend
+    (define-key c-mode-base-map (kbd "<C-tab>") (function company-complete)) ;; not working yet
+  :hook
+     ((c-mode c++-mode objc-mode) . (lambda () (require 'company)))
+)
+
+(use-package helm-rtags
   :ensure t
   :config
-    (setq lsp-ui-doc-position (quote top))
-    (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-    (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
-    (define-key lsp-ui-mode-map [remap complete-symbol] #'company-complete)
-)
+    (setq rtags-use-helm t)
+    (setq rtags-display-result-backend 'helm)
+    (rtags-enable-standard-keybindings)
+    (define-key c-mode-base-map (kbd "C-M-.") (function rtags-find-symbol))
+    (define-key c-mode-base-map (kbd "C-M-?") (function rtags-find-references))
+    (define-key c-mode-base-map (kbd "M-?")   (function rtags-find-references-at-point))
+    (define-key c-mode-base-map (kbd "M-i")   (function rtags-imenu))
 
-(use-package company-lsp
-  :ensure t
-  :commands company-lsp
-  :config
-    (push 'company-lsp company-backends) ;; add company-lsp as a backend
+  :hook
+     ((c-mode c++-mode objc-mode) . (lambda () (require 'rtags) (rtags-start-process-unless-running)))
+     ((c-mode c++-mode objc-mode) . (lambda () (require 'rtags-xref) (rtags-xref-enable)))
 )
-
-(use-package ccls
-  :ensure t
-  :config
-  (setq ccls-executable "ccls")
-  (setq lsp-prefer-flymake nil) ;; Disable flymake for syntax checking, use flycheck instead
-  (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-cppcheck c/c++-gcc))
-  :hook ((c-mode c++-mode objc-mode) .
-         (lambda () (require 'ccls) (lsp)))
-)
-
 #+END_SRC
 
 ** Python mode
@@ -1095,7 +1141,7 @@ https://github.com/abo-abo/avy
 (defun config-visit ()
   (interactive)
   (find-file "~/.emacs.d/config.org"))
-(global-set-key (kbd "C-c e") 'config-visit)
+(global-set-key (kbd "C-c E") 'config-visit)
 #+END_SRC
 
 ** Reload the configuration
@@ -1105,7 +1151,7 @@ https://github.com/abo-abo/avy
   "Reloads ~/.emacs.d/config.org at runtime"
   (interactive)
   (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
-(global-set-key (kbd "C-c r") 'config-reload)
+(global-set-key (kbd "C-c R") 'config-reload)
 #+END_SRC
 
 ** Subword
@@ -1425,7 +1471,6 @@ Some usefull links:
 
 stuff i need to look into:
 - ibuffer
-- flycheck
 - fix dired-mode (f.e. new-buffer for every folder, ...)
 - helm-exwm
 - symon
