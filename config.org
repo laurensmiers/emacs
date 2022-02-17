@@ -989,17 +989,20 @@ Deprecated in favour of rtags
 
 #+END_SRC
 
+*** Company
+
+#+BEGIN_SRC emacs-lisp
+(use-package company
+  :ensure t
+  :init (global-company-mode)
+)
+#+END_SRC
+
 *** Rtags
 
 https://github.com/Andersbakken/rtags
 
 #+BEGIN_SRC emacs-lisp
-(use-package company
-  :ensure t
-  :hook
-     ((c-mode c++-mode objc-mode) . (lambda () (require 'company) (company-mode)))
-)
-
 (use-package flycheck-rtags
   :ensure t
   :hook
