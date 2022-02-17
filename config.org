@@ -844,6 +844,17 @@ https://github.com/bbatsov/helm-projectile
 )
 #+END_SRC
 
+** Helm-xref
+
+Helm interface to xref:
+https://github.com/brotzeit/helm-xref
+
+#+BEGIN_SRC emacs-lisp
+(use-package helm-xref
+  :ensure t
+)
+#+END_SRC
+
 * Mutliple cursors
 
 https://github.com/magnars/multiple-cursors.el
