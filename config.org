@@ -995,6 +995,9 @@ Deprecated in favour of rtags
 (use-package company
   :ensure t
   :init (global-company-mode)
+  :bind (
+         ("<C-tab>" . company-complete)
+        )
 )
 #+END_SRC
 
@@ -1036,10 +1039,8 @@ https://github.com/Andersbakken/rtags
 
 (use-package company-rtags
   :ensure t
-  :commands company-rtags
   :config
     (push 'company-rtags company-backends)
-    (define-key c-mode-base-map (kbd "<C-tab>") (function company-complete)) ;; not working yet
   :hook
      ((c-mode c++-mode objc-mode) . (lambda () (require 'company)))
 )
