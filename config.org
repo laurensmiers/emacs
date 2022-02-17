@@ -1012,7 +1012,7 @@ https://github.com/Andersbakken/rtags
 (use-package rtags-xref
   :ensure t
   :hook
-     ((c-mode c++-mode objc-mode) . (lambda () (require 'rtags-xref) (rtags-xref-enable)))
+     ((c-mode c++-mode objc-mode) . (function rtags-xref-enable))
 )
 
 (use-package rtags
@@ -1020,6 +1020,7 @@ https://github.com/Andersbakken/rtags
   :init
     (setq rtags-display-result-backend 'helm)
     (setq rtags-completions-enabled t)
+    (setq rtags-autostart-diagnostics t)
   :config
     (rtags-enable-standard-keybindings)
     (define-key c-mode-base-map (kbd "C-M-.") (function rtags-find-symbol))
@@ -1027,21 +1028,27 @@ https://github.com/Andersbakken/rtags
     (define-key c-mode-base-map (kbd "M-?")   (function rtags-find-references-at-point))
     (define-key c-mode-base-map (kbd "M-i")   (function rtags-imenu))
   :hook
-     ((c-mode c++-mode objc-mode) . (lambda () (require 'rtags) (rtags-start-process-unless-running)))
+     ((c-mode c++-mode objc-mode) . (function rtags-start-process-unless-running))
 )
+
+;; Stolen from the github wiki of rtags
+(defun my-flycheck-rtags-setup ()
+  (flycheck-select-checker 'rtags)
+  (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
+  (setq-local flycheck-check-syntax-automatically nil))
 
 (use-package flycheck-rtags
   :ensure t
   :hook
-     ((c-mode c++-mode objc-mode) . (lambda () (require 'flycheck-rtags) (flycheck-mode)))
+     (
+      (c-mode c++-mode objc-mode) . (function my-flycheck-rtags-setup)
+     )
 )
 
 (use-package company-rtags
   :ensure t
   :config
     (push 'company-rtags company-backends)
-  :hook
-     ((c-mode c++-mode objc-mode) . (lambda () (require 'company)))
 )
 #+END_SRC
 
@@ -1054,6 +1061,10 @@ https://github.com/Andersbakken/rtags
   :bind (
          ("<C-tab>" . company-complete)
         )
+  :hook
+     (
+      (c-mode c++-mode objc-mode) . company-mode
+     )
 )
 #+END_SRC
 
