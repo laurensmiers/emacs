@@ -1003,6 +1003,31 @@ Deprecated in favour of rtags
 https://github.com/Andersbakken/rtags
 
 #+BEGIN_SRC emacs-lisp
+(use-package helm-rtags
+  :ensure t
+)
+
+(use-package rtags-xref
+  :ensure t
+  :hook
+     ((c-mode c++-mode objc-mode) . (lambda () (require 'rtags-xref) (rtags-xref-enable)))
+)
+
+(use-package rtags
+  :ensure t
+  :init
+    (setq rtags-display-result-backend 'helm)
+    (setq rtags-completions-enabled t)
+  :config
+    (rtags-enable-standard-keybindings)
+    (define-key c-mode-base-map (kbd "C-M-.") (function rtags-find-symbol))
+    (define-key c-mode-base-map (kbd "C-M-?") (function rtags-find-references))
+    (define-key c-mode-base-map (kbd "M-?")   (function rtags-find-references-at-point))
+    (define-key c-mode-base-map (kbd "M-i")   (function rtags-imenu))
+  :hook
+     ((c-mode c++-mode objc-mode) . (lambda () (require 'rtags) (rtags-start-process-unless-running)))
+)
+
 (use-package flycheck-rtags
   :ensure t
   :hook
@@ -1013,27 +1038,10 @@ https://github.com/Andersbakken/rtags
   :ensure t
   :commands company-rtags
   :config
-    (setq rtags-completions-enabled t)
-    (push 'company-rtags company-backends) ;; add company-lsp as a backend
+    (push 'company-rtags company-backends)
     (define-key c-mode-base-map (kbd "<C-tab>") (function company-complete)) ;; not working yet
   :hook
      ((c-mode c++-mode objc-mode) . (lambda () (require 'company)))
-)
-
-(use-package helm-rtags
-  :ensure t
-  :config
-    (setq rtags-use-helm t)
-    (setq rtags-display-result-backend 'helm)
-    (rtags-enable-standard-keybindings)
-    (define-key c-mode-base-map (kbd "C-M-.") (function rtags-find-symbol))
-    (define-key c-mode-base-map (kbd "C-M-?") (function rtags-find-references))
-    (define-key c-mode-base-map (kbd "M-?")   (function rtags-find-references-at-point))
-    (define-key c-mode-base-map (kbd "M-i")   (function rtags-imenu))
-
-  :hook
-     ((c-mode c++-mode objc-mode) . (lambda () (require 'rtags) (rtags-start-process-unless-running)))
-     ((c-mode c++-mode objc-mode) . (lambda () (require 'rtags-xref) (rtags-xref-enable)))
 )
 #+END_SRC
 
