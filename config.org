@@ -1012,7 +1012,7 @@ https://github.com/Andersbakken/rtags
 (use-package rtags-xref
   :ensure t
   :hook
-     ((c-mode c++-mode objc-mode) . (function rtags-xref-enable))
+     ((c-mode-common) . (function rtags-xref-enable))
 )
 
 (use-package rtags
