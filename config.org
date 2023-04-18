@@ -1207,8 +1207,12 @@ The audible bell is annoying AF.
 Emacs as a server.
 Emacsclient will then use this emacs as its server.
 
+Use server-running-p to test if it is already running.
+
 #+BEGIN_SRC emacs-lisp
-(server-start)
+(require 'server)
+(unless (server-running-p)
+    (server-start))
 #+END_SRC
 
 * Beacon
