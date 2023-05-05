@@ -863,6 +863,17 @@ https://github.com/brotzeit/helm-xref
 )
 #+END_SRC
 
+** Helm-rg
+
+Helm interface to ripgrep:
+https://github.com/cosmicexplorer/helm-rg
+
+#+BEGIN_SRC emacs-lisp
+(use-package helm-rg
+  :ensure t
+)
+#+END_SRC
+
 * Mutliple cursors
 
 https://github.com/magnars/multiple-cursors.el
