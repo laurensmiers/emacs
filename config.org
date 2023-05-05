@@ -546,6 +546,8 @@ and then restore the old GC threshold.
   :config
     (global-undo-tree-mode)
     (define-key undo-tree-map (kbd "C-/") 'undo-hook)
+    (setq undo-tree-auto-save-history t) ;; Enable auto-save of undo history
+    (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo"))) ;; Move undo-files to separate dir to avoid corrupting project with undo-files
 )
 
 (defun undo-hook (&optional arg)
@@ -554,7 +556,31 @@ and then restore the old GC threshold.
   (undo-tree-undo arg)
   (setq gc-cons-threshold 800000)
 )
+#+END_SRC
 
+Move the undo-files to a separate folder and also auto-save.
+Define the same behaviour for tramp-files to not pollute the remove file system.
+Stolen from: https://emacs.stackexchange.com/questions/33/put-all-backups-into-one-backup-folder .
+Not using it now due to use of undo-tree but leaving it here as a reference
+
+#+BEGIN_SRC emacs-lisp
+;; (let ((backup-dir "~/.emacs.d/backups")
+;;       (auto-saves-dir "~/.emacs.d/auto-saves/"))
+;;   (dolist (dir (list backup-dir auto-saves-dir))
+;;     (when (not (file-directory-p dir))
+;;       (make-directory dir t)))
+;;   (setq backup-directory-alist `(("." . ,backup-dir))
+;;         undo-tree-history
+;;         auto-save-file-name-transforms `((".*" ,auto-saves-dir t))
+;;         auto-save-list-file-prefix (concat auto-saves-dir ".saves-")
+;;         tramp-backup-directory-alist `((".*" . ,backup-dir))
+;;         tramp-auto-save-directory auto-saves-dir))
+
+;; (setq backup-by-copying t    ; Don't delink hardlinks
+;;       delete-old-versions t  ; Clean up the backups
+;;       version-control t      ; Use version numbers on backups,
+;;       kept-new-versions 5    ; keep some new versions
+;;       kept-old-versions 2)   ; and some old ones, too
 #+END_SRC
 
 * Volatile highlights
