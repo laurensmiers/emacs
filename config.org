@@ -1028,6 +1028,10 @@ https://github.com/bbatsov/projectile
   ;; rebind tab to do persistent action
   ;; we use helm-execute-persistent-action more than helm-select-action (default for <tab>)
   (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+  ;; make TAB work in terminal/minibuffer
+  (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
+  ;; remap helm-select-action: lists actions
+  (define-key helm-map (kbd "C-z")  'helm-select-action)
   (helm-autoresize-mode 1) ;; Awesome feature together with helm-split-window-inside-p != nil
 )
 
@@ -1046,10 +1050,6 @@ https://github.com/bbatsov/projectile
 ;; ;; (define-key helm-find-files-map (kbd "C-b") 'helm-find-files-up-one-level)
 ;; ;; (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
 ;;
-;; make TAB work in terminal/minibuffer
-(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
-;; remap helm-select-action: lists actions
-(define-key helm-map (kbd "C-z")  'helm-select-action)
 
 ;; remap calculator
 ;; (global-set-key (kbd "C-c C-c") 'helm-calcul-expression)
@@ -1057,7 +1057,6 @@ https://github.com/bbatsov/projectile
 ;; TODO: experiment with mark ring   (breadcrumbs something?)
 ;; TODO: experiment with helm-regexp (build and test regexes)
 ;; TODO: remember helm-top (helm interface for top program)
-
 #+END_SRC
 
 ** Helm-gtags
