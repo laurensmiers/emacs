@@ -10,6 +10,7 @@
   - [[#emacs-262][Emacs 26.2]]
 - [[#utils][Utils]]
   - [[#custom-command-line-arguments][Custom command line arguments]]
+  - [[#kill-other-buffers][Kill other buffers]]
   - [[#global-variables][Global variables]]
   - [[#ripgrep][Ripgrep]]
 - [[#term][Term]]
@@ -141,6 +142,23 @@ If it was found, we delete it from the list of command line arguments.
   (let ((found-switch (member switch command-line-args)))
     (setq command-line-args (delete switch command-line-args))
     found-switch))
+#+END_SRC
+
+** Kill other buffers
+
+Function to kill other buffers but the current open one (and some standard buffers which should be kept alive).
+Stolen from https://www.emacswiki.org/emacs/KillingBuffers .
+
+#+BEGIN_SRC emacs-lisp
+
+(setq not-to-kill-buffer-list '("*scratch*" "*Messages*"))
+
+(defun kill-other-buffers ()
+  "Kill all other buffers."
+  (interactive)
+  (if (member (buffer-name (current-buffer)) not-to-kill-buffer-list)
+      (bury-buffer)
+    (kill-buffer (current-buffer))))
 #+END_SRC
 
 ** Global variables
