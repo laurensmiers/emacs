@@ -4,6 +4,104 @@
 #+LANGUAGE: en
 [[./img/dash_logo.png]]
 
+* TABLE OF CONTENTS :toc:
+- [[#installation][Installation]]
+- [[#workarounds][Workarounds]]
+  - [[#emacs-262][Emacs 26.2]]
+- [[#utils][Utils]]
+  - [[#custom-command-line-arguments][Custom command line arguments]]
+  - [[#global-variables][Global variables]]
+  - [[#ripgrep][Ripgrep]]
+- [[#term][Term]]
+  - [[#toggle-between-char--and-line-mode][Toggle between char- and line-mode]]
+  - [[#with-editor][With editor]]
+  - [[#eshell][Eshell]]
+- [[#resize-frame][Resize frame]]
+- [[#general-stuff][General stuff]]
+  - [[#unsorted][Unsorted]]
+  - [[#macros][Macro's]]
+  - [[#goto-line][Goto-line]]
+  - [[#rectangle][Rectangle]]
+  - [[#garbage-collection-gc][Garbage collection (gc)]]
+  - [[#yes-or-no-questions][Yes-or-no questions]]
+  - [[#emacs-fullscreen-at-startup][Emacs fullscreen at startup]]
+  - [[#enable-disabled-commands][Enable disabled commands]]
+  - [[#buffers][Buffers]]
+  - [[#helping-vim-users][Helping vim-users]]
+  - [[#backup-files][Backup files]]
+  - [[#describe-key][Describe key]]
+  - [[#adaptive-cursor-width][Adaptive cursor width]]
+- [[#which-key][Which-key]]
+- [[#theme][Theme]]
+  - [[#highlight-line][Highlight line]]
+- [[#hydra][Hydra]]
+  - [[#hydra-zoom][Hydra Zoom]]
+- [[#dashboard][Dashboard]]
+- [[#zygospore][Zygospore]]
+- [[#mode-line][Mode-line]]
+  - [[#clock][Clock]]
+- [[#editing-settings][Editing settings]]
+  - [[#kill-ring-customization][Kill-ring customization]]
+  - [[#newline-at-end-of-file][Newline at end-of-file]]
+  - [[#enable-column-numbers][Enable column numbers]]
+  - [[#look-and-feel-modifications][Look-and-feel modifications]]
+  - [[#automatic-indent][Automatic indent]]
+  - [[#delete-trailing-whitespace][Delete trailing whitespace]]
+  - [[#angry-faces][Angry faces]]
+  - [[#c-coding-settings][C Coding settings]]
+- [[#undo-tree][Undo-tree]]
+- [[#volatile-highlights][Volatile highlights]]
+- [[#iedit][iedit]]
+- [[#smartparens][Smartparens]]
+- [[#comment-dwim-2][Comment-dwim-2]]
+- [[#expand-region][Expand-region]]
+- [[#windooze][Windooze]]
+- [[#projectile][Projectile]]
+- [[#helm][Helm]]
+  - [[#general-config][General config]]
+  - [[#helm-gtags][Helm-gtags]]
+  - [[#helm-projectile][Helm-projectile]]
+  - [[#helm-xref][Helm-xref]]
+  - [[#helm-rg][Helm-rg]]
+- [[#mutliple-cursors][Mutliple cursors]]
+- [[#gdb][GDB]]
+- [[#magit][Magit]]
+- [[#programming][Programming]]
+  - [[#yasnippet][Yasnippet]]
+  - [[#relative-line-numbers][(Relative) Line numbers]]
+  - [[#xref][xref]]
+  - [[#cc-mode][C/C++ mode]]
+  - [[#python-mode][Python mode]]
+- [[#windows][Windows]]
+  - [[#splitting][Splitting]]
+  - [[#switching][Switching]]
+  - [[#multi-frame-rebindings-obsolete-with-switch-window][Multi-frame rebindings (OBSOLETE with switch-window)]]
+- [[#avy][Avy]]
+- [[#convenience-stuff][Convenience stuff]]
+  - [[#visiting-the-configuration][Visiting the configuration]]
+  - [[#reload-the-configuration][Reload the configuration]]
+  - [[#subword][Subword]]
+  - [[#bell][Bell]]
+- [[#server][Server]]
+- [[#beacon][Beacon]]
+- [[#sunrise-commander][Sunrise commander]]
+  - [[#install][Install]]
+- [[#org][Org]]
+  - [[#enabling-table-of-contents][Enabling table of contents]]
+  - [[#org-bullets][Org bullets]]
+  - [[#some-basic-config][Some basic config]]
+  - [[#note-config][Note config]]
+- [[#diminish][Diminish]]
+- [[#shell-pop][Shell-pop]]
+- [[#old-stuff-maybe-usefull-for-lookup-later][Old stuff, maybe usefull for lookup later]]
+  - [[#diff-mode-stuff][Diff mode stuff]]
+  - [[#speedbar][Speedbar]]
+- [[#paradox][Paradox]]
+- [[#exwm][EXWM]]
+- [[#transparency][Transparency]]
+- [[#debugging][Debugging]]
+- [[#todo][TODO]]
+
 * Installation
 
 My personal emacs configuration
@@ -1294,6 +1392,18 @@ https://github.com/escherdragon/sunrise-commander
 #+END_SRC
 
 * Org
+
+** Enabling table of contents
+
+Stolen from distrotube:
+https://gitlab.com/dwt1/configuring-emacs/-/blob/main/01-elpaca-evil-general/config.org#enabling-table-of-contents
+
+#+BEGIN_SRC emacs-lisp
+(use-package toc-org
+    :ensure t
+    :commands toc-org-enable
+    :init (add-hook 'org-mode-hook 'toc-org-enable))
+#+END_SRC
 
 ** Org bullets
 
