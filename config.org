@@ -38,7 +38,6 @@
 - [[#theme][Theme]]
   - [[#highlight-line][Highlight line]]
 - [[#hydra][Hydra]]
-  - [[#hydra-zoom][Hydra Zoom]]
 - [[#dashboard][Dashboard]]
 - [[#zygospore][Zygospore]]
 - [[#mode-line][Mode-line]]
@@ -594,16 +593,15 @@ https://github.com/abo-abo/hydra
 #+BEGIN_SRC emacs-lisp
 (use-package hydra
   :ensure t
+  :config
+  ;; Hydra zoom
+    (defhydra hydra-zoom (global-map "<f2>")
+      "zoom"
+      ("g" text-scale-increase "in")
+      ("l" text-scale-decrease "out")
+    )
+
 )
-#+END_SRC
-
-** Hydra Zoom
-
-#+BEGIN_SRC emacs-lisp
-(defhydra hydra-zoom (global-map "<f2>")
-  "zoom"
-  ("g" text-scale-increase "in")
-  ("l" text-scale-decrease "out"))
 #+END_SRC
 
 * Dashboard
