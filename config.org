@@ -98,7 +98,6 @@
 - [[#old-stuff-maybe-usefull-for-lookup-later][Old stuff, maybe usefull for lookup later]]
   - [[#diff-mode-stuff][Diff mode stuff]]
   - [[#speedbar][Speedbar]]
-- [[#paradox][Paradox]]
 - [[#exwm][EXWM]]
 - [[#transparency][Transparency]]
 - [[#debugging][Debugging]]
@@ -1657,23 +1656,6 @@ https://github.com/kyagi/shell-pop-el
 ;; (setq sr-speedbar-width 40)
 ;;
 ;; (provide 'setup-speedbar)
-#+END_SRC
-
-* Paradox
-
-Paradox is a more modern package menu.
-It can update packages async, ...
-
-https://github.com/Malabarba/paradox
-
-#+BEGIN_SRC emacs-lisp
-(use-package paradox
-  :ensure t
-  :init
-    (setq paradox-execute-asynchronously t)
-  :config
-    (paradox-enable)
-)
 #+END_SRC
 
 * EXWM
