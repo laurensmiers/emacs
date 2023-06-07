@@ -298,6 +298,7 @@ https://github.com/abo-abo/swiper
 
 (use-package counsel
   :after ivy
+  :diminish
   :bind (
          ("C-x f" . counsel-fzf)
          )
