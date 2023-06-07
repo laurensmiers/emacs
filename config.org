@@ -349,6 +349,8 @@ These flags will enable/disable parts of the config.
 
 #+BEGIN_SRC emacs-lisp
 (use-package rg
+  :config
+  (rg-enable-menu) ;; Enable transient menu
   )
 #+END_SRC
 
