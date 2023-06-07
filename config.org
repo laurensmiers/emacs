@@ -259,7 +259,7 @@ https://github.com/abo-abo/swiper
 (use-package ivy
   :defer 0.1 ;; TODO: fixes ivy not loading at startup, not sure why
   :diminish
-  :bind (("C-x B" . ivy-switch-bufer-other-window)
+  :bind (("C-x B" . ivy-switch-buffer-other-window)
          :map ivy-minibuffer-map
          ("TAB" . ivy-alt-done)
          :map ivy-switch-buffer-map
