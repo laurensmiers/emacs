@@ -10,6 +10,7 @@
 - [[#base-packages-to-install-first][Base packages to install first]]
   - [[#elpaca][Elpaca]]
   - [[#diminish][Diminish]]
+  - [[#hydra][Hydra]]
 - [[#ivy][Ivy]]
   - [[#flx][flx]]
   - [[#ivy-1][Ivy]]
@@ -39,7 +40,6 @@
 - [[#which-key][Which-key]]
 - [[#theme][Theme]]
   - [[#highlight-line][Highlight line]]
-- [[#hydra][Hydra]]
 - [[#dashboard][Dashboard]]
 - [[#zygospore][Zygospore]]
 - [[#mode-line][Mode-line]]
@@ -240,6 +240,22 @@ https://github.com/emacsmirror/diminish
   )
 #+end_src
 
+** Hydra
+
+https://github.com/abo-abo/hydra
+
+#+begin_src emacs-lisp
+(use-package hydra
+  :config
+  ;; Hydra zoom
+    (defhydra hydra-zoom (global-map "<f2>")
+      "zoom"
+      ("g" text-scale-increase "in")
+      ("l" text-scale-decrease "out")
+    )
+)
+#+end_src
+
 * Ivy
 ** flx
 
@@ -295,7 +311,13 @@ https://github.com/abo-abo/swiper
          ("C-s" . swiper)
          )
 )
+
+(use-package ivy-hydra
+  :after (ivy hydra)
+  )
 #+end_src
+
+#+RESULTS:
 
 * Utils
 
@@ -619,23 +641,6 @@ Enable highlight-line globally and replace its background colour.
 #+BEGIN_SRC emacs-lisp
 (global-hl-line-mode 1)
 (set-face-background hl-line-face "dark slate grey")
-#+END_SRC
-
-* Hydra
-
-https://github.com/abo-abo/hydra
-
-#+BEGIN_SRC emacs-lisp
-(use-package hydra
-  :config
-  ;; Hydra zoom
-    (defhydra hydra-zoom (global-map "<f2>")
-      "zoom"
-      ("g" text-scale-increase "in")
-      ("l" text-scale-decrease "out")
-    )
-
-)
 #+END_SRC
 
 * Dashboard
