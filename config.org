@@ -9,6 +9,9 @@
   - [[#garbage-collection][Garbage collection]]
 - [[#base-packages-to-install-first][Base packages to install first]]
   - [[#elpaca][Elpaca]]
+- [[#ivy][Ivy]]
+  - [[#flx][flx]]
+  - [[#ivy-1][Ivy]]
 - [[#utils][Utils]]
   - [[#custom-command-line-arguments][Custom command line arguments]]
   - [[#kill-other-buffers][Kill other buffers]]
@@ -117,7 +120,6 @@ Increase GC threshold to minimize time wasting:
 (setq gc-cons-threshold 20000000) ;; 20 MB
 #+END_SRC
 
-
 * Base packages to install first
 ** Elpaca
 
@@ -225,6 +227,63 @@ https://github.com/progfolio/elpaca
 ;;(elpaca-wait)
 (elpaca-wait)
 #+END_SRC
+
+* Ivy
+** flx
+
+Fuzzy matching:
+https://github.com/lewang/flx
+
+#+begin_src emacs-lisp
+;; (use-package flx)
+#+end_src
+
+** Ivy
+
+Generic completion frontend:
+https://github.com/abo-abo/swiper
+
+#+begin_src emacs-lisp
+(use-package ivy
+  :defer 0.1 ;; TODO: fixes ivy not loading at startup, not sure why
+  :diminish
+  :bind (("C-x B" . ivy-switch-bufer-other-window)
+         :map ivy-minibuffer-map
+         ("TAB" . ivy-alt-done)
+         :map ivy-switch-buffer-map
+         ("C-d" . ivy-switch-buffer-kill)
+         :map ivy-occur-grep-mode-map
+         ("C-x e" . ivy-wgrep-change-to-wgrep-mode)
+         ("C-x C-s" . wgrep-finish-edit)
+         ("C-q" . wgrep-abort-changes)
+         )
+  ;; FYI: to enable fuzzy search everywhere, can be limited to certain commands
+  ;; See: https://oremacs.com/swiper/#completion-styles
+  ;; :init
+  ;; (setq ivy-re-builders-alist
+  ;;     '((t . ivy--regex-fuzzy)))
+  :config
+  (setq ivy-use-virtual-buffers t)   ;; Add recent files + bookmarks to ivy-switch-buffer
+  (setq ivy-count-format "(%d/%d) ") ;; Style to use for displaying current candidate count
+  (ivy-mode)
+)
+
+(use-package counsel
+  :after ivy
+  :bind (
+         ("C-x f" . counsel-fzf)
+         )
+  :config
+  (counsel-mode)
+)
+
+(use-package swiper
+  :after ivy
+  :bind (
+         ("C-s" . swiper)
+         )
+)
+#+end_src
 
 * Utils
 
