@@ -9,6 +9,7 @@
   - [[#garbage-collection][Garbage collection]]
 - [[#base-packages-to-install-first][Base packages to install first]]
   - [[#elpaca][Elpaca]]
+  - [[#diminish][Diminish]]
 - [[#ivy][Ivy]]
   - [[#flx][flx]]
   - [[#ivy-1][Ivy]]
@@ -88,7 +89,6 @@
   - [[#org-bullets][Org bullets]]
   - [[#some-basic-config][Some basic config]]
   - [[#note-config][Note config]]
-- [[#diminish][Diminish]]
 - [[#shell-pop][Shell-pop]]
 - [[#old-stuff-maybe-usefull-for-lookup-later][Old stuff, maybe usefull for lookup later]]
   - [[#diff-mode-stuff][Diff mode stuff]]
@@ -227,6 +227,18 @@ https://github.com/progfolio/elpaca
 ;;(elpaca-wait)
 (elpaca-wait)
 #+END_SRC
+
+** Diminish
+
+https://github.com/emacsmirror/diminish
+
+#+begin_src emacs-lisp
+(use-package diminish
+  :config
+  (diminish 'subword-mode)
+  (diminish 'auto-revert-mode)
+  )
+#+end_src
 
 * Ivy
 ** flx
@@ -582,6 +594,7 @@ https://github.com/justbur/emacs-which-key
 
 #+BEGIN_SRC emacs-lisp
 (use-package which-key
+  :diminish
   :config
     (which-key-setup-side-window-bottom)
     (which-key-mode))
@@ -779,6 +792,7 @@ and then restore the old GC threshold.
 
 #+BEGIN_SRC emacs-lisp
 (use-package undo-tree
+  :diminish
   :config
     (global-undo-tree-mode)
     (define-key undo-tree-map (kbd "C-/") 'undo-hook)
@@ -827,6 +841,7 @@ https://github.com/k-talo/volatile-highlights.el
 
 #+BEGIN_SRC emacs-lisp
 (use-package volatile-highlights
+  :diminish
   :config
     (volatile-highlights-mode t)
 )
@@ -998,6 +1013,7 @@ https://github.com/bbatsov/projectile
 
 #+BEGIN_SRC emacs-lisp
 (use-package projectile
+  :diminish
   :config
     (setq projectile-globally-ignored-directories (cons ".ccls-cache" projectile-globally-ignored-directories))
     (setq projectile-indexing-method 'alien)
@@ -1354,6 +1370,7 @@ https://github.com/Malabarba/beacon
 
 #+BEGIN_SRC emacs-lisp
 (use-package beacon
+  :diminish
   :config
     (beacon-mode 1)
     (setq beacon-color "#FFFFCC") ;; yelowish
@@ -1448,25 +1465,6 @@ Tell org where to look for ditaa
 ;; Add extra states for keywords
 (setq org-todo-keywords
       '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
-#+END_SRC
-
-* Diminish
-
-https://github.com/myrjola/diminish.el
-
-#+BEGIN_SRC emacs-lisp
-(use-package diminish
-  :config
-  (diminish 'volatile-highlights-mode)
-  (diminish 'smartparens-mode)
-  (diminish 'beacon-mode)
-  (diminish 'subword-mode)
-  (diminish 'auto-revert-mode)
-  (diminish 'undo-tree-mode)
-  (diminish 'page-break-lines-mode)
-  (diminish 'which-key-mode)
-  (diminish 'magit-mode)
-)
 #+END_SRC
 
 * Shell-pop
