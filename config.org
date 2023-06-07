@@ -263,7 +263,7 @@ Fuzzy matching:
 https://github.com/lewang/flx
 
 #+begin_src emacs-lisp
-;; (use-package flx)
+(use-package flx)
 #+end_src
 
 ** Ivy
@@ -285,12 +285,13 @@ https://github.com/abo-abo/swiper
          ("C-x C-s" . wgrep-finish-edit)
          ("C-q" . wgrep-abort-changes)
          )
-  ;; FYI: to enable fuzzy search everywhere, can be limited to certain commands
-  ;; See: https://oremacs.com/swiper/#completion-styles
-  ;; :init
-  ;; (setq ivy-re-builders-alist
-  ;;     '((t . ivy--regex-fuzzy)))
   :config
+  (setq ivy-re-builders-alist
+      '(
+        (swiper . ivy--regex-fuzzy)
+        (t . ivy--regex-ignore-order)
+        )
+      )
   (setq ivy-use-virtual-buffers t)   ;; Add recent files + bookmarks to ivy-switch-buffer
   (setq ivy-count-format "(%d/%d) ") ;; Style to use for displaying current candidate count
   (ivy-mode)
