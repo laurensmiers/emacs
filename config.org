@@ -647,11 +647,14 @@ Since I like it to give me a list of recent files, we need to enable =recentf-mo
     (recentf-mode 1)
   :config
     (dashboard-setup-startup-hook)
+    (setq dashboard-center-content t)
     (setq dashboard-startup-banner "~/.emacs.d/img/dash_logo.png")
     (setq dashboard-items '((recents  . 10)
                             (bookmarks . 5)
+                            (projects . 5)
                             ))
     (setq dashboard-banner-logo-title "")
+    (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
 )
 #+END_SRC
 
