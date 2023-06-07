@@ -783,31 +783,13 @@ Some basic C-coding settings (style, indentation offset, ...).
 
 Undo with =C-/=.
 
-The reason for the hook:
-I had a lot of issues with undo lagging (taking literally seconds to complete...).
-undo-tree-undo calls undo-list-transfer-to-tree internally which does
-a lot of garbage-collect calls to make sure the GC won't run (to counter race
-conditions where the GC would corrupt the undo-tree or something).
-
-So, define a hook that sets the GC threshold to maximum,
-does the undo (which should go fast now since the GC won't run)
-and then restore the old GC threshold.
-
 #+BEGIN_SRC emacs-lisp
 (use-package undo-tree
   :diminish
   :config
     (global-undo-tree-mode)
-    (define-key undo-tree-map (kbd "C-/") 'undo-hook)
     (setq undo-tree-auto-save-history t) ;; Enable auto-save of undo history
     (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo"))) ;; Move undo-files to separate dir to avoid corrupting project with undo-files
-)
-
-(defun undo-hook (&optional arg)
-  (interactive)
-  (setq gc-cons-threshold most-positive-fixnum)
-  (undo-tree-undo arg)
-  (setq gc-cons-threshold 800000)
 )
 #+END_SRC
 
