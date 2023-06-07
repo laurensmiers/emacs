@@ -207,6 +207,10 @@ https://github.com/progfolio/elpaca
   (elpaca-use-package-mode)
   ;; Assume :elpaca t unless otherwise specified.
   (setq elpaca-use-package-by-default t))
+
+;; Always install when use-package is used
+(eval-and-compile
+  (setq use-package-always-ensure t))
 #+END_SRC
 
 *** Wait till initialized
@@ -273,7 +277,6 @@ These flags will enable/disable parts of the config.
 
 #+BEGIN_SRC emacs-lisp
 (use-package rg
-  :ensure t
   )
 #+END_SRC
 
@@ -305,7 +308,6 @@ This will ensure things/commands/... called in eshell/shell that use $EDITOR, wi
 
 #+BEGIN_SRC emacs-lisp
 (use-package with-editor
-  :ensure t
   :commands with-editor-export-editor
   :init
   (progn
@@ -544,7 +546,6 @@ https://github.com/justbur/emacs-which-key
 
 #+BEGIN_SRC emacs-lisp
 (use-package which-key
-  :ensure t
   :config
     (which-key-setup-side-window-bottom)
     (which-key-mode))
@@ -554,10 +555,8 @@ https://github.com/justbur/emacs-which-key
 
 #+BEGIN_SRC emacs-lisp
 (use-package monokai-theme
-  :ensure t
   :init
     (load-theme 'monokai t)
-
 )
 #+END_SRC
 
@@ -577,7 +576,6 @@ https://github.com/abo-abo/hydra
 
 #+BEGIN_SRC emacs-lisp
 (use-package hydra
-  :ensure t
   :config
   ;; Hydra zoom
     (defhydra hydra-zoom (global-map "<f2>")
@@ -596,7 +594,6 @@ Since I like it to give me a list of recent files, we need to enable =recentf-mo
 
 #+BEGIN_SRC emacs-lisp
 (use-package dashboard
-  :ensure t
   :init
     (recentf-mode 1)
   :config
@@ -621,7 +618,6 @@ FYI: At one point, used this together with sr-speedbar. They did not play well t
 
 #+BEGIN_SRC emacs-lisp
 (use-package zygospore
-  :ensure t
   :config
     (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
 )
@@ -633,7 +629,6 @@ FYI: At one point, used this together with sr-speedbar. They did not play well t
 
 #+BEGIN_SRC emacs-lisp
 (use-package smart-mode-line
-  :ensure t
   :config
     (setq sml/no-confirm-load-theme t)
     (setq sml/theme 'respectful)
@@ -748,7 +743,6 @@ and then restore the old GC threshold.
 
 #+BEGIN_SRC emacs-lisp
 (use-package undo-tree
-  :ensure t
   :config
     (global-undo-tree-mode)
     (define-key undo-tree-map (kbd "C-/") 'undo-hook)
@@ -797,7 +791,6 @@ https://github.com/k-talo/volatile-highlights.el
 
 #+BEGIN_SRC emacs-lisp
 (use-package volatile-highlights
-  :ensure t
   :config
     (volatile-highlights-mode t)
 )
@@ -812,7 +805,6 @@ https://github.com/victorhge/iedit
 
 #+BEGIN_SRC emacs-lisp
 (use-package iedit
-  :ensure t
 )
 #+END_SRC
 
@@ -827,7 +819,6 @@ https://github.com/Fuco1/smartparens
 
 #+BEGIN_SRC emacs-lisp
 (use-package smartparens
-  :ensure t
   :bind
     ("C-M-k" . sp-kill-sexp)
     ("C-M-w" . sp-copy-sexp)
@@ -911,7 +902,6 @@ https://github.com/remyferre/comment-dwim-2
 
 #+BEGIN_SRC emacs-lisp
 (use-package comment-dwim-2
-  :ensure t
   :config
     (global-set-key (kbd "M-;") 'comment-dwim-2)
 )
@@ -927,7 +917,6 @@ https://github.com/magnars/expand-region.el
 
 #+BEGIN_SRC emacs-lisp
 (use-package expand-region
-   :ensure t
    :init
      (pending-delete-mode t)
    :config
@@ -973,7 +962,6 @@ https://github.com/bbatsov/projectile
 
 #+BEGIN_SRC emacs-lisp
 (use-package projectile
-  :ensure t
   :config
     (setq projectile-globally-ignored-directories (cons ".ccls-cache" projectile-globally-ignored-directories))
     (setq projectile-indexing-method 'alien)
@@ -1167,7 +1155,6 @@ TODO: need to document this
 
 #+BEGIN_SRC emacs-lisp
 (use-package magit
-  :ensure t
   :bind
     ("C-c m" . magit-status)
 )
@@ -1183,7 +1170,6 @@ https://github.com/joaotavora/yasnippet
 
 #+BEGIN_SRC emacs-lisp
 (use-package yasnippet
-  :ensure t
   :init
     (add-to-list 'load-path
               "~/.emacs.d/plugins/yasnippet")
@@ -1196,7 +1182,6 @@ https://github.com/joaotavora/yasnippet
 
 #+BEGIN_SRC emacs-lisp
 (use-package linum-relative
-  :ensure t
   :config
     (setq linum-relative-current-symbol "")
     (add-hook 'prog-mode-hook 'linum-relative-mode))
@@ -1219,12 +1204,10 @@ Deprecated in favour of rtags
 #+BEGIN_SRC emacs-lisp
 ;; (use-package lsp-mode
 ;;   :commands lsp
-;;    :ensure t
 ;; )
 
 ;; (use-package lsp-ui
 ;;   :commands lsp-ui-mode
-;;   :ensure t
 ;;   :config
 ;;     (setq lsp-ui-doc-position (quote top))
 ;;     (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
@@ -1233,14 +1216,12 @@ Deprecated in favour of rtags
 ;; )
 
 ;; (use-package company-lsp
-;;   :ensure t
 ;;   :commands company-lsp
 ;;   :config
 ;;     (push 'company-lsp company-backends) ;; add company-lsp as a backend
 ;; )
 
 ;; (use-package ccls
-;;   :ensure t
 ;;   :config
 ;;   (setq ccls-executable "ccls")
 ;;   (setq lsp-prefer-flymake nil) ;; Disable flymake for syntax checking, use flycheck instead
@@ -1261,13 +1242,11 @@ https://github.com/Andersbakken/rtags
 )
 
 (use-package rtags-xref
-  :ensure t
   :hook
      ((c-mode-common) . (function rtags-xref-enable))
 )
 
 (use-package rtags
-  :ensure t
   :init
     (setq rtags-display-result-backend 'helm)
     (setq rtags-completions-enabled t)
@@ -1289,7 +1268,6 @@ https://github.com/Andersbakken/rtags
   (setq-local flycheck-check-syntax-automatically nil))
 
 (use-package flycheck-rtags
-  :ensure t
   :hook
      (
       (c-mode c++-mode objc-mode) . (function my-flycheck-rtags-setup)
@@ -1297,7 +1275,6 @@ https://github.com/Andersbakken/rtags
 )
 
 (use-package company-rtags
-  :ensure t
   :config
     (push 'company-rtags company-backends)
 )
@@ -1307,7 +1284,6 @@ https://github.com/Andersbakken/rtags
 
 #+BEGIN_SRC emacs-lisp
 (use-package company
-  :ensure t
   :init (global-company-mode)
   :bind (
          ("<C-tab>" . company-complete)
@@ -1328,7 +1304,6 @@ It is a full dev env and sometimes feels like a bit too much but overal good exp
 
 #+BEGIN_SRC emacs-lisp
 (use-package elpy
-  :ensure t
   :config
     (elpy-enable)
 )
@@ -1365,7 +1340,6 @@ Explanation for different config when EXWM is in the README on the github.
 
 #+BEGIN_SRC emacs-lisp
 (use-package switch-window
-  :ensure t
   :config
     (setq switch-window-input-style 'minibuffer)
     (setq switch-window-increase 6)
@@ -1413,7 +1387,6 @@ https://github.com/abo-abo/avy
 
 #+BEGIN_SRC emacs-lisp
 (use-package avy
-  :ensure t
   :bind
     ("M-s" . avy-goto-char))
 #+END_SRC
@@ -1472,7 +1445,6 @@ https://github.com/Malabarba/beacon
 
 #+BEGIN_SRC emacs-lisp
 (use-package beacon
-  :ensure t
   :config
     (beacon-mode 1)
     (setq beacon-color "#FFFFCC") ;; yelowish
@@ -1507,7 +1479,6 @@ https://gitlab.com/dwt1/configuring-emacs/-/blob/main/01-elpaca-evil-general/con
 
 #+BEGIN_SRC emacs-lisp
 (use-package toc-org
-    :ensure t
     :commands toc-org-enable
     :init (add-hook 'org-mode-hook 'toc-org-enable))
 #+END_SRC
@@ -1518,7 +1489,6 @@ https://github.com/sabof/org-bullets
 
 #+BEGIN_SRC emacs-lisp
 (use-package org-bullets
-  :ensure t
   :config
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode))))
 #+END_SRC
@@ -1577,7 +1547,6 @@ https://github.com/myrjola/diminish.el
 
 #+BEGIN_SRC emacs-lisp
 (use-package diminish
-  :ensure t
   :config
   (diminish 'volatile-highlights-mode)
   (diminish 'smartparens-mode)
@@ -1598,7 +1567,6 @@ https://github.com/kyagi/shell-pop-el
 
 #+BEGIN_SRC emacs-lisp
 (use-package shell-pop
-  :ensure t
   :bind (("C-c t" . shell-pop))
   :config
   (setq shell-pop-shell-type (quote ("eshell" "*eshell*" (lambda nil (eshell shell-pop-term-shell)))))
@@ -1653,7 +1621,6 @@ Arandr config is still too static, should find a way to simplify this.
   (progn
     (message "Loading EXWM...")
     (use-package exwm
-      :ensure t
       :config
       (require 'exwm-systemtray)
       (exwm-systemtray-enable)
