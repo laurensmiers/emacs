@@ -57,12 +57,6 @@
 - [[#expand-region][Expand-region]]
 - [[#windooze][Windooze]]
 - [[#projectile][Projectile]]
-- [[#helm][Helm]]
-  - [[#general-config][General config]]
-  - [[#helm-gtags][Helm-gtags]]
-  - [[#helm-projectile][Helm-projectile]]
-  - [[#helm-xref][Helm-xref]]
-  - [[#helm-rg][Helm-rg]]
 - [[#mutliple-cursors][Mutliple cursors]]
 - [[#gdb][GDB]]
 - [[#magit][Magit]]
@@ -954,136 +948,12 @@ https://github.com/bbatsov/projectile
 )
 #+END_SRC
 
-* Helm
-
-** General config
-
-#+BEGIN_SRC emacs-lisp
-(use-package helm
-  :ensure t
-  :bind
-    ("M-x" . helm-M-x)
-    ("M-y" . helm-show-kill-ring)
-    ("C-x b" . helm-mini)
-    ("C-x C-b" . helm-mini)
-    ("C-x C-f" . helm-find-files)
-  :init
-  (helm-mode 1)
-  :config
-  (setq helm-M-x-fuzzy-match t
-        helm-buffers-fuzzy-matching t
-        helm-recentf-fuzzy-match t
-        helm-semantic-fuzzy-match t
-        helm-imenu-fuzzy-match t
-        helm-split-window-inside-p t ;; open helm buffer inside current window
-        helm-scroll-amount 8 ;; scroll 8 lines other window using M-<next>/M-<prior>
-;;        helm-move-to-line-cycle-in-source nil ;; move to end or beginning of source when reaching to por bottom of source
-;;        helm-ff-search-library-in-sexp t ;; search for library in 'require' and 'declare-function' sexp
-;;        helm-echo-input-in-header-line t
-  )
-  ;; rebind tab to do persistent action
-  ;; we use helm-execute-persistent-action more than helm-select-action (default for <tab>)
-  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
-  ;; make TAB work in terminal/minibuffer
-  (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
-  ;; remap helm-select-action: lists actions
-  (define-key helm-map (kbd "C-z")  'helm-select-action)
-  (helm-autoresize-mode 1) ;; Awesome feature together with helm-split-window-inside-p != nil
-)
-
-(use-package helm-swoop
-  :ensure t
-  :bind
-    ("C-s" . helm-swoop)
-  :config
-    ;; "C-s" + "C-s" results in mult-swoop
-    (define-key helm-swoop-map (kbd "C-s") 'helm-multi-swoop-all-from-helm-swoop)
-    ;; split window inside the current window when multiple windows open
-    (setq helm-swoop-split-with-multiple-windows t)
-)
-
-;; (require 'helm-config)
-;; ;; (define-key helm-find-files-map (kbd "C-b") 'helm-find-files-up-one-level)
-;; ;; (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
-;;
-
-;; remap calculator
-;; (global-set-key (kbd "C-c C-c") 'helm-calcul-expression)
-
-;; TODO: experiment with mark ring   (breadcrumbs something?)
-;; TODO: experiment with helm-regexp (build and test regexes)
-;; TODO: remember helm-top (helm interface for top program)
-#+END_SRC
-
-** Helm-gtags
-
-I use LSP for finding references,.. etc so not strictly necessary.
-However, sometimes there is a (legacy) project which doesn't fit in nicely with LSP,
-so keep gtags around just in case.
-
-#+BEGIN_SRC emacs-lisp
-;; (use-package helm-gtags
-;;   :ensure t
-;;   :config
-;;     (add-hook 'c-mode-hook 'helm-gtags-mode)
-;;     (add-hook 'c++-mode-hook 'helm-gtags-mode)
-;;     (add-hook 'python-mode-hook 'helm-gtags-mode)
-;;     (add-hook 'java-mode-hook 'helm-gtags-mode)
-;;     (add-hook 'asm-mode-hook 'helm-gtags-mode)
-
-;;     (setq helm-gtags-auto-update t)
-
-;;     (define-key helm-gtags-mode-map (kbd "C-c g .") 'helm-gtags-find-tag-from-here)
-;;     (define-key helm-gtags-mode-map (kbd "C-c g ,") 'helm-gtags-pop-stack)
-;; )
-#+END_SRC
-
-** Helm-projectile
-
-Helm interface to projectile:
-https://github.com/bbatsov/helm-projectile
-
-#+BEGIN_SRC emacs-lisp
-(use-package helm-projectile
-  :ensure t
-  :init
-    (setq helm-projectile-fuzzy-match t)
-    (setq projectile-completion-system 'helm)
-    (setq projectile-switch-project-action 'helm-projectile)
-  :config
-    (helm-projectile-on)
-)
-#+END_SRC
-
-** Helm-xref
-
-Helm interface to xref:
-https://github.com/brotzeit/helm-xref
-
-#+BEGIN_SRC emacs-lisp
-(use-package helm-xref
-  :ensure t
-)
-#+END_SRC
-
-** Helm-rg
-
-Helm interface to ripgrep:
-https://github.com/cosmicexplorer/helm-rg
-
-#+BEGIN_SRC emacs-lisp
-(use-package helm-rg
-  :ensure t
-)
-#+END_SRC
-
 * Mutliple cursors
 
 https://github.com/magnars/multiple-cursors.el
 
 #+BEGIN_SRC emacs-lisp
 (use-package multiple-cursors
-  :ensure t
   :bind
     ("C-x r a" . mc/edit-lines)
     ("C-x r e" . mc/edit-ends-of-lines)
@@ -1220,10 +1090,6 @@ Deprecated in favour of rtags
 https://github.com/Andersbakken/rtags
 
 #+BEGIN_SRC emacs-lisp
-(use-package helm-rtags
-  :ensure t
-)
-
 (use-package rtags-xref
   :hook
      ((c-mode-common) . (function rtags-xref-enable))
@@ -1231,7 +1097,8 @@ https://github.com/Andersbakken/rtags
 
 (use-package rtags
   :init
-    (setq rtags-display-result-backend 'helm)
+  ;; TODO
+    ;; (setq rtags-display-result-backend 'helm)
     (setq rtags-completions-enabled t)
     (setq rtags-autostart-diagnostics t)
   :config
@@ -1536,7 +1403,6 @@ https://github.com/myrjola/diminish.el
   (diminish 'beacon-mode)
   (diminish 'subword-mode)
   (diminish 'auto-revert-mode)
-  (diminish 'helm-mode)
   (diminish 'undo-tree-mode)
   (diminish 'page-break-lines-mode)
   (diminish 'which-key-mode)
