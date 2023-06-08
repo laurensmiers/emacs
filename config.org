@@ -321,8 +321,6 @@ https://github.com/abo-abo/swiper
   )
 #+end_src
 
-#+RESULTS:
-
 * Utils
 
 ** Custom command line arguments
