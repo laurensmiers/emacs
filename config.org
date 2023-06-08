@@ -82,8 +82,6 @@
   - [[#bell][Bell]]
 - [[#server][Server]]
 - [[#beacon][Beacon]]
-- [[#sunrise-commander][Sunrise commander]]
-  - [[#install][Install]]
 - [[#org][Org]]
   - [[#enabling-table-of-contents][Enabling table of contents]]
   - [[#org-bullets][Org bullets]]
@@ -1371,25 +1369,6 @@ https://github.com/Malabarba/beacon
     (beacon-mode 1)
     (setq beacon-color "#FFFFCC") ;; yelowish
 )
-#+END_SRC
-
-* Sunrise commander
-
-https://github.com/escherdragon/sunrise-commander
-
-** Install
-
-#+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "~/.emacs.d/extra/sunrise-commander")
-
-(require 'sunrise-commander)
-(require 'sunrise-x-buttons)
-(require 'sunrise-x-modeline)
-
-(global-set-key (kbd "C-c s") 'sunrise)
-(global-set-key (kbd "C-c c") 'sunrise-cd)
-
-(add-to-list 'auto-mode-alist '("\\.srvm\\'" . sr-virtual-mode))
 #+END_SRC
 
 * Org
