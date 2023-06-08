@@ -1131,10 +1131,8 @@ https://github.com/joaotavora/yasnippet
 
 #+BEGIN_SRC emacs-lisp
 (use-package yasnippet
-  :init
-    (add-to-list 'load-path
-              "~/.emacs.d/plugins/yasnippet")
   :config
+    (yas-reload-all)
     (add-hook 'prog-mode-hook 'yas-minor-mode)
 )
 #+END_SRC
