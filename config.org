@@ -23,6 +23,10 @@
   - [[#toggle-between-char--and-line-mode][Toggle between char- and line-mode]]
   - [[#with-editor][With editor]]
   - [[#eshell][Eshell]]
+- [[#dired][Dired]]
+  - [[#general-config][General config]]
+  - [[#single-buffer][Single-buffer]]
+  - [[#hideshow-dot-files][Hide/show dot-files]]
 - [[#resize-frame][Resize frame]]
 - [[#general-stuff][General stuff]]
   - [[#unsorted][Unsorted]]
@@ -444,6 +448,44 @@ We could use an alias (alias sudo eshell/sudo $*), but to keep things inside thi
 (setq password-cache t) ; enable password caching
 (setq password-cache-expiry 3600) ; for one hour (time in secs)
 #+END_SRC
+
+* Dired
+
+** General config
+
+#+begin_src emacs-lisp
+(use-package dired
+  :ensure nil
+  :commands (dired dired-jump)
+  :custom ((dired-listing-switches "-agho --group-directories-first"))
+)
+#+end_src
+
+** Single-buffer
+
+#+begin_src emacs-lisp
+(use-package dired-single
+  :bind (
+         :map dired-mode-map
+         ([remap dired-find-file] . dired-single-buffer)
+         ([remap dired-mouse-find-file-other-window] . dired-single-buffer-mouse)
+         ([remap dired-up-directory] . dired-single-up-directory)
+         ("<up>" . dired-single-up-directory)
+        )
+)
+#+end_src
+
+** Hide/show dot-files
+
+#+begin_src emacs-lisp
+(use-package dired-hide-dotfiles
+  :hook (dired-mode . dired-hide-dotfiles-mode)
+  :bind (
+         :map dired-mode-map
+         ("H" . dired-hide-dotfiles-mode)
+         )
+)
+#+end_src
 
 * Resize frame
 
