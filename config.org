@@ -24,7 +24,6 @@
   - [[#with-editor][With editor]]
   - [[#eshell][Eshell]]
 - [[#dired][Dired]]
-  - [[#general-config][General config]]
   - [[#single-buffer][Single-buffer]]
   - [[#hideshow-dot-files][Hide/show dot-files]]
 - [[#resize-frame][Resize frame]]
@@ -449,15 +448,6 @@ We could use an alias (alias sudo eshell/sudo $*), but to keep things inside thi
 
 * Dired
 
-** General config
-
-#+begin_src emacs-lisp
-(use-package dired
-  :ensure nil
-  :commands (dired dired-jump)
-  :custom ((dired-listing-switches "-agho --group-directories-first"))
-)
-#+end_src
 
 ** Single-buffer
 
@@ -470,6 +460,9 @@ We could use an alias (alias sudo eshell/sudo $*), but to keep things inside thi
          ([remap dired-up-directory] . dired-single-up-directory)
          ("<up>" . dired-single-up-directory)
         )
+  :custom
+    (dired-listing-switches "-agho --group-directories-first")
+    (dired-dwim-target t) ;; Make dired guess the target directory for copy/... operations
 )
 #+end_src
 
