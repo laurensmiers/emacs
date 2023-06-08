@@ -317,7 +317,13 @@ https://github.com/abo-abo/swiper
 
 (use-package ivy-hydra
   :after (ivy hydra)
-  )
+)
+
+(use-package ivy-rich
+  :after ivy
+  :init
+    (ivy-rich-mode 1)
+)
 #+end_src
 
 * Utils
