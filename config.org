@@ -1260,7 +1260,7 @@ It is a full dev env and sometimes feels like a bit too much but overal good exp
 
 #+BEGIN_SRC emacs-lisp
 (use-package elpy
-  :config
+  :init
     (elpy-enable)
 )
 #+END_SRC
