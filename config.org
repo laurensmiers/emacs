@@ -1116,8 +1116,20 @@ TODO: need to document this
 
 #+BEGIN_SRC emacs-lisp
 (use-package magit
+  :ensure t
   :bind
     ("C-c m" . magit-status)
+  :config
+   (transient-define-suffix magit-submodule-update-all ()
+    "Update all submodules"
+    :description "Update All     git submodule update --init --recursive"
+    (interactive)
+    (magit-with-toplevel
+      (magit-run-git-async "submodule" "update" "--force")))
+
+   (transient-append-suffix 'magit-submodule "f"
+     '("U" magit-submodule-update-all))
+
 )
 #+END_SRC
 
