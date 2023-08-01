@@ -311,7 +311,7 @@ https://github.com/abo-abo/swiper
 (use-package swiper
   :after ivy
   :bind (
-         ("C-s" . swiper)
+         ("C-s" . swiper-thing-at-point)
          )
 )
 
