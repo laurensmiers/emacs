@@ -1167,6 +1167,14 @@ https://github.com/joaotavora/yasnippet
 
 ** C/C++ mode
 
+*** Eglot
+
+#+BEGIN_SRC emacs-lisp
+(use-package eglot
+  :hook (prog-mode . eglot-ensure)
+)
+#+END_SRC
+
 *** Company
 
 #+BEGIN_SRC emacs-lisp
