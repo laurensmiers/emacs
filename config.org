@@ -109,7 +109,6 @@ My personal emacs configuration
 
 This configuration requires the installation of :
 
-    - =rtags=
     - Use python-pip to install requirements for elpy:
       =pip install jedi flake8 importmagic autopep8 yapf=
     - =ditaa= (for ascii to image generation in org-mode)
@@ -1201,51 +1200,6 @@ Deprecated in favour of rtags
 ;;          (lambda () (require 'ccls) (lsp)))
 ;; )
 
-#+END_SRC
-
-*** Rtags
-
-https://github.com/Andersbakken/rtags
-
-#+BEGIN_SRC emacs-lisp
-(use-package rtags-xref
-  :hook
-     ((c-mode-common) . (function rtags-xref-enable))
-)
-
-(use-package rtags
-  :init
-  ;; TODO
-    ;; (setq rtags-display-result-backend 'helm)
-    (setq rtags-completions-enabled t)
-    (setq rtags-autostart-diagnostics t)
-  :config
-    (rtags-enable-standard-keybindings)
-    (define-key c-mode-base-map (kbd "C-M-.") (function rtags-find-symbol))
-    (define-key c-mode-base-map (kbd "C-M-?") (function rtags-find-references))
-    (define-key c-mode-base-map (kbd "M-?")   (function rtags-find-references-at-point))
-    (define-key c-mode-base-map (kbd "M-i")   (function rtags-imenu))
-  :hook
-     ((c-mode c++-mode objc-mode) . (function rtags-start-process-unless-running))
-)
-
-;; Stolen from the github wiki of rtags
-(defun my-flycheck-rtags-setup ()
-  (flycheck-select-checker 'rtags)
-  (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
-  (setq-local flycheck-check-syntax-automatically nil))
-
-(use-package flycheck-rtags
-  :hook
-     (
-      (c-mode c++-mode objc-mode) . (function my-flycheck-rtags-setup)
-     )
-)
-
-(use-package company-rtags
-  :config
-    (push 'company-rtags company-backends)
-)
 #+END_SRC
 
 *** Company
