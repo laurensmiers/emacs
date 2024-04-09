@@ -73,6 +73,7 @@
   - [[#xref][xref]]
   - [[#cc-mode][C/C++ mode]]
   - [[#python-mode][Python mode]]
+  - [[#zig-mode][Zig mode]]
 - [[#windows][Windows]]
   - [[#splitting][Splitting]]
   - [[#switching][Switching]]
@@ -1201,6 +1202,13 @@ It is a full dev env and sometimes feels like a bit too much but overal good exp
 (use-package elpy
   :init
     (elpy-enable)
+)
+#+END_SRC
+
+** Zig mode
+
+#+BEGIN_SRC emacs-lisp
+(use-package zig-mode
 )
 #+END_SRC
 
