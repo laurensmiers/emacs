@@ -299,6 +299,22 @@ Magit depends on this and it seems it's not installed as a dependency, so instal
 )
 #+END_SRC
 
+** Smartparens
+Smart minor-mode to deal with pairs.
+
+https://github.com/Fuco1/smartparens
+
+#+BEGIN_SRC emacs-lisp
+(use-package smartparens
+  :ensure t
+  :bind
+    ("C-M-w" . sp-copy-sexp)
+  :hook (prog-mode text-mode markdown-mode)
+  :config
+    (require 'smartparens-config)
+)
+#+END_SRC
+
 * Multiple cursors
 
 #+BEGIN_SRC emacs-lisp
