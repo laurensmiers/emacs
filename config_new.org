@@ -145,6 +145,12 @@ Look into customizing the 'ispell' group.
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 #+end_src
 
+* Dired
+
+#+begin_src emacs-lisp
+(require 'dired-x)
+#+end_src
+
 * Whole-line-or-region
 
 Source:
