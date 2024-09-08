@@ -137,6 +137,14 @@ https://endlessparentheses.com/leave-the-cursor-at-start-of-match-after-isearch.
 (global-set-key (kbd "M-S-z") 'zap-up-to-char)
 #+end_src
 
+** Spell checking
+
+Look into customizing the 'ispell' group.
+
+#+begin_src emacs-lisp
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+#+end_src
+
 * Whole-line-or-region
 
 Source:
