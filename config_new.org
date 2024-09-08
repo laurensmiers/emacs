@@ -125,6 +125,12 @@ https://endlessparentheses.com/leave-the-cursor-at-start-of-match-after-isearch.
 )
 #+end_src
 
+** Abbrev
+
+#+begin_src emacs-lisp
+(global-set-key [remap dabbrev-expand] 'hippie-expand)
+#+end_src
+
 * Whole-line-or-region
 
 Source:
