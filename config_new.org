@@ -332,12 +332,11 @@ https://github.com/remyferre/comment-dwim-2
 #+BEGIN_SRC emacs-lisp
 (use-package projectile
   :ensure t
-  :hook (prog-mode . projectile-mode)
-;;  :config
-;;    (setq projectile-globally-ignored-directories (cons ".ccls-cache" projectile-globally-ignored-directories))
-;;    (setq projectile-indexing-method 'alien)
-;;    (setq projectile-enable-caching t)
-;;    (projectile-mode)
+  :config
+    (setq projectile-indexing-method 'alien)
+    (setq projectile-enable-caching t)
+    (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
+    (projectile-mode +1)
 )
 
 #+END_SRC
