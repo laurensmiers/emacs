@@ -275,6 +275,18 @@ Workaround to enable eglot in all programming modes:
 
 ** Magit
 
+*** Transient
+
+Magit depends on this and it seems it's not installed as a dependency, so install it explicitly.
+
+#+BEGIN_SRC emacs-lisp
+(use-package transient
+  :ensure t
+  )
+#+END_SRC
+
+*** Core
+
 #+BEGIN_SRC emacs-lisp
 (use-package magit
   :ensure t
