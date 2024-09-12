@@ -57,6 +57,12 @@
 
 * General config
 
+** Delete trailing whitespaces
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+#+END_SRC
+
 ** Save history and recent files
 
 #+begin_src emacs-lisp
@@ -103,7 +109,7 @@ https://www.gnu.org/software/emacs/manual/html_node/emacs/Icomplete.html
 More info : https://www.emacswiki.org/emacs/FullScreen
 
 #+begin_src emacs-lisp
-(push '(fullscreen . maximized) default-frame-alist)  
+(push '(fullscreen . maximized) default-frame-alist)
 #+end_src
 
 ** ibuffer
@@ -284,7 +290,7 @@ Install and wait for hydra to be available since we are using it in this init.el
 
 Workaround to enable eglot in all programming modes:
 #+BEGIN_SRC emacs-lisp
-(add-hook 'prog-mode-hook 'eglot-ensure)  
+(add-hook 'prog-mode-hook 'eglot-ensure)
 #+END_SRC
 
 ** Yasnippet
@@ -373,5 +379,3 @@ https://github.com/remyferre/comment-dwim-2
     (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
     (projectile-mode +1)
 )
-
-#+END_SRC
