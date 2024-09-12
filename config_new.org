@@ -212,6 +212,31 @@
     (global-corfu-mode))
 #+end_src
 
+** Orderless
+
+#+begin_src emacs-lisp
+  (use-package orderless
+    :ensure t
+    :demand t
+    :custom
+    (completion-styles '(orderless basic))
+    ;;    (gnus-completion-styles '(orderless substring basic))
+    ;;    (completion-category-overrides '((file (styles basic partial-completion))))
+
+  ;; Below not necessary if using vertico
+  ;;  (completion-category-overrides '(
+  ;;                                   (command (styles orderless basic partial-completion))
+  ;;                                   (file (styles orderless basic partial-completion))
+  ;;;;                                   (buffer (styles orderless basic))
+  ;;                                   (variable (styles orderless basic))
+  ;;                                   (symbol (styles orderless basic))
+  ;;                                   (consult-location (styles orderless))
+  ;;                                   (consult-multi (styles orderless))
+  ;;                                   )
+  ;;                                 )
+    )
+#+end_src
+
 * General config
 
 ** Delete trailing whitespaces
