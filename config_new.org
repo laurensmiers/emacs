@@ -55,6 +55,23 @@
     )
 #+end_src
 
+* Vertico-stack
+
+** Vertico
+
+#+BEGIN_SRC emacs-lisp
+;; Enable vertico
+(use-package vertico
+  :ensure t
+  ;; :custom
+  ;; (vertico-scroll-margin 0) ;; Different scroll margin
+  ;; (vertico-count 20) ;; Show more candidates
+  ;; (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
+  ;; (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
+  :init
+  (vertico-mode))
+#+END_SRC
+
 * General config
 
 ** Delete trailing whitespaces
@@ -87,15 +104,6 @@
 Because I'm lazy, important yes-or-no questions can be answered with y-or-n:
 #+begin_src emacs-lisp
 (defalias 'yes-or-no-p 'y-or-n-p)
-#+end_src
-
-** FIDO
-
-Use Fake-ido as minibuffer completion system, more info here:
-https://www.gnu.org/software/emacs/manual/html_node/emacs/Icomplete.html
-
-#+begin_src emacs-lisp
-(fido-vertical-mode 1)
 #+end_src
 
 ** Switch windows
