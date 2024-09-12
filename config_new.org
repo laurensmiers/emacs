@@ -275,6 +275,11 @@ Install and wait for hydra to be available since we are using it in this init.el
 
 * Programming
 
+** Electric pair
+#+BEGIN_SRC emacs-lisp
+(add-hook 'prog-mode-hook 'electric-pair-mode)
+#+END_SRC
+
 ** Eglot
 
 #+BEGIN_SRC emacs-lisp
