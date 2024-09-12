@@ -602,3 +602,23 @@ https://github.com/remyferre/comment-dwim-2
 
 (global-set-key (kbd "C-M-w") 'myrmi/save-symbol-at-point)
 #+END_SRC
+
+** Ceedling
+
+#+BEGIN_SRC emacs-lisp
+(defvar ceedling-project-file-name "project.yml")
+(defvar ceedling-cmd "ceedling")
+(defvar ceedling-project-root ".")
+
+(defun myrmi/run-ceedling-tests (&optional file-name)
+  (interactive)
+  (let* (
+          (file-path (or file-name buffer-file-name))
+          (root-path (or (locate-dominating-file file-path ceedling-project-file-name) ceedling-project-root))
+        )
+    (compile
+     (concat "cd " root-path " && " ceedling-cmd)
+     )
+    )
+  )
+#+END_SRC
