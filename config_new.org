@@ -369,7 +369,10 @@ https://github.com/remyferre/comment-dwim-2
     (setq projectile-enable-caching t)
     (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
     (projectile-mode +1)
+    (require 'project)
+    (add-hook 'project-find-functions #'project-projectile)
 )
+#+END_SRC
 
 * Custom
 
