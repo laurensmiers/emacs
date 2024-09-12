@@ -191,20 +191,6 @@ Operate on the current line if no region is active.
 )
 #+end_src
 
-* imenu
-
-** Flatten
-
-#+begin_src emacs-lisp
-(use-package flimenu
-    :ensure t
-    :config
-        (flimenu-global-mode 1)
-)
-
-(global-set-key (kbd "M-i") 'imenu)
-#+end_src
-
 * Terminal
 
 ** Toggle between char- and line-mode
