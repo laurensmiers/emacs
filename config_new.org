@@ -379,3 +379,17 @@ https://github.com/remyferre/comment-dwim-2
     (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
     (projectile-mode +1)
 )
+
+* Custom
+
+** Save symbol at point
+
+#+BEGIN_SRC emacs-lisp
+(defun myrmi/save-symbol-at-point ()
+  "Make symbol at point the latest kill in the kill ring."
+  (interactive)
+  (let ((symbol (thing-at-point 'symbol)))
+    (when symbol (kill-new symbol))))
+
+(global-set-key (kbd "C-M-w") 'myrmi/save-symbol-at-point)
+#+END_SRC
