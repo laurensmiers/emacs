@@ -57,6 +57,25 @@
 
 * General config
 
+** Save history and recent files
+
+#+begin_src emacs-lisp
+;; The built-in `savehist-mode' saves minibuffer histories.  Vertico
+;; can then use that information to put recently selected options at
+;; the top.
+;;
+;; Further reading: https://protesilaos.com/emacs/dotemacs#h:25765797-27a5-431e-8aa4-cc890a6a913a
+(savehist-mode 1)
+
+;; The built-in `recentf-mode' keeps track of recently visited files.
+;; You can then access those through the `consult-buffer' interface or
+;; with `recentf-open'/`recentf-open-files'.
+;;
+;; I do not use this facility, because the files I care about are
+;; either in projects or are bookmarked.
+(recentf-mode 1)
+#+end_src
+
 ** Yes-or-no
 
 Because I'm lazy, important yes-or-no questions can be answered with y-or-n:
