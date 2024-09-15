@@ -635,3 +635,23 @@ https://github.com/remyferre/comment-dwim-2
 
 (set-exec-path-from-shell-PATH)
 #+END_SRC
+
+** Reload dir-locals.el
+
+#+BEGIN_SRC emacs-lisp
+(defun myrmi/reload-dir-locals-for-current-buffer ()
+  "Reload dir locals for the current buffer"
+  (interactive)
+  (let ((enable-local-variables :all))
+    (hack-dir-local-variables-non-file-buffer)))
+
+(defun myrmi/reload-dir-locals-for-all-buffers-in-this-directory ()
+  "For every buffer with the same `default-directory` as the
+   current buffer, reload dir-locals."
+  (interactive)
+  (let ((dir default-directory))
+    (dolist (buffer (buffer-list))
+      (with-current-buffer buffer
+        (when (equal default-directory dir)
+          (myrmi/reload-dir-locals-for-current-buffer))))))
+#+END_SRC
