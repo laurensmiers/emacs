@@ -667,3 +667,20 @@ https://github.com/remyferre/comment-dwim-2
         (when (equal default-directory dir)
           (myrmi/reload-dir-locals-for-current-buffer))))))
 #+END_SRC
+
+** Visit/reload config
+
+These snippets assume my-config-file variable is set outside this configuration.
+This should normally be done by the init.el to load this configuration.
+
+#+BEGIN_SRC emacs-lisp
+(defun myrmi/visit-config ()
+  "Reloads ~/.emacs.d/config.org at runtime"
+  (interactive)
+  (find-file my-config-file))
+
+(defun myrmi/reload-config ()
+  "Reloads ~/.emacs.d/config.org at runtime"
+  (interactive)
+  (org-babel-load-file my-config-file))
+#+END_SRC
