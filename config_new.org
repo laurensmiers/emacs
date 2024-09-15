@@ -589,6 +589,18 @@ https://github.com/remyferre/comment-dwim-2
 )
 #+END_SRC
 
+* Elisp
+
+** Add demos to describe-function
+
+#+BEGIN_SRC emacs-lisp
+(use-package elisp-demos
+  :ensure t
+  :config
+  (advice-add 'describe-function-1 :after #'elisp-demos-advice-describe-function-1)
+  )
+#+END_SRC
+
 * Custom
 
 ** Save symbol at point
