@@ -575,7 +575,6 @@ https://github.com/remyferre/comment-dwim-2
 (use-package projectile
   :ensure t
   :config
-    (setq projectile-indexing-method 'hybrid)
     (setq projectile-enable-caching t)
     (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
     (projectile-mode +1)
