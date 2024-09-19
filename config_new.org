@@ -530,6 +530,16 @@ Magit depends on this and it seems it's not installed as a dependency, so instal
 )
 #+END_SRC
 
+** Dumb-jump
+
+#+BEGIN_SRC emacs-lisp
+  (use-package dumb-jump
+    :ensure t
+    :init
+    (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+  )
+#+END_SRC
+
 * Multiple cursors
 
 #+BEGIN_SRC emacs-lisp
