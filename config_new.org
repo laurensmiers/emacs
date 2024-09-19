@@ -484,19 +484,17 @@ Install and wait for hydra to be available since we are using it in this init.el
 ** Eglot
 
 #+BEGIN_SRC emacs-lisp
-(use-package eglot
-  :ensure t
-  :defer t
-  ;; This doesn't work for some reason, workaround below
-  ;;:hook (prog-mode . eglot-ensure)
-  ;; :config
-  ;;   (add-hook 'prog-mode-hook 'eglot-ensure)
-)
-#+END_SRC
+  (use-package eglot
+    :ensure t
+    )
 
-Workaround to enable eglot in all programming modes:
-#+BEGIN_SRC emacs-lisp
-(add-hook 'prog-mode-hook 'eglot-ensure)
+  (setq eglot-stay-out-of '(xref))
+  (add-hook 'prog-mode-hook 'eglot-ensure)
+  (add-hook 'eglot-managed-mode-hook (lambda ()
+				       (if (eglot-managed-p)
+					   (add-hook 'xref-backend-functions 'eglot-xref-backend)
+					 (remove-hook 'xref-backend-functions 'eglot-xref-backend)
+					   )))
 #+END_SRC
 
 ** Yasnippet
