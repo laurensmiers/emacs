@@ -497,14 +497,17 @@ Install and wait for hydra to be available since we are using it in this init.el
 					   )))
 #+END_SRC
 
+
 ** Yasnippet
 
 #+BEGIN_SRC emacs-lisp
 (use-package yasnippet
   :ensure t
+  :hook
+  (prog-mode . yas-minor-mode)
+  (org-mode . yas-minor-mode)
   :config
     (yas-reload-all)
-    (add-hook 'prog-mode-hook 'yas-minor-mode)
 )
 #+END_SRC
 
