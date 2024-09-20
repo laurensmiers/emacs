@@ -4,13 +4,12 @@
 ;;; https://jonnay.github.io/emagicians-starter-kit/Emagician-Base.html
 ;;; ...
 (let ((gc-cons-threshold most-positive-fixnum))
+  (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
   ;; This is the actual config file. It is omitted if it doesn't exist so emacs won't refuse to launch.
   (defvar my-config-file (expand-file-name "config_new.org" user-emacs-directory))
 
   (when (file-readable-p my-config-file)
     (org-babel-load-file (expand-file-name my-config-file)))
 
-  ;; If it exists, load some project-specific configurations.
-  ;;(when (file-readable-p project-file)
-  ;;  (org-babel-load-file (expand-file-name project-file)))
+  (load custom-file)
 )
