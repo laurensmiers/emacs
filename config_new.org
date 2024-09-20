@@ -548,6 +548,14 @@ Magit depends on this and it seems it's not installed as a dependency, so instal
   )
 #+END_SRC
 
+** C-programming
+
+*** Tree-sitter
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'major-mode-remap-alist '(c-mode . c-ts-mode))
+#+END_SRC
+
 * Multiple cursors
 
 #+BEGIN_SRC emacs-lisp
