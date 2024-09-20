@@ -497,6 +497,13 @@ Install and wait for hydra to be available since we are using it in this init.el
 					   )))
 #+END_SRC
 
+** Markdown-mode
+
+#+BEGIN_SRC emacs-lisp
+(use-package markdown-mode
+  :ensure t
+)
+#+END_SRC
 
 ** Yasnippet
 
