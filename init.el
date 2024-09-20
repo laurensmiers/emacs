@@ -5,11 +5,10 @@
 ;;; ...
 (let ((gc-cons-threshold most-positive-fixnum))
   ;; This is the actual config file. It is omitted if it doesn't exist so emacs won't refuse to launch.
-  (defvar config-file (expand-file-name "config_new.org" user-emacs-directory))
-  ;;(defvar project-file (expand-file-name "project.org" user-emacs-directory))
+  (defvar my-config-file (expand-file-name "config_new.org" user-emacs-directory))
 
-  (when (file-readable-p config-file)
-    (org-babel-load-file (expand-file-name config-file)))
+  (when (file-readable-p my-config-file)
+    (org-babel-load-file (expand-file-name my-config-file)))
 
   ;; If it exists, load some project-specific configurations.
   ;;(when (file-readable-p project-file)
