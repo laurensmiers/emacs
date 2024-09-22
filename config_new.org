@@ -572,6 +572,21 @@ Magit depends on this and it seems it's not installed as a dependency, so instal
 (add-to-list 'major-mode-remap-alist '(c-mode . c-ts-mode))
 #+END_SRC
 
+** Compilation
+
+*** Goto end of buffer on completion
+
+Compilation output is almost always bigger than a normal buffer.
+Move to the end if the compilation finishes.
+
+#+BEGIN_SRC emacs-lisp
+(defun goto-end-compilation-buffer (comp-buffer msg)
+  (goto-char (point-max))
+  )
+
+(add-hook 'compilation-finish-functions #'goto-end-compilation-buffer)
+#+END_SRC
+
 * Multiple cursors
 
 #+BEGIN_SRC emacs-lisp
