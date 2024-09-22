@@ -62,7 +62,6 @@
 #+BEGIN_SRC emacs-lisp
 ;; Enable vertico
 (use-package vertico
-  :ensure t
   ;; :custom
   ;; (vertico-scroll-margin 0) ;; Different scroll margin
   ;; (vertico-count 20) ;; Show more candidates
@@ -76,7 +75,6 @@
 
 #+BEGIN_SRC emacs-lisp
 (use-package consult
-  :ensure t
   ;; Replace bindings. Lazily loaded by `use-package'.
   :bind (;; C-c bindings in `mode-specific-map'
          ;; ("C-c M-x" . consult-mode-command)
@@ -186,55 +184,53 @@
 ** Corfu
 
 #+BEGIN_SRC emacs-lisp
-  (use-package corfu
-    :ensure t
-    ;; Optional customizations
-    ;; :custom
-    ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
-    ;; (corfu-auto t)                 ;; Enable auto completion
-    ;; (corfu-separator ?\s)          ;; Orderless field separator
-    ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
-    ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
-    ;; (corfu-preview-current nil)    ;; Disable current candidate preview
-    ;; (corfu-preselect 'prompt)      ;; Preselect the prompt
-    ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
-    ;; (corfu-scroll-margin 5)        ;; Use scroll margin
+(use-package corfu
+  ;; Optional customizations
+  ;; :custom
+  ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+  ;; (corfu-auto t)                 ;; Enable auto completion
+  ;; (corfu-separator ?\s)          ;; Orderless field separator
+  ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
+  ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
+  ;; (corfu-preview-current nil)    ;; Disable current candidate preview
+  ;; (corfu-preselect 'prompt)      ;; Preselect the prompt
+  ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
+  ;; (corfu-scroll-margin 5)        ;; Use scroll margin
 
-    ;; Enable Corfu only for certain modes. See also `global-corfu-modes'.
-    ;; :hook ((prog-mode . corfu-mode)
-    ;;        (shell-mode . corfu-mode)
-    ;;        (eshell-mode . corfu-mode))
+  ;; Enable Corfu only for certain modes. See also `global-corfu-modes'.
+  ;; :hook ((prog-mode . corfu-mode)
+  ;;        (shell-mode . corfu-mode)
+  ;;        (eshell-mode . corfu-mode))
 
-    ;; Recommended: Enable Corfu globally.  This is recommended since Dabbrev can
-    ;; be used globally (M-/).  See also the customization variable
-    ;; `global-corfu-modes' to exclude certain modes.
-    :init
-    (global-corfu-mode))
+  ;; Recommended: Enable Corfu globally.  This is recommended since Dabbrev can
+  ;; be used globally (M-/).  See also the customization variable
+  ;; `global-corfu-modes' to exclude certain modes.
+  :init
+  (global-corfu-mode))
 #+end_src
 
 ** Orderless
 
 #+begin_src emacs-lisp
-  (use-package orderless
-    :ensure t
-    :demand t
-    :custom
-    (completion-styles '(orderless basic))
-    ;;    (gnus-completion-styles '(orderless substring basic))
-    ;;    (completion-category-overrides '((file (styles basic partial-completion))))
+(use-package orderless
+  :demand t
+  :custom
+  (completion-styles '(orderless basic))
+  ;;    (gnus-completion-styles '(orderless substring basic))
+  ;;    (completion-category-overrides '((file (styles basic partial-completion))))
 
-  ;; Below not necessary if using vertico
-  ;;  (completion-category-overrides '(
-  ;;                                   (command (styles orderless basic partial-completion))
-  ;;                                   (file (styles orderless basic partial-completion))
-  ;;;;                                   (buffer (styles orderless basic))
-  ;;                                   (variable (styles orderless basic))
-  ;;                                   (symbol (styles orderless basic))
-  ;;                                   (consult-location (styles orderless))
-  ;;                                   (consult-multi (styles orderless))
-  ;;                                   )
-  ;;                                 )
-    )
+;; Below not necessary if using vertico
+;;  (completion-category-overrides '(
+;;                                   (command (styles orderless basic partial-completion))
+;;                                   (file (styles orderless basic partial-completion))
+;;;;                                   (buffer (styles orderless basic))
+;;                                   (variable (styles orderless basic))
+;;                                   (symbol (styles orderless basic))
+;;                                   (consult-location (styles orderless))
+;;                                   (consult-multi (styles orderless))
+;;                                   )
+;;                                 )
+)
 #+end_src
 
 ** Marginalia
@@ -242,7 +238,6 @@
 #+begin_src emacs-lisp
 ;; Enable rich annotations using the Marginalia package
 (use-package marginalia
-  :ensure t
   ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
   ;; available in the *Completions* buffer, add it to the
   ;; `completion-list-mode-map'.
@@ -251,7 +246,6 @@
 
   ;; The :init section is always executed.
   :init
-
   ;; Marginalia must be activated in the :init section of use-package such that
   ;; the mode gets enabled right away. Note that this forces loading the
   ;; package.
@@ -401,6 +395,15 @@ Narrow-region/page is a really handy feature, enable it:
 (put 'narrow-to-region 'disabled nil)
 #+END_SRC
 
+** Use-package
+
+*** Always ensure
+
+#+BEGIN_SRC emacs-lisp
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
+#+END_SRC
+
 * Dired
 
 #+begin_src emacs-lisp
@@ -416,7 +419,7 @@ Operate on the current line if no region is active.
 
 #+begin_src emacs-lisp
 (use-package whole-line-or-region
-    :ensure t
+
     :config
         (whole-line-or-region-global-mode 1)
 )
@@ -454,7 +457,7 @@ For the keybindings, we have to defien them in both raw and line mode. From the 
 
 #+BEGIN_SRC emacs-lisp
 (use-package monokai-theme
-  :ensure t
+
   :init
     (load-theme 'monokai t)
 )
@@ -464,7 +467,6 @@ For the keybindings, we have to defien them in both raw and line mode. From the 
 
 #+begin_src emacs-lisp
 (use-package dashboard
-  :ensure t
   :config
   (add-hook 'elpaca-after-init-hook #'dashboard-insert-startupify-lists)
   (add-hook 'elpaca-after-init-hook #'dashboard-initialize)
@@ -500,9 +502,7 @@ Install and wait for hydra to be available since we are using it in this init.el
 ** Eglot
 
 #+BEGIN_SRC emacs-lisp
-  (use-package eglot
-    :ensure t
-    )
+  (use-package eglot)
 
   (setq eglot-stay-out-of '(xref))
   (add-hook 'prog-mode-hook 'eglot-ensure)
@@ -516,16 +516,14 @@ Install and wait for hydra to be available since we are using it in this init.el
 ** Markdown-mode
 
 #+BEGIN_SRC emacs-lisp
-(use-package markdown-mode
-  :ensure t
-)
+(use-package markdown-mode)
+
 #+END_SRC
 
 ** Yasnippet
 
 #+BEGIN_SRC emacs-lisp
 (use-package yasnippet
-  :ensure t
   :hook
   (prog-mode . yas-minor-mode)
   (org-mode . yas-minor-mode)
@@ -541,24 +539,20 @@ Install and wait for hydra to be available since we are using it in this init.el
 Magit depends on this and it seems it's not installed as a dependency, so install it explicitly.
 
 #+BEGIN_SRC emacs-lisp
-(use-package transient
-  :ensure t
-  )
+(use-package transient)
 #+END_SRC
 
 *** Core
 
 #+BEGIN_SRC emacs-lisp
-(use-package magit
-  :ensure t
-)
+(use-package magit)
+
 #+END_SRC
 
 ** Dumb-jump
 
 #+BEGIN_SRC emacs-lisp
   (use-package dumb-jump
-    :ensure t
     :init
     (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
   )
@@ -591,7 +585,6 @@ Move to the end if the compilation finishes.
 
 #+BEGIN_SRC emacs-lisp
 (use-package multiple-cursors
-  :ensure t
   :bind
     ("C-x r a" . mc/edit-beginnings-of-lines)
     ("C-x r e" . mc/edit-ends-of-lines)
@@ -609,7 +602,6 @@ https://github.com/remyferre/comment-dwim-2
 
 #+BEGIN_SRC emacs-lisp
 (use-package comment-dwim-2
-    :ensure t
     :config
       (global-set-key (kbd "M-;") 'comment-dwim-2)
 )
@@ -619,7 +611,6 @@ https://github.com/remyferre/comment-dwim-2
 
 #+BEGIN_SRC emacs-lisp
 (use-package projectile
-  :ensure t
   :config
     (setq projectile-enable-caching t)
     (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
@@ -635,7 +626,7 @@ https://github.com/remyferre/comment-dwim-2
 
 #+BEGIN_SRC emacs-lisp
 (use-package elisp-demos
-  :ensure t
+
   :config
   (advice-add 'describe-function-1 :after #'elisp-demos-advice-describe-function-1)
   )
