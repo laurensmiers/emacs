@@ -492,6 +492,20 @@ Install and wait for hydra to be available since we are using it in this init.el
 )
 #+end_src
 
+* Zygospore
+
+Revert =C-x 1= by pressing =C-x 1= again:
+[[https://github.com/louiskottmann/zygospore.el]]
+
+FYI: At one point, used this together with sr-speedbar. They did not play well together...
+
+#+BEGIN_SRC emacs-lisp
+(use-package zygospore
+  :config
+    (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
+)
+#+END_SRC
+
 * Programming
 
 ** Electric pair
