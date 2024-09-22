@@ -208,6 +208,13 @@ Narrow-region/page is a really handy feature, enable it:
 #+END_SRC
 
 ** Adaptive cursor width
+
+Make cursor the width of the character it is under f.e. full width of a tab.
+
+#+BEGIN_SRC emacs-lisp
+(setq x-stretch-cursor t)
+#+END_SRC
+
 * Vertico-stack
 
 ** Vertico
