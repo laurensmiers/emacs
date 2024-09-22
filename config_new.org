@@ -391,6 +391,16 @@ Look into customizing the 'ispell' group.
 (delete-selection-mode t)
 #+END_SRC
 
+** Enable disabled commands
+
+Some commands are disabled to protect the user.
+Narrow-region/page is a really handy feature, enable it:
+
+#+BEGIN_SRC emacs-lisp
+(put 'narrow-to-page 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+#+END_SRC
+
 * Dired
 
 #+begin_src emacs-lisp
