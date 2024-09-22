@@ -55,6 +55,159 @@
     )
 #+end_src
 
+* General config
+
+** Delete trailing whitespaces
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+#+END_SRC
+
+** Save history and recent files
+
+#+begin_src emacs-lisp
+;; The built-in `savehist-mode' saves minibuffer histories.  Vertico
+;; can then use that information to put recently selected options at
+;; the top.
+;;
+;; Further reading: https://protesilaos.com/emacs/dotemacs#h:25765797-27a5-431e-8aa4-cc890a6a913a
+(savehist-mode 1)
+
+;; The built-in `recentf-mode' keeps track of recently visited files.
+;; You can then access those through the `consult-buffer' interface or
+;; with `recentf-open'/`recentf-open-files'.
+;;
+;; I do not use this facility, because the files I care about are
+;; either in projects or are bookmarked.
+(recentf-mode 1)
+#+end_src
+
+** Backups
+
+#+BEGIN_SRC emacs-lisp
+(defvar myrmi-backup-directory (concat user-emacs-directory "backups"))
+(if (not (file-exists-p myrmi-backup-directory))
+    (make-directory myrmi-backup-directory t)
+  )
+(setq backup-directory-alist `(("." . ,myrmi-backup-directory)))
+(setq make-backup-files t
+      backup-by-copying t
+      version-control t
+      delete-old-versions t
+      delete-by-moving-to-trash t
+      kept-old-versions 6
+      kept-new-versions 9
+      auto-save-default t
+      auto-save-timeout 20
+      auto-save-interval 200
+  )
+#+END_SRC
+
+** Yes-or-no
+
+Because I'm lazy, important yes-or-no questions can be answered with y-or-n:
+#+begin_src emacs-lisp
+(defalias 'yes-or-no-p 'y-or-n-p)
+#+end_src
+
+** Switch windows
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "M-o") 'other-window)
+#+end_src
+
+** Maximize at startup
+
+More info : https://www.emacswiki.org/emacs/FullScreen
+
+#+begin_src emacs-lisp
+(push '(fullscreen . maximized) default-frame-alist)
+#+end_src
+
+** ibuffer
+
+Use list-buffers bigger brother.
+#+begin_src emacs-lisp
+(global-set-key [remap list-buffers] 'ibuffer)
+#+end_src
+
+** Mark
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "M-SPC") 'mark-word)
+#+end_src
+
+** Isearch
+
+Display number of matches:
+#+begin_src emacs-lisp
+(setq-default isearch-lazy-count t)
+#+end_src
+
+Reference that might be interesting for later:
+https://endlessparentheses.com/leave-the-cursor-at-start-of-match-after-isearch.html
+
+** Sudo file
+
+#+begin_src emacs-lisp
+(defun sudo ()
+  "Use TRAMP to `sudo' the current buffer."
+  (interactive)
+  (when buffer-file-name
+    (find-alternate-file
+      (concat "/sudo:root@localhost:"
+        buffer-file-name)
+    )
+  )
+)
+#+end_src
+
+** Abbrev
+
+#+begin_src emacs-lisp
+(global-set-key [remap dabbrev-expand] 'hippie-expand)
+#+end_src
+
+** Zap
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "M-S-z") 'zap-up-to-char)
+#+end_src
+
+** Spell checking
+
+Look into customizing the 'ispell' group.
+
+#+begin_src emacs-lisp
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+#+end_src
+
+** Delete selection mode
+
+#+BEGIN_SRC emacs-lisp
+(delete-selection-mode t)
+#+END_SRC
+
+** Enable disabled commands
+
+Some commands are disabled to protect the user.
+Narrow-region/page is a really handy feature, enable it:
+
+#+BEGIN_SRC emacs-lisp
+(put 'narrow-to-page 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+#+END_SRC
+
+** Use-package
+
+*** Always ensure
+
+#+BEGIN_SRC emacs-lisp
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
+#+END_SRC
+
+** Adaptive cursor width
 * Vertico-stack
 
 ** Vertico
@@ -251,158 +404,6 @@
   ;; package.
   (marginalia-mode))
 #+end_src
-
-* General config
-
-** Delete trailing whitespaces
-
-#+BEGIN_SRC emacs-lisp
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-#+END_SRC
-
-** Save history and recent files
-
-#+begin_src emacs-lisp
-;; The built-in `savehist-mode' saves minibuffer histories.  Vertico
-;; can then use that information to put recently selected options at
-;; the top.
-;;
-;; Further reading: https://protesilaos.com/emacs/dotemacs#h:25765797-27a5-431e-8aa4-cc890a6a913a
-(savehist-mode 1)
-
-;; The built-in `recentf-mode' keeps track of recently visited files.
-;; You can then access those through the `consult-buffer' interface or
-;; with `recentf-open'/`recentf-open-files'.
-;;
-;; I do not use this facility, because the files I care about are
-;; either in projects or are bookmarked.
-(recentf-mode 1)
-#+end_src
-
-** Backups
-
-#+BEGIN_SRC emacs-lisp
-(defvar myrmi-backup-directory (concat user-emacs-directory "backups"))
-(if (not (file-exists-p myrmi-backup-directory))
-    (make-directory myrmi-backup-directory t)
-  )
-(setq backup-directory-alist `(("." . ,myrmi-backup-directory)))
-(setq make-backup-files t
-      backup-by-copying t
-      version-control t
-      delete-old-versions t
-      delete-by-moving-to-trash t
-      kept-old-versions 6
-      kept-new-versions 9
-      auto-save-default t
-      auto-save-timeout 20
-      auto-save-interval 200
-  )
-#+END_SRC
-
-** Yes-or-no
-
-Because I'm lazy, important yes-or-no questions can be answered with y-or-n:
-#+begin_src emacs-lisp
-(defalias 'yes-or-no-p 'y-or-n-p)
-#+end_src
-
-** Switch windows
-
-#+begin_src emacs-lisp
-(global-set-key (kbd "M-o") 'other-window)
-#+end_src
-
-** Maximize at startup
-
-More info : https://www.emacswiki.org/emacs/FullScreen
-
-#+begin_src emacs-lisp
-(push '(fullscreen . maximized) default-frame-alist)
-#+end_src
-
-** ibuffer
-
-Use list-buffers bigger brother.
-#+begin_src emacs-lisp
-(global-set-key [remap list-buffers] 'ibuffer)
-#+end_src
-
-** Mark
-
-#+begin_src emacs-lisp
-(global-set-key (kbd "M-SPC") 'mark-word)
-#+end_src
-
-** Isearch
-
-Display number of matches:
-#+begin_src emacs-lisp
-(setq-default isearch-lazy-count t)
-#+end_src
-
-Reference that might be interesting for later:
-https://endlessparentheses.com/leave-the-cursor-at-start-of-match-after-isearch.html
-
-** Sudo file
-
-#+begin_src emacs-lisp
-(defun sudo ()
-  "Use TRAMP to `sudo' the current buffer."
-  (interactive)
-  (when buffer-file-name
-    (find-alternate-file
-      (concat "/sudo:root@localhost:"
-        buffer-file-name)
-    )
-  )
-)
-#+end_src
-
-** Abbrev
-
-#+begin_src emacs-lisp
-(global-set-key [remap dabbrev-expand] 'hippie-expand)
-#+end_src
-
-** Zap
-
-#+begin_src emacs-lisp
-(global-set-key (kbd "M-S-z") 'zap-up-to-char)
-#+end_src
-
-** Spell checking
-
-Look into customizing the 'ispell' group.
-
-#+begin_src emacs-lisp
-(add-hook 'prog-mode-hook 'flyspell-prog-mode)
-#+end_src
-
-** Delete selection mode
-
-#+BEGIN_SRC emacs-lisp
-(delete-selection-mode t)
-#+END_SRC
-
-** Enable disabled commands
-
-Some commands are disabled to protect the user.
-Narrow-region/page is a really handy feature, enable it:
-
-#+BEGIN_SRC emacs-lisp
-(put 'narrow-to-page 'disabled nil)
-(put 'narrow-to-region 'disabled nil)
-#+END_SRC
-
-** Use-package
-
-*** Always ensure
-
-#+BEGIN_SRC emacs-lisp
-(require 'use-package-ensure)
-(setq use-package-always-ensure t)
-#+END_SRC
 
 * Dired
 
