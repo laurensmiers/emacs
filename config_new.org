@@ -506,6 +506,17 @@ FYI: At one point, used this together with sr-speedbar. They did not play well t
 )
 #+END_SRC
 
+* Iedit
+
+Highlight occurences of symbol and replace them simultanously.
+Shortkey: =C-;=
+
+https://github.com/victorhge/iedit
+
+#+BEGIN_SRC emacs-lisp
+(use-package iedit)
+#+END_SRC
+
 * Programming
 
 ** Electric pair
