@@ -620,13 +620,41 @@ https://github.com/remyferre/comment-dwim-2
 )
 #+END_SRC
 
+* Org
+
+** General config
+*** Super/Sub-scripts
+
+Use ={}= for subscripting:
+
+https://orgmode.org/manual/Subscripts-and-superscripts.html
+
+#+BEGIN_SRC emacs-lisp
+(setq org-use-sub-superscripts '{})
+#+END_SRC
+
+*** Indentation
+
+Preserve indentation in SRC blocks
+
+#+BEGIN_SRC emacs-lisp
+(setq org-src-preserve-indentation t)
+#+END_SRC
+
+** Org bullets
+
+#+BEGIN_SRC emacs-lisp
+(use-package org-bullets
+  :config
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode))))
+#+END_SRC
+
 * Elisp
 
 ** Add demos to describe-function
 
 #+BEGIN_SRC emacs-lisp
 (use-package elisp-demos
-
   :config
   (advice-add 'describe-function-1 :after #'elisp-demos-advice-describe-function-1)
   )
