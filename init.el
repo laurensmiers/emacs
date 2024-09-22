@@ -11,5 +11,6 @@
   (when (file-readable-p my-config-file)
     (org-babel-load-file (expand-file-name my-config-file)))
 
-  (load custom-file)
+  (when (file-readable-p custom-file)
+    (load custom-file))
 )
