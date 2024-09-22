@@ -385,6 +385,12 @@ Look into customizing the 'ispell' group.
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 #+end_src
 
+** Delete selection mode
+
+#+BEGIN_SRC emacs-lisp
+(delete-selection-mode t)
+#+END_SRC
+
 * Dired
 
 #+begin_src emacs-lisp
