@@ -572,14 +572,34 @@ https://github.com/victorhge/iedit
 Magit depends on this and it seems it's not installed as a dependency, so install it explicitly.
 
 #+BEGIN_SRC emacs-lisp
-(use-package transient)
+(use-package transient
+  :ensure (:wait t)
+)
 #+END_SRC
 
 *** Core
 
 #+BEGIN_SRC emacs-lisp
-(use-package magit)
+(use-package magit
+:ensure (:wait t)
+)
 
+#+END_SRC
+
+**** Extra commands
+
+***** Update all submodules
+
+#+BEGIN_SRC emacs-lisp
+(transient-define-suffix magit-submodule-update-all ()
+ "Update all submodules"
+ :description "Update All     git submodule update --init --recursive"
+ (interactive)
+ (magit-with-toplevel
+   (magit-run-git-async "submodule" "update" "--force")))
+
+(transient-append-suffix 'magit-submodule "f"
+  '("U" magit-submodule-update-all))
 #+END_SRC
 
 ** Dumb-jump
