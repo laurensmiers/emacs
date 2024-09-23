@@ -57,6 +57,12 @@
 
 * General config
 
+** Enable column numbers
+
+#+BEGIN_SRC emacs-lisp
+(setq column-number-mode 1)
+#+END_SRC
+
 ** Delete trailing whitespaces
 
 #+BEGIN_SRC emacs-lisp
