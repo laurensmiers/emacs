@@ -647,6 +647,19 @@ Move to the end if the compilation finishes.
 )
 #+END_SRC
 
+* Volatile highlights
+
+Show/highlight changes when doing undo/yanks/kills/...
+
+https://github.com/k-talo/volatile-highlights.el
+
+#+BEGIN_SRC emacs-lisp
+(use-package volatile-highlights
+  :config
+    (volatile-highlights-mode t)
+)
+#+END_SRC
+
 * Comment-dwim-2
 
 Replacement for built-in =comment-dwim=, more comment features.
