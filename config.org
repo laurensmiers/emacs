@@ -866,7 +866,6 @@ Preserve indentation in SRC blocks
 )
 #+END_SRC
 
-
 ** Save symbol at point
 
 #+BEGIN_SRC emacs-lisp
@@ -948,3 +947,15 @@ This should normally be done by the init.el to load this configuration.
   (interactive)
   (org-babel-load-file my-config-file))
 #+END_SRC
+
+** Tips and Tricks
+
+*** Cheat-sheet
+
+| Key                   | Explanation                                               |
+|-----------------------+-----------------------------------------------------------|
+| C-h k <key-sequence>  | Lookup key sequencesmartparens wrapping                   |
+| C-q <key>             | Insert <key> quoted/explicitly. F.e. to insert a tab, ... |
+| M-x untabify/tabify   | Convert to spaces/tabs                                    |
+| M-x describe-bindings | List all mapped keys/commands                             |
+| M-q                   | Fill paragraph                                            |
