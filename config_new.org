@@ -57,6 +57,14 @@
 
 * General config
 
+** Bell
+
+The audible bell is annoying AF.
+
+#+BEGIN_SRC emacs-lisp
+(setq visible-bell 1)
+#+END_SRC
+
 ** Enable column numbers
 
 #+BEGIN_SRC emacs-lisp
