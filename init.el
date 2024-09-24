@@ -6,7 +6,7 @@
 (let ((gc-cons-threshold most-positive-fixnum))
   (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
   ;; This is the actual config file. It is omitted if it doesn't exist so emacs won't refuse to launch.
-  (defvar my-config-file (expand-file-name "config_new.org" user-emacs-directory))
+  (defvar my-config-file (expand-file-name "config.org" user-emacs-directory))
 
   (when (file-readable-p my-config-file)
     (org-babel-load-file (expand-file-name my-config-file)))
