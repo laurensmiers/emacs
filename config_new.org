@@ -533,6 +533,28 @@ https://github.com/victorhge/iedit
 
 * Programming
 
+** Angry faces
+
+#+BEGIN_SRC emacs-lisp
+(defface highlight-angry-faces
+  '(
+    (default :background "Yellow" :foreground "Red")
+    )
+  "Angry faces highlighting."
+  :group 'basic-faces
+)
+
+(mapc (lambda (mode)
+        (font-lock-add-keywords
+         mode
+         '(
+           ("\\<\\(FIXME\\)" 1 'highlight-angry-faces t)
+           ("\\<\\(TODO\\)" 1 'highlight-angry-faces t)
+           )))
+      '(text-mode emacs-lisp-mode rust-mode zig-mode c-ts-mode c-mode prog-mode)
+)
+#+END_SRC
+
 ** Electric pair
 #+BEGIN_SRC emacs-lisp
 (add-hook 'prog-mode-hook 'electric-pair-mode)
