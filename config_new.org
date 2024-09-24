@@ -515,6 +515,21 @@ Operate on the current line if no region is active.
 #+end_src
 
 * Terminal
+** Eshell
+*** Smart mode
+
+Plan 9 smart terminal features, for more info:
+https://www.masteringemacs.org/article/complete-guide-mastering-eshell
+
+#+BEGIN_SRC emacs-lisp
+(require 'eshell)
+(require 'em-smart)
+(setq eshell-where-to-jump 'begin)
+(setq eshell-review-quick-commands nil)
+(setq eshell-smart-space-goes-to-end t)
+
+(add-hook 'eshell-mode-hook 'eshell-smart-initialize)
+#+END_SRC
 
 ** Toggle between char- and line-mode
 
