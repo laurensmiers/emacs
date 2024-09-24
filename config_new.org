@@ -285,9 +285,8 @@ C-c C-c to apply."
 (global-set-key (kbd "C-x C-r") 'resize-frame)
 #+END_SRC
 
-* Vertico-stack
-
-** Vertico
+* Completion
+** Minibuffer
 
 #+BEGIN_SRC emacs-lisp
 ;; Enable vertico
