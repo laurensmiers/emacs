@@ -161,21 +161,6 @@ Display number of matches:
 Reference that might be interesting for later:
 https://endlessparentheses.com/leave-the-cursor-at-start-of-match-after-isearch.html
 
-** Sudo file
-
-#+begin_src emacs-lisp
-(defun sudo ()
-  "Use TRAMP to `sudo' the current buffer."
-  (interactive)
-  (when buffer-file-name
-    (find-alternate-file
-      (concat "/sudo:root@localhost:"
-        buffer-file-name)
-    )
-  )
-)
-#+end_src
-
 ** Abbrev
 
 #+begin_src emacs-lisp
@@ -865,6 +850,22 @@ Preserve indentation in SRC blocks
 #+END_SRC
 
 * Custom
+
+** Sudo current buffer
+
+#+BEGIN_SRC emacs-lisp
+(defun myrmi/sudo-current-buffer ()
+  "Use TRAMP to `sudo' the current buffer."
+  (interactive)
+  (when buffer-file-name
+    (find-alternate-file
+      (concat "/sudo:root@localhost:"
+        buffer-file-name)
+    )
+  )
+)
+#+END_SRC
+
 
 ** Save symbol at point
 
