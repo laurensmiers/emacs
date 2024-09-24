@@ -662,6 +662,14 @@ Move to the end if the compilation finishes.
 (add-hook 'compilation-finish-functions #'goto-end-compilation-buffer)
 #+END_SRC
 
+** Rust
+
+#+BEGIN_SRC emacs-lisp
+(use-package rust-mode
+  :init
+  (setq rust-mode-treesitter-derive t))
+#+END_SRC
+
 * Multiple cursors
 
 #+BEGIN_SRC emacs-lisp
