@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: Git commit message template
+# key: bac
+# --
+
+Before this commit,
+${1}
+
+After this commit,
+${2}

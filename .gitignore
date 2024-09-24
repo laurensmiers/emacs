@@ -1,0 +1,21 @@
+custom.el
+backups
+eshell
+elpaca
+
+# projectile
+projectile*
+
+# savehist file
+history
+
+# recentf file
+recentf
+
+session*
+
+# .org converted files
+config*.el
+
+# Tramp connection file
+tramp

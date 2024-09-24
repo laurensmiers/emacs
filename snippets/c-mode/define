@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Make a define
+# key: def
+# --
+
+#define ${1:mydefine$(upcase yas-text)}  $2
