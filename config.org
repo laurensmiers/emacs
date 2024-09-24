@@ -2,7 +2,6 @@
 #+TITLE: My Emacs
 #+CREATOR: Laurens Miers
 #+LANGUAGE: en
-[[./img/dash_logo.png]]
 
 * Elpaca
 
