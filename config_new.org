@@ -670,6 +670,12 @@ Move to the end if the compilation finishes.
   (setq rust-mode-treesitter-derive t))
 #+END_SRC
 
+** Zig
+
+#+BEGIN_SRC emacs-lisp
+(use-package zig-mode)
+#+END_SRC
+
 * Multiple cursors
 
 #+BEGIN_SRC emacs-lisp
