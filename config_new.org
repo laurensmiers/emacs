@@ -483,8 +483,20 @@ C-c C-c to apply."
 
 * Dired
 
+** Dired-x
+
 #+begin_src emacs-lisp
-(require 'dired-x)
+(with-eval-after-load 'dired
+  (require 'dired-x)
+  ;; Set dired-x global variables here.  For example:
+  ;; (setq dired-x-hands-off-my-keys nil)
+  ))
+
+(add-hook 'dired-mode-hook
+          (lambda ()
+            ;; Set dired-x buffer-local variables here.  For example:
+            ;; (dired-omit-mode 1)
+            ))
 #+end_src
 
 * Whole-line-or-region
