@@ -676,6 +676,12 @@ Move to the end if the compilation finishes.
 (use-package zig-mode)
 #+END_SRC
 
+** Python
+
+#+BEGIN_SRC emacs-lisp
+(use-package python-mode)
+#+END_SRC
+
 * Multiple cursors
 
 #+BEGIN_SRC emacs-lisp
