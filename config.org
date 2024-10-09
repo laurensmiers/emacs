@@ -3,6 +3,9 @@
 #+CREATOR: Laurens Miers
 #+LANGUAGE: en
 
+This repo has been moved to:
+https://git.miers.xyz/laurens/emacs
+
 * Elpaca
 
 #+begin_src emacs-lisp
